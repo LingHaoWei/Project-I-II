@@ -1,4 +1,4 @@
-@extends('adminPageLayout')
+@extends('layout')
 @section('content')
 
 <style>
@@ -11,26 +11,16 @@
 </style>
 
 <!--Page topic-->
-
-<div class="container-fluid">
-        <div class="row">
-          <div class="col-sm">
-            <div class="p-1 pageTopic"> <a href="{{ route('adminHomePage') }}">Home</a> / <a href="{{ route('viewProduct') }}" class="pageTopic"> Product </a> 
-            / <a href="#" class="currentPage"> Add Product </a> </div>
-          </div>
-        </div>
-</div>
-
 <!--Page topic-->
 
-<div class="container content border">
+<div class="content" id="pwrapper1">
     <div class="row bg-light row1">
       <div class="col-sm">
-          <div class="p-3"><b>New Product</b></div>
+          <div class="productTopic"><b>Add Product</b></div>
       </div>
     </div>
 
-    <div class="row">
+    <div class="form">
         <div class="col-sm p-3">
             <form method="POST", action="{{ route('addProduct') }}" enctype="multipart/form-data">
                 @csrf

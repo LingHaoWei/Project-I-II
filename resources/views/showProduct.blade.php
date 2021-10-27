@@ -34,8 +34,7 @@
         </div>
     </div>
 
-    <div class="container" id="pwrapper2">
-    <div class="row">
+    <div class="" id="pwrapper2">
         <table class="table">
             <thead>
                 <tr>
@@ -79,8 +78,5 @@
         </tbody>
         </table>
     </div>
-    
-
-</div>
 
 @endsection
