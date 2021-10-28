@@ -15,7 +15,7 @@
     <div id="pwrapper1">
         <div class="productRow1"> 
             <div class="col-sm-10">
-                <div class="productTopic">Product List</div>
+                <div class="productTopic"><h2>Product List</h2></div>
             </div>
             <div class="addProBtn">
                 <div class="p-3">
@@ -49,10 +49,10 @@
         <tbody>
         @foreach($products as $product)
             <tr>
-                <td width="100"> 
-                    <a href="{{ route('editProduct',['id'=>$product->id]) }}"><img src="{{asset('images/')}}/{{$product->image}}" alt="" width="60" height="50"></a>
+                <td width="60"> 
                 </td>
                 <td class="link">
+                <a href="{{ route('editProduct',['id'=>$product->id]) }}"><img src="{{asset('images/')}}/{{$product->image}}" alt="" width="60" height="50"></a>
                     <a href="{{ route('editProduct',['id'=>$product->id]) }}"><div class="p-2">{{$product->name}}</div></a>
                 </td>
                 <td class="link">

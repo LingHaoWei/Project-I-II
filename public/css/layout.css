@@ -317,7 +317,7 @@
   padding: 0px 0px 10px 0px;
 }
 
-/*Product Page*/
+/*Show Product Page*/
 .device-search {
   display: flex;
   justify-content: flex-end;
@@ -346,12 +346,12 @@
   margin-left: auto;
 	margin-right: auto;
   padding: 3px;
-  border: 2px solid #555657;
+  border: 1px solid #8b8b8b;
   border-radius: 5px;
 }
 
 .productTopic {
-  font-size: 20px;
+  color: #3c3c3d;
 }
 
 .productRow1 {
@@ -398,5 +398,30 @@ table th {
 
 table td {
   border-bottom: 1px solid #a1a7b3;
+  padding: 8px 0px 8px 0px;
+}
+/*Show Product Page*/
+
+/*Add Product Page*/
+.addPro {
+  border: 1px solid #8b8b8b;
+  border-radius: 5px 5px 0px 0px;
+  padding: 15px;
 }
 
+.addProForm {
+  padding: 15px; 
+  border: 1px solid #8b8b8b;
+  border-radius: 0px 0px 5px 5px;
+  
+}
+
+.addProForm form {
+display: flex;
+flex-flow: column wrap;
+}
+
+.addProForm input {
+  width: 100%;
+}
+/*Add Product Page*/

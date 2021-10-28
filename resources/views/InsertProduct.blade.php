@@ -14,14 +14,12 @@
 <!--Page topic-->
 
 <div class="content" id="pwrapper1">
-    <div class="row bg-light row1">
       <div class="col-sm">
-          <div class="productTopic"><b>Add Product</b></div>
+          <div class="productTopic addPro"><h2>Add Product</h2></div>
       </div>
-    </div>
 
-    <div class="form">
-        <div class="col-sm p-3">
+    <div class="form addProForm">
+        <div class="">
             <form method="POST", action="{{ route('addProduct') }}" enctype="multipart/form-data">
                 @csrf
 
