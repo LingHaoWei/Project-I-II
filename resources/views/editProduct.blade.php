@@ -1,4 +1,4 @@
-@extends('adminPageLayout')
+@extends('layout')
 @section('content')
 
 <style>
@@ -11,27 +11,17 @@
 </style>
 
 <!--Page topic-->
-
-<div class="container-fluid">
-        <div class="row">
-          <div class="col-sm">
-            <div class="p-1 pageTopic"> <a href="{{ route('adminHomePage') }}">Home</a> / <a href="{{ route('viewProduct') }}" class="pageTopic"> Product </a> 
-            / <a href="#" class="currentPage"> Product Detail </a> </div>
-          </div>
-        </div>
-</div>
-
 <!--Page topic-->
 
-<div class="container content border">
+<div class="container content border" id="pwrapper1">
     <div class="row bg-light row1">
     @foreach($products as $product)
       <div class="col-sm">
-          <div class="p-3"><b>{{ $product->name }}</b></div>
+          <div class="p-3 addPro"><b>{{ $product->name }}</b></div>
       </div>
     </div>
 
-    <div class="row">
+    <div class="editProForm">
         <div class="col-sm p-3">
             <form method="POST", action="{{ route('updateProduct') }}" enctype="multipart/form-data">
                 @csrf
@@ -41,7 +31,7 @@
                 <div class="form-group row">
                     <div class="col-md-4 col-form-label text-md-right"></div>
                     <div class="col-md-8">
-                    <img src="{{asset('images/')}}/{{$product->image}}" alt="" width="50%">
+                    <img src="{{asset('images/')}}/{{$product->image}}" alt="" width="10%">
                     </div>
                 </div>
 
