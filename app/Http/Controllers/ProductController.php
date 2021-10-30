@@ -108,7 +108,6 @@ class ProductController extends Controller
     public function delete($id){
         $data=product::find($id);
         $data->delete();
-        Session::flash('success',"Product deleted successfully!");
         Return redirect()->route('viewProduct');
     }
 

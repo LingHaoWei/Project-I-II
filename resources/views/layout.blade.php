@@ -24,15 +24,22 @@
           <li><a class="link_name" href="#">Dashboard</a></li>
         </ul>
       </li>
+
       <li>
-        <a href="{{ route('viewProduct') }}">
+        <div class="iocn-link">
+          <a href="{{ route('viewProduct') }}">
             <i class='bx bx-package'></i>
-          <span class="link_name">Product</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Product</a></li>
+            <span class="link_name">Product</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="{{ route('viewProduct') }}">Product</a></li>
+          <li><a href="#">Brand</a></li>
+          <li><a href="#">Category</a></li>
         </ul>
       </li>
+
       <li>
         <a href="#">
             <i class='bx bx-receipt'></i>
@@ -52,9 +59,9 @@
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">More</a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
+          <li><a href="#">Supplier</a></li>
+          <li><a href="#">Customer</a></li>
+          <li><a href="#">Staff</a></li>
         </ul>
       </li>
       <li>

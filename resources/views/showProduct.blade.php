@@ -1,10 +1,5 @@
 @extends('layout')
 @section('content')
-@if(Session::has('success'))
-    <div class="alet alert-success" role="alert">
-        {{Session::get('success')}}
-    </div>
-@endif
 <style>
 
 </style>
@@ -15,7 +10,7 @@
     <div id="pwrapper1">
         <div class="productRow1"> 
             <div class="col-sm-10">
-                <div class="productTopic"><h2>Product List</h2></div>
+                <div class="pageTopic"><h2>Product List</h2></div>
             </div>
             <div class="addProBtn">
                 <div class="p-3">

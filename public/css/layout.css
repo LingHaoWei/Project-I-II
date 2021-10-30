@@ -273,7 +273,7 @@
 }
 
 
-/*dashboard*/
+/*--- --- --- dashboard --- --- ---*/
 #wrapper {
   width: 98%;
   margin-left: auto;
@@ -317,7 +317,7 @@
   padding: 0px 0px 10px 0px;
 }
 
-/*Show Product Page*/
+/*--- --- --- Show Product Page --- --- ---*/
 .device-search {
   display: flex;
   justify-content: flex-end;
@@ -338,7 +338,7 @@
   width: 98%;
   margin-left: auto;
 	margin-right: auto;
-  padding: 10px
+  padding: 10px;
 }
 
 #pwrapper2 {
@@ -350,7 +350,7 @@
   border-radius: 5px;
 }
 
-.productTopic {
+.pageTopic {
   color: #3c3c3d;
 }
 
@@ -400,9 +400,9 @@ table td {
   border-bottom: 1px solid #a1a7b3;
   padding: 8px 0px 8px 0px;
 }
-/*Show Product Page*/
+/*--- --- --- Show Product Page --- --- ---*/
 
-/*Add Product Page*/
+/*--- --- --- Add Product Page --- --- ---*/
 .addPro {
   border: 1px solid #8b8b8b;
   border-radius: 5px 5px 0px 0px;
@@ -413,7 +413,6 @@ table td {
   padding: 15px; 
   border: 1px solid #8b8b8b;
   border-radius: 0px 0px 5px 5px;
-  
 }
 
 .addProForm form {
@@ -434,6 +433,14 @@ table td {
 
 .addProRow3 {
   width: 100%;
+}
+
+.addProRow4 {
+  width: 25%;
+}
+
+.addProRow5 {
+  width: 74%;
 }
 
 .addProRow3 textarea {
@@ -466,6 +473,48 @@ table td {
   border-radius: 5px;
 }
 
+.backBtn {
+  background-color: #f44336;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.backBtn a {
+  text-decoration: none;
+  color: white;
+}
+
+.subBtn {
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+@media only screen and (max-width: 1200px){
+
+  .addProRow1 {
+    width: 100%;
+  }
+  
+  .addProRow2 {
+    width: 100%;
+  }
+
+  .addProRow4 {
+    width: 100%;
+  }
+  
+  .addProRow5 {
+    width: 100%;
+  }
+
+}
+/*--- --- --- Add Product Page --- --- ---*/
+
+/*--- --- --- Edit Product Page --- --- ---*/
 .editProForm {
   padding: 15px; 
   border: 1px solid #8b8b8b;
@@ -474,14 +523,28 @@ table td {
 
 .editProForm form {
   display: flex;
-  flex-flow: column;
-  }
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 10px 10px;
+}
 
 .editProForm input {
   width: 100%;
+  padding: 8px 10px;
+  margin: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.subBtn {
-  
+.editProForm select {
+  width: 100%;
+  padding: 8px 10px;
+  margin: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
-/*Add Product Page*/
+
+/*--- --- --- Edit Product Page --- --- ---*/
