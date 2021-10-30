@@ -52,7 +52,6 @@ class CategoryController extends Controller
         $category->name=$r->CategoryName;
         $category->status=$r->status;
         $category->save();
-        Session::flash('success',"Category updated successfully!");
 
         Return redirect()->route('viewCategory');
     }
@@ -61,7 +60,6 @@ class CategoryController extends Controller
 
         $data=category::find($id);
         $data->delete();
-        Session::flash('success',"Category deleted successfully!");
         Return redirect()->route('viewCategory');
     }
 

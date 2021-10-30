@@ -59,7 +59,6 @@ class BrandController extends Controller
     public function delete($id){
         $data=brand::find($id);
         $data->delete();
-        Session::flash('success',"Brand deleted successfully!");
         Return redirect()->route('viewBrand');
     }
 

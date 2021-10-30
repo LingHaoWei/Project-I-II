@@ -35,8 +35,8 @@
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="{{ route('viewProduct') }}">Product</a></li>
-          <li><a href="#">Brand</a></li>
-          <li><a href="#">Category</a></li>
+          <li><a href="{{ route('viewBrand') }}">Brand</a></li>
+          <li><a href="{{ route('viewCategory') }}">Category</a></li>
         </ul>
       </li>
 
@@ -79,8 +79,11 @@
   <section class="home-section">
     
     <div class="home-content">
+    
       <i class='bx bx-menu' ></i>
-      <span class="text">Dashboard</span>
+      
+      <span class="text"></span>
+      
     </div>
     @yield('content')
     

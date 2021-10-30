@@ -60,11 +60,11 @@
                     <a href="{{ route('viewSupplier') }}"><div class="p-2">{{$product->supname}}</div></a>
                 </td>
                 <td>
-                    <Button type="button" class="addButton">
+                    <Button type="button" class="editBtn">
                         <a href="{{ route('editProduct',['id'=>$product->id]) }}" class="editProduct" title="Edit" data-toggle="tooltip">Edit</a>
                     </Button>
 
-                    <button type="button" class="addButton">
+                    <button type="button" class="deleteBtn">
                         <a href="{{ route('deleteProduct',['id'=>$product->id]) }}" class="deleteProduct" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
                     </button>
                 </td>
