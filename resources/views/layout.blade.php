@@ -59,7 +59,7 @@
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#">More</a></li>
-          <li><a href="#">Supplier</a></li>
+          <li><a href="{{ route('viewSupplier') }}">Supplier</a></li>
           <li><a href="#">Customer</a></li>
           <li><a href="#">Staff</a></li>
         </ul>

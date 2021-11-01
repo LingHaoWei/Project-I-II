@@ -1,58 +1,38 @@
-@extends('adminPageLayout')
+@extends('layout')
 @section('content')
-@if(Session::has('success'))
-    <div class="alet alert-success" role="alert">
-        {{Session::get('success')}}
-    </div>
-@endif
 <style>
-
-    .addButton{
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .addButton a{
-        text-decoration: none;
-        color: black;
-    }
-
-    .addButton:hover{
-        background-color: #E1e4e5;
-    }
-
 </style>
 
 <!--Page topic-->
-
-<div class="container-fluid">
-        <div class="row">
-          <div class="col-sm">
-            <div class="p-1 pageTopic"> <a href="{{ route('adminHomePage') }}">Home</a> / <a href="#" class="currentPage"> Supplier </a> </div>
-          </div>
-        </div>
-</div>
-
 <!--Page topic-->
 
-<div class="container-fluid border content">
-    <div class="row bg-light row1">
-        <div class="col-sm-10">
-            <div class="p-3"><b>Supplier List</b></div>
-        </div>
-        <div class="col-sm">
-            <div class="p-3">
-                <Button type="button" class="addButton">
-                    <a href="{{ route('insertSupplier') }}" title="New+" data-toggle="tooltip">New+</a>
-                </Button>
+    <div id="pwrapper1">
+        <div class="productRow1"> 
+            <div class="">
+                <div class="pageTopic"><h2>Supplier List</h2></div>
             </div>
+            <div class="addProBtn">
+                <div class="p-3">
+                    <Button type="button" class="addButton">
+                        <a href="{{ route('insertSupplier') }}" class="addProduct" title="New" data-toggle="tooltip">+Add Supplier</a>
+                    </Button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="iq-search-bar device-search">
+            <form action="#" class="searchbox">
+                Search:<a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                <input type="text" class="text search-input" placeholder="">
+            </form>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="pwrapper2">
             <table class="table">
                 <thead>
                     <tr>
+                    <th></th>
                     <th>Supplier ID</th>
                     <th>Company Name</th>
                     <th>Contact Person</th>
@@ -63,6 +43,8 @@
                 <tbody>
                 @foreach($supplier as $supplier)
                     <tr>
+                    <td width="60"> 
+                    </td>
                     <td>{{$supplier->supplierID}}</td>
                     <td>
                         <a href="{{ route('editSupplier',['id'=>$supplier->id]) }}" style="color:black; text-decoration:none;">{{$supplier->supplierName}}</a>
@@ -74,7 +56,7 @@
                             <a href="{{ route('editSupplier',['id'=>$supplier->id]) }}" class="editCategory" title="Edit" data-toggle="tooltip">Edit</a>
                         </Button>
 
-                        <button type="button" class="addButton">
+                        <button type="button" class="deleteBtn">
                             <a href="{{ route('deleteSupplier',['id'=>$supplier->id]) }}" class="deleteSupplier" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
                         </button>
                     </td>
@@ -83,6 +65,5 @@
                 </tbody>
             </table>
     </div>
-</div>
 
 @endsection
