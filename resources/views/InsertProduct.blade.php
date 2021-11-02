@@ -18,38 +18,38 @@
 
                 <div class="form-group addProRow1">
                     <label class="" for="Product ID">Product ID</label>
-                    <div class="col-md-4">
+                    <div class="">
                         <input type="text" class="form-control" id="productID" name="productID">
                     </div>
-                    <label class="col-md-4 col-form-label text-md-right" for="Product Name">Product Name</label>
-                    <div class="col-md-4">
+                    <label class="" for="Product Name">Product Name</label>
+                    <div class="">
                         <input type="text" class="form-control" id="productName" name="productName">
                     </div>
-                    <label class="col-md-4 col-form-label text-md-right" for="Product Variety">Variety</label>
-                    <div class="col-md-2">
+                    <label class="" for="Product Variety">Variety</label>
+                    <div class="">
                         <input type="text" class="form-control" id="productVariety" name="productVariety">
                     </div>
-                    <label class="col-md-4 col-form-label text-md-right" for="Product SKU">Product SKU</label>
-                    <div class="col-md-2">
+                    <label class="" for="Product SKU">Product SKU</label>
+                    <div class="">
                         <input type="text" class="form-control" id="productSKU" name="productSKU">
                     </div>
-                    <label class="col-md-4 col-form-label text-md-right" for="Product Image">Image</label>
-                    <div class="col-md-4">
+                    <label class="" for="Product Image">Image</label>
+                    <div class="">
                         <input type="file" class="form-control" id="product-image" name="product-image">
                     </div>
                 </div>
 
                 <div class="form-group addProRow2">
-                    <label class="col-md-4 col-form-label text-md-right" for="Product Price">Price</label>
-                    <div class="col-md-2">
+                    <label class="" for="Product Price">Price</label>
+                    <div class="">
                         <input type="text" class="form-control" id="productPrice" name="productPrice">
                     </div>
-                    <label class="col-md-4 col-form-label text-md-right" for="Product Quantity">Quantity</label> 
-                    <div class="col-md-2">
+                    <label class="" for="Product Quantity">Quantity</label> 
+                    <div class="">
                         <input type="number" class="form-control" id="productQuantity" name="productQuantity">
                     </div>
-                    <label class="col-md-4 col-form-label text-md-right" for="Category ID">Categoty</label>
-                    <div class="col-md-3">
+                    <label class="" for="Category ID">Categoty</label>
+                    <div class="">
                     <select name="categoryID" id="categoryID" class="form-control">
 
                         <option value="">---Select Category---</option>
@@ -62,8 +62,8 @@
 
                     </select>
                     </div>
-                    <label class="col-md-4 col-form-label text-md-right" for="Brand ID">Brand</label>
-                    <div class="col-md-3">
+                    <label class="" for="Brand ID">Brand</label>
+                    <div class="">
                     <select name="brandID" id="brandID" class="form-control">
 
                         <option value="">---Select Brand---</option>
@@ -76,8 +76,8 @@
 
                     </select>
                     </div>
-                    <label class="col-md-4 col-form-label text-md-right" for="Supplier ID">Supplier</label>
-                    <div class="col-md-3">
+                    <label class="" for="Supplier ID">Supplier</label>
+                    <div class="">
                     <select name="SupplierID" id="SupplierID" class="form-control">
 
                         <option value="">---Select Brand---</option>
@@ -93,22 +93,22 @@
                 </div>
 
                 <div class="form-group addProRow3">
-                    <label class="col-md-4 col-form-label text-md-right" for="Product Desciption">Description</label>
-                    <div class="col-md-4">
+                    <label class="" for="Product Desciption">Description</label>
+                    <div class="">
                         <textarea type="text" class="form-control" id="productDescription" name="productDescription"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group addProRow4">
-                    <label class="col-md-4 col-form-label text-md-right" for="Brand status">Status</label>
-                    <div class="col-md-3">
+                    <label class="" for="Brand status">Status</label>
+                    <div class="">
                     <select name="status" class="form-control selectAvai" required>
                         <option value="">---Select Status---</option>
                         <option value="Available">Active</option>
                         <option value="Unavailable">Inactive</option>
                     </select>
                     </div>
-                    <div class="col-md-6 offset-md-4">
+                    <div class="">
                     <Button type="button" class="backBtn">
                         <a href="{{ route('viewProduct') }}" class="" title="Back" data-toggle="tooltip">Back</a>
                     </Button>

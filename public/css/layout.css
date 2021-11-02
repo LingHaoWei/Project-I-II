@@ -413,7 +413,7 @@ table td {
 }
 /*--- --- --- Show Product Page --- --- ---*/
 
-/*--- --- --- Add Product Page --- --- ---*/
+/*--- --- --- Insert form css --- --- ---*/
 .addPro {
   border: 1px solid #8b8b8b;
   border-radius: 5px 5px 0px 0px;
@@ -527,9 +527,9 @@ table td {
   }
 
 }
-/*--- --- --- Add Product Page --- --- ---*/
+/*--- --- --- Insert form css --- --- ---*/
 
-/*--- --- --- Edit Product Page --- --- ---*/
+/*--- --- --- Edit from css --- --- ---*/
 .editProForm {
   padding: 15px; 
   border: 1px solid #8b8b8b;
@@ -562,4 +562,4 @@ table td {
   border-radius: 5px;
 }
 
-/*--- --- --- Edit Product Page --- --- ---*/
+/*--- --- --- Edit from css --- --- ---*/
