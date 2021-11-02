@@ -2,11 +2,9 @@
 @section('content')
 
 <style>
-
 </style>
 
 <!--Page topic-->
-
 <!--Page topic-->
 
 <div id="pwrapper1">

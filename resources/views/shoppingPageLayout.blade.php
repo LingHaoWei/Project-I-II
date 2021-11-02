@@ -8,7 +8,8 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-        
+        <link rel="stylesheet" href="css/all.min.css">
+		<link rel="stylesheet" href="css/themify-icons/themify-icons.css">
         <link rel="stylesheet" href="css/splstyle.css">
     </head>
     <body>
@@ -35,18 +36,9 @@
                   aria-expanded="false">Shop</a>
                 <ul class="dropdown-menu">
                   <li class="nav-item"><a class="nav-link" href="#">Shop Category</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Blog Details</a></li>
                   <li class="nav-item"><a class="nav-link" href="#">Product Checkout</a></li>
                   <li class="nav-item"><a class="nav-link" href="#">Confirmation</a></li>
                   <li class="nav-item"><a class="nav-link" href="#">Shopping Cart</a></li>
-                </ul>
-			  </li>
-              <li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Blog</a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                  <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
                 </ul>
 			  </li>
 			  <li class="nav-item submenu dropdown">
@@ -96,7 +88,6 @@
 							<ul class="list">
 								<li><a href="#">Home</a></li>
 								<li><a href="#">Shop</a></li>
-								<li><a href="#">Blog</a></li>
 								<li><a href="#">Product</a></li>
 								<li><a href="#">Brand</a></li>
 								<li><a href="#">Contact</a></li>
