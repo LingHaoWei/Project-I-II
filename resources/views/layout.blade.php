@@ -61,7 +61,6 @@
           <li><a class="link_name" href="#">More</a></li>
           <li><a href="{{ route('viewSupplier') }}">Supplier</a></li>
           <li><a href="#">Customer</a></li>
-          <li><a href="#">Staff</a></li>
         </ul>
       </li>
       <li>
@@ -71,7 +70,7 @@
       <div class="name-job">
         <div class="profile_name">Admin</div>
       </div>
-      <i class='bx bx-log-out'><a href="#"></a></i>
+      <a href="{{ route('logout') }}"><i class='bx bx-log-out'></i></a>
     </div>
   </li>
 </ul>

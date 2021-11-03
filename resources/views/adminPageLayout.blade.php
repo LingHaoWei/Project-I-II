@@ -70,7 +70,7 @@
             </li>
             <li class="nav-item">
               <div class="nav nav-item logout">
-                  <a href="{{ route('logout') }}" class="nav-link" style="color:white;">Log out</a> 
+                  <a href="" class="nav-link" style="color:white;">Log out</a> 
               </div>
             </li>
           </ul>
