@@ -57,10 +57,13 @@ class CategoryController extends Controller
     }
 
     public function delete($id){
-
         $data=category::find($id);
         $data->delete();
         Return redirect()->route('viewCategory');
+    }
+
+    public function search(){
+        
     }
 
 }

@@ -48,7 +48,7 @@
                     <div class="">
                         <input type="number" class="form-control" id="productQuantity" name="productQuantity">
                     </div>
-                    <label class="" for="Category ID">Categoty</label>
+                    <label class="" for="Category ID">Category</label>
                     <div class="">
                     <select name="categoryID" id="categoryID" class="form-control">
 
