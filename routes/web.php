@@ -26,6 +26,12 @@ Route::get('/customerLoginPage', function () {
 Route::get('/customerRegisterPage', function () {
     return view('customerRegisterPage');
 });
+Route::get('/shoppingCartPage', function () {
+    return view('shoppingCartPage');
+});
+Route::get('/shoppingShowProductPage', function () {
+    return view('shoppingShowProductPage');
+});
 
 //Admin Page Route
 Route::get('/adminPageLayout', function () {
@@ -37,6 +43,9 @@ Route::get('/layout', function () {
 Route::get('/admin', function () {
     return view('auth/login');
 });
+
+Route::get('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageController::class, 'view'])->name('shopProduct');
+
 Route::get('/adminHomePage', [App\Http\Controllers\adminHomePageController::class, 'index'])->name('adminHomePage');
 Route::get('/logout', [App\Http\Controllers\adminHomePageController::class, 'logout'])->name('logout');
 

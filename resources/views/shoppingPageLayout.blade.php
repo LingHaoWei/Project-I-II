@@ -35,10 +35,10 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">Shop</a>
                 <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="#">Shop Category</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{ url('shoppingShowProductPage') }}">All Products</a></li>
                   <li class="nav-item"><a class="nav-link" href="#">Product Checkout</a></li>
                   <li class="nav-item"><a class="nav-link" href="#">Confirmation</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Shopping Cart</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{ url('shoppingCartPage') }}">Shopping Cart</a></li>
                 </ul>
 			  </li>
 			  <li class="nav-item submenu dropdown">
@@ -53,7 +53,7 @@
 
             <ul class="nav-shop">
               <li class="nav-item"><button><i class="ti-search"></i></button></li>
-              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
+              <li class="nav-item"><button><a href="{{ url('shoppingCartPage') }}"><i class="ti-shopping-cart"></i></a><span class="nav-shop__circle"></span></button> </li>
               <li class="nav-item"><a class="button button-header" href="{{ url('customerLoginPage') }}">Login / Register</a></li>
             </ul>
           </div>
@@ -91,19 +91,6 @@
 								<li><a href="#">Product</a></li>
 								<li><a href="#">Brand</a></li>
 								<li><a href="#">Contact</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-6 col-sm-6">
-						<div class="single-footer-widget instafeed">
-							<h4 class="footer_title">Gallery</h4>
-							<ul class="list instafeed d-flex flex-wrap">
-								<li><img src="img/gallery/r1.jpg" alt=""></li>
-								<li><img src="img/gallery/r2.jpg" alt=""></li>
-								<li><img src="img/gallery/r3.jpg" alt=""></li>
-								<li><img src="img/gallery/r5.jpg" alt=""></li>
-								<li><img src="img/gallery/r7.jpg" alt=""></li>
-								<li><img src="img/gallery/r8.jpg" alt=""></li>
 							</ul>
 						</div>
 					</div>
