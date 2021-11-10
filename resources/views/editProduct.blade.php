@@ -26,7 +26,6 @@
                     </div>
                 </div>
 
-
                 <div class="form-group addProRow1">
                     <label class="" for="Product ID">Product ID</label>
                     <div class="">

@@ -30,4 +30,15 @@ class shoppingPageController extends Controller
         Return view('shoppingShowProductPage')->with('products',$product);
 
     }
+    
+    public function viewDetails($id){
+        $products=product::all()->where('id',$id);
+        //select * from where id='$id'
+
+        Return view('shoppingShowProductDetails')->with('products',$products)
+                                    ->with('categoryID',category::all())
+                                    ->with('brandID',brand::all())
+                                    ->with('SupplierID',Supplier::all());
+    }
+
 }

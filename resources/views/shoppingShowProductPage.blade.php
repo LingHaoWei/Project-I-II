@@ -63,7 +63,7 @@
                   </div>
                   <div class="card-body">
                     <p>{{$product->catname}}</p>
-                    <h4 class="card-product__title"><a href="#">{{$product->name}}</a></h4>
+                    <h4 class="card-product__title"><a href="{{ route('shoppingShowProductDetails',['id'=>$product->id]) }}">{{$product->name}}</a></h4>
                     <p class="card-product__price">RM {{$product->price}}</p>
                   </div>
                 </div>
