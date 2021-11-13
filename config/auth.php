@@ -31,7 +31,7 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | Supported: "session", "token"
+    | Supported: "session"
     |
     */
 
@@ -40,16 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
-        'customer' => [
+        'admin' => [
             'driver' => 'session',
-            'provider' => 'customers',
-        ],
-
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+            'provider' => 'admins',
         ],
     ],
 
@@ -75,9 +68,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'customers' => [
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Customer::class,
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
