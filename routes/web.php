@@ -96,11 +96,14 @@ Route::get('/purchaseOrder', [App\Http\Controllers\PurchaseOrderController::clas
 Route::group(['prefix' => 'admin'], function() {
 	Route::group(['middleware' => 'admin.guest'], function(){
 		Route::view('/login','admin.login')->name('admin.login');
-		Route::post('/login',[App\Http\AdminController::class, 'authenticate'])->name('admin.auth');
+		Route::post('/login',[App\Http\Controllers\AdminController::class, 'authenticate'])->name('admin.auth');
 	});
 
 	Route::group(['middleware' => 'admin.auth'], function(){
-		Route::get('/dashboard',[App\Http\DashboardController::class, 'dashboard'])->name('admin.dashboard');
+		Route::get('/dashboard',[App\Http\Controllers\DashboardController::class, 'dashboard'])->name('admin.dashboard');
+
+        //admin logout
+        Route::get('/logout', [App\Http\Controllers\AdminController::class, 'logout'])->name('admin.logout');
 	});
 });
 
