@@ -10,7 +10,7 @@ class PurchaseOrderController extends Controller
 
     public function view(){
 
-        Return view('adminPurchaseOrderPage');
+        Return view('admin.adminPurchaseOrderPage');
 
     }
 }

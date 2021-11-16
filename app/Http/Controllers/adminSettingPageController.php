@@ -24,7 +24,7 @@ class adminSettingPageController extends Controller
     public function deleteAdmin($id){
         $data=User::find($id);
         $data->delete();
-        return redirect('showStaff');
+        return redirect('admin.showStaff');
     }
 
 }

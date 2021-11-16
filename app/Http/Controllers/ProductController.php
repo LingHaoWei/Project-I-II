@@ -38,7 +38,7 @@ class ProductController extends Controller
             'supplierID'=>$r->SupplierID,
             'status'=>$r->status,
         ]);
-        Return redirect()->route('viewProduct');
+        Return redirect()->route('admin.viewProduct');
     }
     public function view(){
 
@@ -55,20 +55,20 @@ class ProductController extends Controller
 
         ->get();
 
-        Return view('showProduct')->with('products',$product);
+        Return view('admin.showProduct')->with('products',$product);
 
     }
 
     public function product(){
         $product=product::all();//apply SQL select * from categories
-        Return view('insertProduct')->with('products',$product);
+        Return view('admin.insertProduct')->with('products',$product);
     }
 
     public function edit($id){
         $products=product::all()->where('id',$id);
         //select * from where id='$id'
 
-        Return view('editProduct')->with('products',$products)
+        Return view('admin.editProduct')->with('products',$products)
                                     ->with('categoryID',category::all())
                                     ->with('brandID',brand::all())
                                     ->with('SupplierID',Supplier::all());
@@ -99,13 +99,13 @@ class ProductController extends Controller
         $products->save();
         Session::flash('success',"Product updated successfully!");
 
-        Return redirect()->route('viewProduct');
+        Return redirect()->route('admin.viewProduct');
     }
 
     public function delete($id){
         $data=product::find($id);
         $data->delete();
-        Return redirect()->route('viewProduct');
+        Return redirect()->route('admin.viewProduct');
     }
 
 }
