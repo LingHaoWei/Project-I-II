@@ -9,10 +9,7 @@ use DB;
 
 class StaffController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     public function viewStaff(){
         $staff=Staff::all();
@@ -57,8 +54,8 @@ class StaffController extends Controller
         $staff=Staff::find($r->id); //retrieve the record based on id
 
         if($r->file('staff-image')!=''){
-            $image=$r->file('staff-image');        
-            $image->move('images',$image->getClientOriginalName());   //images is the location                
+            $image=$r->file('staff-image');
+            $image->move('images',$image->getClientOriginalName());   //images is the location
             $imageName=$image->getClientOriginalName();  //upload image
             $staff->image=$imageName; //update product table record
         }

@@ -14,10 +14,7 @@ use Illuminate\Contracts\Session\Session as SessionSession;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     public function store(){
 
@@ -80,10 +77,10 @@ class ProductController extends Controller
     public function update(){
         $r=request();
         $products=product::find($r->id); //retrieve the record based on id
-        
+
         if($r->file('product-image')!=''){
-            $image=$r->file('product-image');        
-            $image->move('images',$image->getClientOriginalName());   //images is the location                
+            $image=$r->file('product-image');
+            $image->move('images',$image->getClientOriginalName());   //images is the location
             $imageName=$image->getClientOriginalName();  //upload image
             $products->image=$imageName; //update product table record
         }

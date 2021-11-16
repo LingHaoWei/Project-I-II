@@ -8,10 +8,7 @@ use App\Models\Position;
 class PositionController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     public function insert(){
 

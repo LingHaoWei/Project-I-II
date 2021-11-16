@@ -10,11 +10,8 @@ use Session;
 
 class BrandController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
+
+
     public function insert(){
 
         $r=request();  //request  means  received  the form data  by method get or post

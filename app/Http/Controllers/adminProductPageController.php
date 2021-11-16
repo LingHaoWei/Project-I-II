@@ -14,10 +14,7 @@ use Illuminate\Contracts\Session\Session as SessionSession;
 
 class adminProductPageController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     /**
      * Show the application dashboard.

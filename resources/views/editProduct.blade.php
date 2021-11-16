@@ -18,7 +18,7 @@
                 @csrf
 
                 <input type="hidden" class="form-control" id="id" name="id" value="{{$product->id}}">
-                
+
                 <div class="form-group addProRow3">
                     <div class=""></div>
                     <div class="">
@@ -54,7 +54,7 @@
                     <div class="">
                         <input type="text" class="form-control" id="productPrice" name="productPrice" value="{{ $product->price }}">
                     </div>
-                    <label class="" for="Product Quantity">Quantity</label> 
+                    <label class="" for="Product Quantity">Quantity</label>
                     <div class="">
                         <input type="number" class="form-control" id="productQuantity" name="productQuantity" value="{{ $product->quantity }}">
                     </div>
@@ -90,15 +90,7 @@
                     <div class="">
                     <select name="SupplierID" id="SupplierID" class="form-control">
 
-                        <option value="">---Select Brand---</option>
 
-                        @foreach($SupplierID as $supplier)
-
-                        <option value="{{$supplier->supplierID}}">{{$supplier->supplierName}}</option>
-
-                        @endforeach
-
-                        {{-- 
                             @foreach($SupplierID as $supplier)
                             <option value="{{$supplier->supplierID}}"
                             @if($product->supplierID==$supplier->supplierID)
@@ -106,7 +98,7 @@
                             @endif
                                 >{{$supplier->supplierName}}</option>
                         @endforeach
-                         --}}
+
                     </select>
                     </div>
                 </div>
