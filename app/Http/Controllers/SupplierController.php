@@ -10,10 +10,7 @@ use Session;
 
 class SupplierController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     public function insert(){
 
@@ -31,24 +28,24 @@ class SupplierController extends Controller
             'emailAddress'=>$r->EmailAddress,
             'status'=>$r->status,
         ]);
-        Return redirect()->route('viewSupplier');
+        Return redirect()->route('admin.viewSupplier');
         }
 
     public function supplier(){
         $supplier=Supplier::all();//apply SQL select * from categories
-        Return view('insertSupplier')->with('supplier',$supplier);
+        Return view('admin.insertSupplier')->with('supplier',$supplier);
     }
 
     public function view(){
         $supplier=Supplier::all();//apply SQL select * from categories
-        Return view('showSupplier')->with('supplier',$supplier);
+        Return view('admin.showSupplier')->with('supplier',$supplier);
     }
 
     public function edit($id){
         $supplier=Supplier::all()->where('id',$id);
         //select * from where id='$id'
 
-        Return view('editSupplier')->with('supplier',$supplier);
+        Return view('admin.editSupplier')->with('supplier',$supplier);
     }
 
     public function update(){
@@ -69,14 +66,14 @@ class SupplierController extends Controller
         $supplier->save();
         Session::flash('success',"Supplier updated successfully!");
 
-        Return redirect()->route('viewSupplier');
+        Return redirect()->route('admin.viewSupplier');
     }
 
     public function delete($id){
         $data=Supplier::find($id);
         $data->delete();
         Session::flash('success',"Supplier deleted successfully!");
-        Return redirect()->route('viewSupplier');
+        Return redirect()->route('admin.viewSupplier');
     }
 
 }

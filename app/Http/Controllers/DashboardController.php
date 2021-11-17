@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class DashboardController extends Controller
 {
     public function dashboard() {
-        return view('layout');
+        return view('admin.adminHomePage');
     }
 }
 

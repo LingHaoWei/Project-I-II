@@ -9,19 +9,16 @@ use DB;
 
 class StaffController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     public function viewStaff(){
         $staff=Staff::all();
-        Return view('showStaff')->with('staff',$staff);
+        Return view('admin.showStaff')->with('staff',$staff);
     }
 
     public function staff(){
         $staff=Staff::all();//apply SQL select * from categories
-        Return view('insertStaff')->with('staff',$staff);
+        Return view('admin.insertStaff')->with('staff',$staff);
     }
 
     public function insert(){
@@ -42,14 +39,14 @@ class StaffController extends Controller
             'emailAddress'=>$r->EmailAddress,
             'status'=>$r->status,
         ]);
-        Return redirect()->route('showStaff');
+        Return redirect()->route('admin.showStaff');
     }
 
     public function edit($id){
         $staff=Staff::all()->where('id',$id);
         //select * from where id='$id'
 
-        Return view('editStaff')->with('staff',$staff);
+        Return view('admin.editStaff')->with('staff',$staff);
     }
 
     public function update(){
@@ -57,8 +54,8 @@ class StaffController extends Controller
         $staff=Staff::find($r->id); //retrieve the record based on id
 
         if($r->file('staff-image')!=''){
-            $image=$r->file('staff-image');        
-            $image->move('images',$image->getClientOriginalName());   //images is the location                
+            $image=$r->file('staff-image');
+            $image->move('images',$image->getClientOriginalName());   //images is the location
             $imageName=$image->getClientOriginalName();  //upload image
             $staff->image=$imageName; //update product table record
         }
@@ -78,14 +75,14 @@ class StaffController extends Controller
         $staff->save();
         Session::flash('success',"Staff updated successfully!");
 
-        Return redirect()->route('showStaff');
+        Return redirect()->route('admin.showStaff');
     }
 
     public function delete($id){
         $data=Staff::find($id);
         $data->delete();
         Session::flash('success',"Staff deleted successfully!");
-        Return redirect()->route('showStaff');
+        Return redirect()->route('admin.showStaff');
     }
 
 }

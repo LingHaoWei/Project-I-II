@@ -15,7 +15,7 @@
     </div>
     <ul class="nav-links">
       <li>
-        
+
         <a href="{{ url('adminHomePage') }}">
             <i class='bx bx-grid-alt'></i>
             <span class="link_name">Dashboard</span>
@@ -70,22 +70,22 @@
       <div class="name-job">
         <div class="profile_name">Admin</div>
       </div>
-      <a href="{{ route('logout') }}"><i class='bx bx-log-out'></i></a>
+      <a href="{{ route('admin.logout') }}"><i class='bx bx-log-out'></i></a>
     </div>
   </li>
 </ul>
   </div>
   <section class="home-section">
-    
+
     <div class="home-content">
-    
+
       <i class='bx bx-menu' ></i>
-      
+
       <span class="text"></span>
-      
+
     </div>
     @yield('content')
-    
+
   </section>
 
 </body>

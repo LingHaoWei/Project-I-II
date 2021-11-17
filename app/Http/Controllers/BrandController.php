@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use DB;
 use App\Models\brand;
 use Session;
 
 class BrandController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
+
+
     public function insert(){
 
         $r=request();  //request  means  received  the form data  by method get or post
@@ -23,24 +20,24 @@ class BrandController extends Controller
             'name'=>$r->BrandName,
             'status'=>$r->status,
         ]);
-        Return redirect()->route('viewBrand');
+        Return redirect()->route('admin.viewBrand');
     }
 
     public function brand(){
         $brand=brand::all();//apply SQL select * from categories
-        Return view('InsertBrand')->with('brand',$brand);
+        Return view('admin.InsertBrand')->with('brand',$brand);
     }
 
     public function view(){
         $brand=brand::all();//apply SQL select * from categories
-        Return view('showBrand')->with('brand',$brand);
+        Return view('admin.showBrand')->with('brand',$brand);
     }
 
     public function edit($id){
         $brand=brand::all()->where('id',$id);
         //select * from where id='$id'
 
-        Return view('editBrand')->with('brand',$brand);
+        Return view('admin.editBrand')->with('brand',$brand);
     }
 
     public function update(){
@@ -53,13 +50,13 @@ class BrandController extends Controller
         $brand->save();
         Session::flash('success',"Brand updated successfully!");
 
-        Return redirect()->route('viewBrand');
+        Return redirect()->route('admin.viewBrand');
     }
 
     public function delete($id){
         $data=brand::find($id);
         $data->delete();
-        Return redirect()->route('viewBrand');
+        Return redirect()->route('admin.viewBrand');
     }
 
 }

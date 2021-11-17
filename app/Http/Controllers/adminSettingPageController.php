@@ -9,10 +9,6 @@ use App\Models\User;
 
 class adminSettingPageController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -28,7 +24,7 @@ class adminSettingPageController extends Controller
     public function deleteAdmin($id){
         $data=User::find($id);
         $data->delete();
-        return redirect('showStaff');
+        return redirect('admin.showStaff');
     }
 
 }
