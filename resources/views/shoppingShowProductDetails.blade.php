@@ -6,7 +6,7 @@
 		<div class="container">
 			<div class="row s_product_inner">
 			@foreach($products as $product)
-
+			
 			<input type="hidden" class="form-control" id="id" name="id" value="{{$product->id}}">
 
 				<div class="col-lg-6">
@@ -18,13 +18,13 @@
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
-						<h3>Faded SkyBlu Denim Jeans</h3>
+						<h3>{{$product->name}}</h3>
 						<h2>RM {{$product->price}}</h2>
 						<ul class="list">
-							<li><a class="active" href="#"><span>Category</span> : {{$product->catname}}</a></li>
+							<li><a class="active" href="#"><span>Product ID</span> : {{$product->productSKU}}</a></li>
 							<li><a href="#"><span>Availibility</span> : {{$product->quantity}} (In Stock)</a></li>
 						</ul>
-						<p></p>
+						<br>
 						<div class="product_count">
               <label for="qty">Quantity:</label>
               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"

@@ -39,8 +39,7 @@ class shoppingPageController extends Controller
 
         Return view('shoppingShowProductDetails')->with('products',$products)
                                                  ->with('categoryID',category::all())
-                                                 ->with('brandID',brand::all())
-                                                 ->with('SupplierID',Supplier::all());
+                                                 ->with('brandID',brand::all());
     }
 
     public function searchProduct(){
