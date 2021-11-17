@@ -10,12 +10,16 @@
             <div class="head">Browse Categories</div>
             <ul class="main-categories">
               <li class="common-filter">
-                <form action="#">
+                @foreach($categoryID as $category)
+                <form action="{{route('search.product')}}" method="POST" id="filter">
+                @csrf
                   <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="pen" name="category"><label for="pen">Pen<span> (2)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="pencil" name="category"><label for="pencil">Pencil<span> (0)</span></label></li>
+                    <li class="filter-list">
+                      <input class="pixel-radio" type="radio" id="catogoryFilter" name="categoryFilter" value="{{$category->name}}">
+                      <label for="catname">{{$category->name}}<span></span></label></li>
                   </ul>
                 </form>
+                @endforeach
               </li>
             </ul>
           </div>
@@ -38,12 +42,14 @@
               </select>
             </div>
             <div>
-              <div class="input-group filter-bar-search">
-                <input type="text" placeholder="Search">
+            </form>
+              <form class="input-group filter-bar-search" method="POST" action="{{route('search.product')}}">
+              @csrf
+                <input type="text" name="keyword" type="search" placeholder="Search Products" aria-label="Search">
                 <div class="input-group-append">
-                  <button type="button"><i class="ti-search"></i></button>
+                  <button type="submit"><i class="ti-search"></i></button>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
           <!-- End Filter Bar -->
@@ -65,6 +71,7 @@
                     <p>{{$product->catname}}</p>
                     <h4 class="card-product__title"><a href="{{ route('shoppingShowProductDetails',['id'=>$product->id]) }}">{{$product->name}}</a></h4>
                     <p class="card-product__price">RM {{$product->price}}</p>
+                    
                   </div>
                 </div>
               </div>

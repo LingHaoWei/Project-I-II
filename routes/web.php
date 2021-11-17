@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 //login route
-
+Route::get('/register', function () {
+    return view('register');
+});
 
 //Shopping Page Route
 Route::get('/', function () {
@@ -29,6 +31,9 @@ Route::get('/customerRegisterPage', function () {
 Route::get('/shoppingCartPage', function () {
     return view('shoppingCartPage');
 });
+Route::get('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageController::class, 'view'])->name('shoppingShowProductPage');
+Route::get('/shoppingShowProductDetails/{id}', [App\Http\Controllers\shoppingPageController::class, 'viewDetails'])->name('shoppingShowProductDetails');
+Route::post('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageController::class, 'searchProduct'])->name('search.product');
 
 //Admin Page Route
 Route::get('/adminPageLayout', function () {
@@ -40,9 +45,6 @@ Route::get('/layout', function () {
 Route::get('/admin', function () {
     return view('auth/login');
 });
-
-Route::get('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageController::class, 'view'])->name('shoppingShowProductPage');
-Route::get('/shoppingShowProductDetails/{id}', [App\Http\Controllers\shoppingPageController::class, 'viewDetails'])->name('shoppingShowProductDetails');
 
 Route::get('/adminHomePage', [App\Http\Controllers\adminHomePageController::class, 'index'])->name('adminHomePage');
 Route::get('/logout', [App\Http\Controllers\adminHomePageController::class, 'logout'])->name('logout');
