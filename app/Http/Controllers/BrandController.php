@@ -20,7 +20,7 @@ class BrandController extends Controller
             'name'=>$r->BrandName,
             'status'=>$r->status,
         ]);
-        Return redirect()->route('admin.viewBrand');
+        Return redirect()->route('viewBrand');
     }
 
     public function brand(){

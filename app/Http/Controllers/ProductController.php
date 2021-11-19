@@ -38,7 +38,7 @@ class ProductController extends Controller
             'supplierID'=>$r->SupplierID,
             'status'=>$r->status,
         ]);
-        Return redirect()->route('admin.viewProduct');
+        Return redirect()->route('viewProduct');
     }
     public function view(){
 
@@ -105,7 +105,33 @@ class ProductController extends Controller
     public function delete($id){
         $data=product::find($id);
         $data->delete();
-        Return redirect()->route('admin.viewProduct');
+        Return redirect()->route('viewProduct');
+    }
+
+    public function adminSearchProduct(){
+        $r=request();
+        $keyword=$r->keyword;
+        $product=DB::table('products')
+        ->leftjoin('suppliers','suppliers.supplierID','=','products.SupplierID')
+        ->leftjoin('categories','categories.categoryID','=','products.categoryID')
+        ->leftjoin('brands','brands.brandID','=','products.brandID')
+        ->select(
+            'products.*','suppliers.id as supid','suppliers.supplierName as supname',
+            'products.*','categories.id as catid','categories.name as catname',
+            'products.*','brands.id as brandid','brands.name as brandname'
+            )
+        ->where('products.productSKU','like','%'.$keyword.'%') 
+        ->orWhere('products.name','like','%'.$keyword.'%')
+        ->orWhere('categories.name','like','%'.$keyword.'%')
+        ->orWhere('brands.name','like','%'.$keyword.'%')
+        ->orWhere('suppliers.supplierName','like','%'.$keyword.'%')
+        //select * from products where name like '%$keyword%'
+        ->get();
+
+        Return view('admin.showProduct')->with('products',$product)
+                                              ->with('categoryID',category::all())
+                                              ->with('brandID',brand::all())
+                                              ->with('SupplierID',Supplier::all());
     }
 
 }

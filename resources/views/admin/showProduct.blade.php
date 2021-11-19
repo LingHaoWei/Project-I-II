@@ -22,9 +22,11 @@
         </div>
         
         <div class="iq-search-bar device-search">
-            <form action="#" class="searchbox">
+            <form method="POST" action="{{route('search.adminProduct')}}" class="searchbox">
+            @csrf
                 Search:<a class="search-link" href="#"><i class="ri-search-line"></i></a>
-                <input type="text" class="text search-input" placeholder="">
+                <input type="text" name="keyword" type="search" placeholder="Search" aria-label="Search">
+                <button type="submit"></button>
             </form>
         </div>
     </div>
@@ -37,6 +39,7 @@
                 <th scope="col">Product</th>
                 <th scope="col">Brand</th>
                 <th scope="col">Category</th>
+                <th scope="col">Quantity</th>
                 <th scope="col">Vendor</th>
                 <th scope="col">Option</th>
                 </tr>
@@ -55,6 +58,9 @@
                 </td>
                 <td class="link">
                     <a href="{{ route('viewCategory') }}"><div class="p-2">{{$product->catname}}</div></a>
+                </td>
+                <td class="link">
+                    <div class="p-2">{{$product->quantity}}</div>
                 </td>
                 <td class="link">
                     <a href="{{ route('viewSupplier') }}"><div class="p-2">{{$product->supname}}</div></a>
