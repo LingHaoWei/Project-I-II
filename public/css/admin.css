@@ -125,12 +125,9 @@ button:hover {
 }
 
 .line::before {
-    content: "";
     display: block;
     position: absolute;
     bottom: -2px;
-    left: 0;
-    width: 0;
     height: 2px;
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
@@ -147,7 +144,6 @@ button:hover {
     width: 100%;
     position: absolute;
     top: 6px;
-    left: 0px;
     padding-left: 5px;
     background-color: transparent;
     -webkit-transition: all 0.4s;
@@ -183,10 +179,6 @@ button:hover {
 }
 .login {
     width: 100%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -197,11 +189,6 @@ button:hover {
     font-size: 16px;
     color: #555555;
     line-height: 1.2;
-
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -231,8 +218,6 @@ button:hover {
     height: 100%;
     border-radius: 25px;
     background-color: #fff;
-    top: 0;
-    left: 0;
     opacity: 1;
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
