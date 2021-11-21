@@ -11,6 +11,11 @@
 		<div class="container">
             <form class="" method="POST" action="{{ route('admin.auth') }}">
                 @csrf
+                @if(Session::get('error'))
+        <div class="col-md-14">
+             <div class="alert alert-danger">{{ Session::get('error') }}</div>
+        </div>
+        @endif
 			<div class="log">
 				<form class="form">
 					<span class="form-logo">
