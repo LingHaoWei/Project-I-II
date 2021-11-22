@@ -59,4 +59,16 @@ class BrandController extends Controller
         Return redirect()->route('admin.viewBrand');
     }
 
+    public function searchBrand(){
+        $r=request();
+        $keyword=$r->keyword;
+        $brand=DB::table('brands')
+        ->where('brands.brandID','like','%'.$keyword.'%') 
+        ->orWhere('brands.name','like','%'.$keyword.'%')
+        //select * from products where name like '%$keyword%'
+        ->get();
+
+        Return view('admin.showBrand')->with('brand',$brand);
+    }
+
 }

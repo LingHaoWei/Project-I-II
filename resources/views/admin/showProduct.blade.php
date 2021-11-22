@@ -78,6 +78,11 @@
         @endforeach
         </tbody>
         </table>
+
+        <div class="paging">
+            <span>{{$products->links()}}</span>
+        </div>
+
     </div>
 
 @endsection

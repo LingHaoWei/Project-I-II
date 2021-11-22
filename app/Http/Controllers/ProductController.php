@@ -41,7 +41,7 @@ class ProductController extends Controller
         Return redirect()->route('viewProduct');
     }
     public function view(){
-
+        
         $product=DB::table('products')
 
         ->leftjoin('suppliers','suppliers.supplierID','=','products.SupplierID')
@@ -53,8 +53,8 @@ class ProductController extends Controller
             'products.*','brands.id as brandid','brands.name as brandname'
             )
 
-        ->get();
-
+        ->paginate(6);
+        
         Return view('admin.showProduct')->with('products',$product);
 
     }
@@ -99,7 +99,7 @@ class ProductController extends Controller
         $products->save();
         Session::flash('success',"Product updated successfully!");
 
-        Return redirect()->route('admin.viewProduct');
+        Return redirect()->route('viewProduct');
     }
 
     public function delete($id){

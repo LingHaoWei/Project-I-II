@@ -52,6 +52,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/editBrand/{id}', [App\Http\Controllers\BrandController::class, 'edit'])->name('editBrand');
         Route::post('/updateBrand', [App\Http\Controllers\BrandController::class, 'update'])->name('updateBrand');
         Route::get('/deleteBrand/{id}', [App\Http\Controllers\BrandController::class, 'delete'])->name('deleteBrand');
+        Route::post('/showBrand', [App\Http\Controllers\BrandController::class, 'searchBrand'])->name('search.brand');
 
         //Category Route
         Route::get('/insertCategory', [App\Http\Controllers\CategoryController::class, 'category'])->name('insertCategory');
@@ -60,6 +61,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/editCategory/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('editCategory');
         Route::post('/updateCategory', [App\Http\Controllers\CategoryController::class, 'update'])->name('updateCategory');
         Route::get('/deleteCategory/{id}', [App\Http\Controllers\CategoryController::class, 'delete'])->name('deleteCategory');
+        Route::post('/showCategory', [App\Http\Controllers\CategoryController::class, 'searchCategory'])->name('search.category');
 
         //Product Route
         Route::get('/insertProduct', function () {

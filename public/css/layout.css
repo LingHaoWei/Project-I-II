@@ -411,6 +411,10 @@ table td {
   border-bottom: 1px solid #a1a7b3;
   padding: 8px 0px 8px 0px;
 }
+
+.w-5 {
+  display: none;
+}
 /*--- --- --- Show Product Page --- --- ---*/
 
 /*--- --- --- Insert form css --- --- ---*/

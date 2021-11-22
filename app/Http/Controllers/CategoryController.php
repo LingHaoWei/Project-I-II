@@ -21,7 +21,7 @@ class CategoryController extends Controller
             'name'=>$r->CategoryName,
             'status'=>$r->status,
         ]);
-        Return redirect()->route('admin.viewCategory');
+        Return redirect()->route('viewCategory');
         }
 
     public function category(){
@@ -60,8 +60,16 @@ class CategoryController extends Controller
         Return redirect()->route('admin.viewCategory');
     }
 
-    public function search(){
+    public function searchCategory(){
+        $r=request();
+        $keyword=$r->keyword;
+        $category=DB::table('categories')
+        ->where('categories.categoryID','like','%'.$keyword.'%') 
+        ->orWhere('categories.name','like','%'.$keyword.'%')
+        //select * from products where name like '%$keyword%'
+        ->get();
 
+        Return view('admin.showCategory')->with('category',$category);
     }
 
 }

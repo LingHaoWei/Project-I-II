@@ -28,7 +28,7 @@ class SupplierController extends Controller
             'emailAddress'=>$r->EmailAddress,
             'status'=>$r->status,
         ]);
-        Return redirect()->route('admin.viewSupplier');
+        Return redirect()->route('viewSupplier');
         }
 
     public function supplier(){
