@@ -53,7 +53,7 @@
             </div>
           </div>
           <!-- End Filter Bar -->
-          <!-- Start Best Seller -->
+          <!-- Products -->
           <section class="lattest-product-area pb-40 category-list">
             <div class="row">
             @foreach($products as $product)
@@ -78,7 +78,7 @@
               @endforeach
             </div>
           </section>
-          <!-- End Best Seller -->
+          <!-- Products -->
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@ class shoppingPageController extends Controller
             'products.*','brands.id as brandid','brands.name as brandname'
             )
 
-        ->get();
+        ->paginate(9);
 
         Return view('shoppingShowProductPage')->with('products',$product)
                                               ->with('categoryID',category::all())

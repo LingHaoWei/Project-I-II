@@ -36,6 +36,7 @@
             <thead>
                 <tr>
                 <th scope="col"></th>
+                <th scope="col">ID</th>
                 <th scope="col">Product</th>
                 <th scope="col">Brand</th>
                 <th scope="col">Category</th>
@@ -47,7 +48,10 @@
         <tbody>
         @foreach($products as $product)
             <tr>
-                <td width="60"> 
+                <td width="50"> 
+                </td>
+                <td class="link">
+                    <a href="{{ route('editProduct',['id'=>$product->id]) }}"><div class="p-2">{{$product->productID}}</div></a>
                 </td>
                 <td class="link">
                 <a href="{{ route('editProduct',['id'=>$product->id]) }}"><img src="{{asset('images/')}}/{{$product->image}}" alt="" width="60" height="50"></a>
