@@ -77,7 +77,12 @@
               </div>
               @endforeach
             </div>
+            <div class="paging">
+            <span>{{$products->links()}}</span>
+            </div>
           </section>
+          
+
           <!-- Products -->
         </div>
       </div>
