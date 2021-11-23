@@ -1,7 +1,7 @@
 @extends('shoppingPageLayout')
 @section('content')
 
-<!-- ================ start banner area ================= -->	
+<!-- ================ start banner area ================= -->
 <section class="blog-banner-area" id="category">
 		<div class="container h-100">
 			<div class="blog-banner">
@@ -18,7 +18,7 @@
     </div>
 	</section>
 	<!-- ================ end banner area ================= -->
-  
+
   <!--================Login Box Area =================-->
 	<section class="login_box_area section-margin">
 		<div class="container">
@@ -33,14 +33,21 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
+                    <form class="" method="POST" action="{{ route('login') }}">
+                        @csrf
 					<div class="login_form_inner">
 						<h3>Log in to enter</h3>
 						<form class="row login_form" action="#/" id="contactForm" >
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+								<input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"required autocomplete="email" autofocus>
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+								<input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required autocomplete="current-password">
 							</div>
 							<div class="col-md-12 form-group">
 								<div class="creat_account">
@@ -49,11 +56,12 @@
 								</div>
 							</div>
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="button button-login w-100">Log In</button>
+								<button type="submit" value="submit" class="button button-login w-100">{{ __('Login') }}</button>
 								<a href="#">Forgot Password?</a>
 							</div>
 						</form>
 					</div>
+                </form>
 				</div>
 			</div>
 		</div>

@@ -16,7 +16,7 @@ class adminHomePageController extends Controller
      */
     public function index()
     {
-        return view('adminHomePage');
+        return view('shoppingHomePage');
     }
 
     public function logout(Request $request)

@@ -1,7 +1,7 @@
 @extends('shoppingPageLayout')
 @section('content')
 
-<!-- ================ start banner area ================= -->	
+<!-- ================ start banner area ================= -->
 <section class="blog-banner-area" id="category">
 		<div class="container h-100">
 			<div class="blog-banner">
@@ -18,7 +18,7 @@
     </div>
 	</section>
 	<!-- ================ end banner area ================= -->
-  
+
   <!--================Login Box Area =================-->
 	<section class="login_box_area section-margin">
 		<div class="container">
@@ -33,20 +33,58 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
 					<div class="login_form_inner register_form_inner">
 						<h3>Create an account</h3>
 						<form class="row login_form" action="#/" id="register_form" >
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+								<input  type="name" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
 							</div>
+
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
-              </div>
-              <div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-              </div>
-              <div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'">
+								<input type="email" class="form-control  @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" value="{{ old('email') }}" required autocomplete="email">
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-12 form-group">
+								<input type="text" class="form-control  @error('contact') is-invalid @enderror" id="contact" name="contact" placeholder="Contact Nuumber" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact Number'" value="{{ old('contact') }}" required autocomplete="contact">
+                                @error('contact')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-12 form-group">
+								<input type="text" class="form-control  @error('address') is-invalid @enderror" id="contact" name="address" placeholder="Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'" value="{{ old('address') }}" required autocomplete="address">
+                                @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-12 form-group">
+								<input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required autocomplete="new-password">
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </div>
+
+                            <div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="password-confirm" name="password_confirmation" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'" required autocomplete="new-password">
 							</div>
 							<div class="col-md-12 form-group">
 								<div class="creat_account">
@@ -54,11 +92,13 @@
 									<label for="f-option2">Keep me logged in</label>
 								</div>
 							</div>
+
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="button button-register w-100">Register</button>
+								<button type="submit" value="submit" class="button button-register w-100">{{ __('Resgister') }}</button>
 							</div>
 						</form>
 					</div>
+                </form>
 				</div>
 			</div>
 		</div>

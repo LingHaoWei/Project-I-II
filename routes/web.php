@@ -35,6 +35,10 @@ Route::get('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageControl
 Route::get('/shoppingShowProductDetails/{id}', [App\Http\Controllers\shoppingPageController::class, 'viewDetails'])->name('shoppingShowProductDetails');
 Route::post('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageController::class, 'searchProduct'])->name('search.product');
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 //admin
 Route::group(['prefix' => 'admin'], function() {
 	Route::group(['middleware' => 'admin.guest'], function(){
