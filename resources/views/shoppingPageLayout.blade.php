@@ -53,7 +53,29 @@
             <ul class="nav-shop">
               <li class="nav-item"><button><i class="ti-search"></i></button></li>
               <li class="nav-item"><button><a href="{{ url('shoppingCartPage') }}"><i class="ti-shopping-cart"></i></a><span class="nav-shop__circle"></span></button> </li>
+              @guest
+                      @if (Route::has('login'))
               <li class="nav-item"><a class="button button-header" href="{{ url('customerLoginPage') }}">Login / Register</a></li>
+              @endif
+                    @else
+                            <li class="nav-item submenu dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                    @endguest
             </ul>
           </div>
         </div>
@@ -64,7 +86,7 @@
 
         @yield('content')
 
-  <!--================ Start footer Area  =================-->	
+  <!--================ Start footer Area  =================-->
   <footer>
 		<div class="footer-area">
 			<div class="container">
@@ -73,11 +95,11 @@
 						<div class="single-footer-widget tp_widgets">
 							<h4 class="footer_title large_title">Our Mission</h4>
 							<p>
-								So seed seed green that winged cattle in. Gathering thing made fly you're no 
+								So seed seed green that winged cattle in. Gathering thing made fly you're no
 								divided deep moved us lan Gathering thing us land years living.
 							</p>
 							<p>
-								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved 
+								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved
 							</p>
 						</div>
 					</div>
@@ -102,7 +124,7 @@
 									Head Office
 								</p>
 								<p>123, Main Street, Your City</p>
-	
+
 								<p class="sm-head">
 									<span class="fa fa-phone"></span>
 									Phone Number
@@ -111,7 +133,7 @@
 									+123 456 7890 <br>
 									+123 456 7890
 								</p>
-	
+
 								<p class="sm-head">
 									<span class="fa fa-envelope"></span>
 									Email

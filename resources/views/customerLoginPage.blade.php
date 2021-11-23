@@ -47,7 +47,7 @@
                                 @enderror
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="password" class="form-control @error('password') is-invalid @enderror" id="name" name="name" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required autocomplete="current-password">
+								<input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required autocomplete="current-password">
 							</div>
 							<div class="col-md-12 form-group">
 								<div class="creat_account">
