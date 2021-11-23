@@ -1,92 +1,83 @@
-@extends('adminPageLayout')
+@extends('layout')
 @section('content')
-
 <style>
-
-    .addButton{
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .addButton:hover{
-        background-color: #E1e4e5;
-    }
 
 </style>
 
 <!--Page topic-->
-
-<div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-11">
-            <div class="p-1 pageTopic"> <a href="{{ url('adminHomePage') }}">Home</a> / <a href="#" class="currentPage">Purchase Order</a></div>
-          </div>
-        </div>
-</div>
-
 <!--Page topic-->
 
-<div class="container-fluid border addAdminContent">
-    <div class="row bg-light row1"> 
-        <div class="col-sm-10">
-            <div class="p-3"><b>Purchase Order List</b></div>
+    <div id="pwrapper1">
+        <div class="productRow1"> 
+            <div class="col-sm-10">
+                <div class="pageTopic"><h2>Purchase Order List</h2></div>
+            </div>
+            <div class="addProBtn">
+                <div class="p-3">
+                    <Button type="button" class="addButton">
+                        <a href="#" class="addProduct" title="New" data-toggle="tooltip">+Add Purchase Order</a>
+                    </Button>
+                </div>
+            </div>
         </div>
-        <div class="col-sm">
-            <div class="p-3">
-                <Button type="button" class="button addButton" data-toggle="modal" data-target="#exampleModal">New+</Button>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    
-                </div>
-                <div class="modal-footer">
-                </div>
-                </div>
-            </div>
-            </div>
-            <!-- Modal -->
-
+        
+        <div class="iq-search-bar device-search">
+            <form method="POST" action="#" class="searchbox">
+            @csrf
+                Search:<a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                <input type="text" name="keyword" type="search" placeholder="Search" aria-label="Search">
+                <button type="submit"></button>
+            </form>
         </div>
     </div>
-    <div class="row">
+
+    <div class="" id="pwrapper2">
         <table class="table">
             <thead>
                 <tr>
+                <th scope="col"></th>
                 <th scope="col">ID</th>
-                <th scope="col">Status</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
                 <th scope="col">Vendor</th>
+                <th scope="col">Status</th>
                 <th scope="col">Option</th>
                 </tr>
             </thead>
         <tbody>
             <tr>
-
-                <td>
-                    <img src="" alt="">
-                    <a href=""></a>
+                <td width="50"> 
                 </td>
-                <td></td>
-                <td></td>
+                <td class="link">
+                    <a href="#"><div class="p-2"></div></a>
+                </td>
+                <td class="link">
+                <a href="#"><img src="" alt="" width="60" height="50"></a>
+                    <a href="#"><div class="p-2"></div></a>
+                </td>
+                <td class="link">
+                    <a href="#"><div class="p-2"></div></a>
+                </td>
+                <td class="link">
+                    <a href="#"><div class="p-2"></div></a>
+                </td>
+                <td class="link">
+                    <div class="p-2"></div>
+                </td>
                 <td>
-                    <button>Delete</button>
+                    <Button type="button" class="editBtn">
+                        <a href="#" class="editProduct" title="Edit" data-toggle="tooltip">Edit</a>
+                    </Button>
+
+                    <button type="button" class="deleteBtn">
+                        <a href="#" class="deleteProduct" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
+                    </button>
                 </td>
             </tr>
-
         </tbody>
         </table>
-    </div>
-    
 
-</div>
+
+    </div>
 
 @endsection

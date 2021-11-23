@@ -19,8 +19,8 @@ class CreatePurchaseOrdersTable extends Migration
             $table->string('supplierID');
             $table->string('shipToAddressID');
             $table->string('productID');
-            $table->integer('quantity');
-            $table->string('image');
+            $table->integer('orderQuantity');
+            $table->string('productImage');
             $table->string('amount');
             $table->string('total');
             $table->timestamps();

@@ -61,6 +61,7 @@
           <li><a class="link_name" href="#">More</a></li>
           <li><a href="{{ route('viewSupplier') }}">Supplier</a></li>
           <li><a href="#">Customer</a></li>
+          <li><a href="{{ route('viewPurchaseOrder') }}">Purchase Order</a></li>
         </ul>
       </li>
       <li>

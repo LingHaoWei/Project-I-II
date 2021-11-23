@@ -91,7 +91,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/deleteStaff/{id}', [App\Http\Controllers\StaffController::class, 'delete'])->name('deleteStaff');
 
         //Purchase Order Route
-        Route::get('/purchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'view'])->name('purchaseOrder');
+        Route::get('/viewPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'view'])->name('viewPurchaseOrder');
 
         //admin logout
         Route::get('/logout', [App\Http\Controllers\AdminController::class, 'logout'])->name('admin.logout');
