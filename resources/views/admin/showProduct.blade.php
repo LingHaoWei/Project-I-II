@@ -46,7 +46,7 @@
                 </tr>
             </thead>
         <tbody>
-        @foreach($products as $product)
+        @forelse($products as $product)
             <tr>
                 <td width="50"> 
                 </td>
@@ -79,14 +79,21 @@
                     </button>
                 </td>
             </tr>
-        @endforeach
+            @empty
+            <tr>
+                <td width="50"> 
+                </td>
+                <td class="link">
+                    no such product
+                </td>
+            </tr>
+            
+        @endforelse
+        
         </tbody>
+        
         </table>
-
-        <div class="paging">
-            <span>{{$products->links()}}</span>
-        </div>
-
     </div>
+    {{$products->links()}}
 
 @endsection

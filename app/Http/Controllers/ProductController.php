@@ -52,7 +52,7 @@ class ProductController extends Controller
             'products.*','categories.name as catname',
             'products.*','brands.id as brandid','brands.name as brandname'
             )
-
+        ->orderByDesc('id')
         ->paginate(6);
         
         Return view('admin.showProduct')->with('products',$product);
@@ -126,7 +126,7 @@ class ProductController extends Controller
         ->orWhere('brands.name','like','%'.$keyword.'%')
         ->orWhere('suppliers.supplierName','like','%'.$keyword.'%')
         //select * from products where name like '%$keyword%'
-        ->get();
+        ->paginate(6);
 
         Return view('admin.showProduct')->with('products',$product)
                                               ->with('categoryID',category::all())

@@ -73,7 +73,7 @@ class SupplierController extends Controller
         $data=Supplier::find($id);
         $data->delete();
         Session::flash('success',"Supplier deleted successfully!");
-        Return redirect()->route('admin.viewSupplier');
+        Return redirect()->route('viewSupplier');
     }
 
 }

@@ -60,7 +60,7 @@ class shoppingPageController extends Controller
         ->orWhere('products.brandID','like','%'.$keyword.'%')
         ->orWhere('products.supplierID','like','%'.$keyword.'%')
         //select * from products where name like '%$keyword%'
-        ->get();
+        ->paginate(9);
 
         Return view('shoppingShowProductPage')->with('products',$product)
                                               ->with('categoryID',category::all())
