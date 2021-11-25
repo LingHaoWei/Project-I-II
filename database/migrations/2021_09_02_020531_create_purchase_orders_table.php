@@ -14,15 +14,11 @@ class CreatePurchaseOrdersTable extends Migration
     public function up()
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
-            $table->id();
-            $table->string('purchaseOrderID');
-            $table->string('supplierID');
-            $table->string('shipToAddressID');
-            $table->string('productID');
-            $table->integer('orderQuantity');
-            $table->string('productImage');
-            $table->string('amount');
-            $table->string('total');
+            $table->bigIncrements(column: 'id');
+            $table->integer(column: 'purchaseID');
+            $table->integer(column: 'productID');
+            $table->integer(column: 'total');
+            $table->double(column: 'price', total: 10, places: 2);
             $table->timestamps();
         });
     }
