@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->integer('quantity')->unsigned();
             $table->double('price',8,2);
+            $table->double('unitPrice',8,2);
             $table->string('productVariety');
             $table->string('productSKU');
             $table->string('image');

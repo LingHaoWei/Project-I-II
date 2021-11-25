@@ -54,6 +54,10 @@
                     <div class="">
                         <input type="text" class="form-control" id="productPrice" name="productPrice" value="{{ $product->price }}">
                     </div>
+                    <label class="" for="Product unitPrice">Unit Price</label>
+                    <div class="">
+                        <input type="text" class="form-control" id="productUnitPrice" name="productUnitPrice" value="{{ $product->unitPrice }}">
+                    </div>
                     <label class="" for="Product Quantity">Quantity</label>
                     <div class="">
                         <input type="number" class="form-control" id="productQuantity" name="productQuantity" value="{{ $product->quantity }}">

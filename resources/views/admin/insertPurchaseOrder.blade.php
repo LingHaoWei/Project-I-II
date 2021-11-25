@@ -17,10 +17,21 @@
                 @csrf
 
                 <div class="form-group addProRow1">
-                    <label class="" for="Product ID">Product ID</label>
+                    <label class="" for="Supplier ID">Supplier</label>
                     <div class="">
-                        <input type="text" class="form-control" id="productID" name="productID">
+                    <select name="SupplierID" id="SupplierID" class="form-control">
+
+                        <option value="">---Select Brand---</option>
+
+                        @foreach($SupplierID as $supplier)
+
+                        <option value="{{$supplier->supplierID}}">{{$supplier->supplierName}}</option>
+
+                        @endforeach
+
+                    </select>
                     </div>
+
                     <label class="" for="Product Name">Product Name</label>
                     <div class="">
                         <input type="text" class="form-control" id="productName" name="productName">
@@ -33,20 +44,12 @@
                     <div class="">
                         <input type="text" class="form-control" id="productSKU" name="productSKU">
                     </div>
-                    <label class="" for="Product Image">Image</label>
-                    <div class="">
-                        <input type="file" class="form-control" id="product-image" name="product-image">
-                    </div>
                 </div>
 
                 <div class="form-group addProRow2">
                     <label class="" for="Product Price">Price</label>
                     <div class="">
                         <input type="text" class="form-control" id="productPrice" name="productPrice">
-                    </div>
-                    <label class="" for="Product unitPrice">Unit Price</label>
-                    <div class="">
-                        <input type="text" class="form-control" id="productUnitPrice" name="productUnitPrice">
                     </div>
                     <label class="" for="Product Quantity">Quantity</label> 
                     <div class="">
@@ -66,38 +69,12 @@
 
                     </select>
                     </div>
-                    <label class="" for="Brand ID">Brand</label>
-                    <div class="">
-                    <select name="brandID" id="brandID" class="form-control">
 
-                        <option value="">---Select Brand---</option>
-
-                        @foreach($brandID as $brand)
-
-                        <option value="{{$brand->brandID}}">{{$brand->name}}</option>
-
-                        @endforeach
-
-                    </select>
-                    </div>
-                    <label class="" for="Supplier ID">Supplier</label>
-                    <div class="">
-                    <select name="SupplierID" id="SupplierID" class="form-control">
-
-                        <option value="">---Select Brand---</option>
-
-                        @foreach($SupplierID as $supplier)
-
-                        <option value="{{$supplier->supplierID}}">{{$supplier->supplierName}}</option>
-
-                        @endforeach
-
-                    </select>
-                    </div>
+                    
                 </div>
 
                 <div class="form-group addProRow3">
-                    <label class="" for="Product Desciption">Description</label>
+                    <label class="" for="Product Desciption">Notes</label>
                     <div class="">
                         <textarea type="text" class="form-control" id="productDescription" name="productDescription"></textarea>
                     </div>

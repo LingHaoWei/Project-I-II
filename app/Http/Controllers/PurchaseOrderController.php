@@ -21,4 +21,9 @@ class PurchaseOrderController extends Controller
         Return view('admin.adminPurchaseOrderPage');
 
     }
+
+    public function insertPurchaseOrder(){
+        return view('admin.insertPurchaseOrder');
+    }
+
 }

@@ -30,6 +30,7 @@ class ProductController extends Controller
             'description'=>$r->productDescription,
             'quantity'=>$r->productQuantity,
             'price'=>$r->productPrice,
+            'unitPrice'=>$r->unitPrice,
             'productVariety'=>$r->productVariety,
             'productSKU'=>$r->productSKU,
             'image'=>$imageName,
@@ -90,6 +91,7 @@ class ProductController extends Controller
         $products->description=$r->productDescription;
         $products->quantity=$r->productQuantity;
         $products->price=$r->productPrice;
+        $products->unitPrice=$r->productUnitPrice;
         $products->productVariety=$r->productVariety;
         $products->productSKU=$r->productSKU;
         $products->categoryID=$r->categoryID;
