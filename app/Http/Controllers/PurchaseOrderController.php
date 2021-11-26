@@ -25,8 +25,17 @@ class PurchaseOrderController extends Controller
 
     public function insertPurchaseOrder(){
         $docno = 'PO-'.rand();
+        $supplier = Supplier::orderBy('supplierName','asc')->get();
 
-        return view('admin.insertPurchaseOrder',compact('docno'))->with('SupplierID',Supplier::all());
+        return view('admin.insertPurchaseOrder',compact('docno','supplier'));
+    }
+
+    public function getProduct($supplier){
+        $docno = 'PO-'.rand();
+        $supplier = Supplier::orderBy('supplierName','asc')->get();
+        $product = product::where('supplierID',$supplier)->get();
+
+        return view('admin.insertPurchaseOrder',compact('docno','supplier','product'));
     }
 
 }
