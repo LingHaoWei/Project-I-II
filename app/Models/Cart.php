@@ -11,7 +11,8 @@ class Cart extends Model
     protected $fillable=[
         'orderID',
         'userID',
-        'productID'];
+        'productID',
+        'quantity'];
 
     public function product(){
         return $this->belongsTo('App\Models\Product');
