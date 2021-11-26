@@ -96,9 +96,7 @@ Route::group(['prefix' => 'admin'], function() {
 
         //Purchase Order Route
         Route::get('/viewPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'view'])->name('viewPurchaseOrder');
-        Route::get('/insertPurchaseOrder', function () {
-            return view('admin.insertPurchaseOrder',['categoryID'=>App\Models\category::all(),'brandID'=>App\Models\brand::all(),'SupplierID'=>App\Models\Supplier::all()]);
-            })->name('insertPurchaseOrder');
+        Route::get('/insertPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'insertPurchaseOrder'])->name('insertPurchaseOrder');
 
         //admin logout
         Route::get('/logout', [App\Http\Controllers\AdminController::class, 'logout'])->name('admin.logout');

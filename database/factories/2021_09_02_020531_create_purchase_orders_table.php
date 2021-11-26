@@ -15,10 +15,12 @@ class CreatePurchaseOrdersTable extends Migration
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->bigIncrements(column: 'id');
-            $table->integer(column: 'purchaseID');
-            $table->integer(column: 'productID');
-            $table->integer(column: 'total');
-            $table->double(column: 'price', total: 10, places: 2);
+            $table->integer(column: 'supplierID')->unasigned();
+            $table->integer(column: 'productID')->unasigned();
+            $table->double(column: 'unitPrice', total: 10, places: 2)->unasigned();
+            $table->integer(column: 'quantity');
+
+            
             $table->timestamps();
         });
     }
