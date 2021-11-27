@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Cart;
 use DB;
 use Auth;
 use Illuminate\Http\Request;
@@ -14,10 +16,10 @@ class CartController extends Controller
 
     public function add(){
         $r=request();
-        $addItem=myCart::create([
+        $addItem=Cart::create([
             'quantity'=>$r->quantity,
             'orderID'=>'',
-            'productID'=>$r->id,
+            'productID'=>$r->productID,
             'userID'=>Auth::id(),
         ]);
         Return redirect()->route('shoppingShowProductPage');
@@ -26,7 +28,7 @@ class CartController extends Controller
     public function showMyCart(){
         $carts=DB::table('carts')
         ->leftjoin('products','products.productID','=','carts.productID')
-        ->select('products.name as cartName','carts.id as cid', 'products.*')
+        ->select('products.name as cartName','carts.id as cid','carts.quantity as cartQty', 'products.*')
         ->where('carts.orderID','=','')
         ->where('carts.userID','=',Auth::id())
         ->get();

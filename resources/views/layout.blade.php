@@ -69,7 +69,7 @@
       <div class="profile-content">
       </div>
       <div class="name-job">
-        <div class="profile_name">Admin</div>
+        <div class="profile_name">Logout</div>
       </div>
       <a href="{{ route('admin.logout') }}"><i class='bx bx-log-out'></i></a>
     </div>
