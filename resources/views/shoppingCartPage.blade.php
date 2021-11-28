@@ -9,6 +9,8 @@
                   <table class="table">
                       <thead>
                           <tr>
+                              <th scope="col">ID</th>
+                              <th scope="col">Image</th>
                               <th scope="col">Product</th>
                               <th scope="col">Price</th>
                               <th scope="col">Quantity</th>
@@ -16,35 +18,17 @@
                           </tr>
                       </thead>
                       <tbody>
+                        @foreach($carts as $cart)
                           <tr>
-                              <td>
-                                  <div class="media">
-                                      <div class="d-flex">
-                                          <img src="img/cart/cart1.png" alt="">
-                                      </div>
-                                      <div class="media-body">
-                                          <p>Minimalistic shop for multipurpose use</p>
-                                      </div>
-                                  </div>
-                              </td>
-                              <td>
-                                  <h5>$360.00</h5>
-                              </td>
-                              <td>
-                                  <div class="product_count">
-                                      <input type="text" name="qty" id="sst" maxlength="12" value="2" title="Quantity:"
-                                          class="input-text qty">
-                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                          class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                          class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                  </div>
-                              </td>
-                              <td>
-                                  <h5>$720.00</h5>
-                              </td>
+                            <td><input type="checkbox" name="cid[]" id="cid[]" value="{{$cart->cid}}" onclick="cal()">
+                                <input type="hidden" name="subtotal[]" id="subtotal[]" value="{{ $cart->price*$cart->cartQty }}"> </td>
+                                <td><img src="{{ asset('images/') }}/{{$cart->image}}" alt="" width="100"></td>
+                                <td><h5>{{$cart->name}}</h5></td>
+                                <td>{{$cart->price}}</td>
+                                <td>{{$cart->cartQty}}</td>
+                                <td>{{$cart->price*$cart->cartQty}}</td>
                           </tr>
-                          
+                          @endforeach
                           <tr class="bottom_button">
                               <td>
                                   <a class="button" href="#">Update Cart</a>
@@ -132,5 +116,21 @@
       </div>
   </section>
   <!--================End Cart Area =================-->
-
+  <script>
+    function cal(){
+        var names = document.getElementsByName('subtotal[]');
+        var subtotal = 0;
+        var tax = 0;
+        var total = 0;
+        var cboxes = document.getElementsByName('cid[]')
+        var len = cboxes.length;
+        for(var i=0; i<len; i++){
+            if(cboxes[i].checked){
+                subtotal=parseFloat(names[i].value)+parseFloat(subtotal);
+            }
+        }
+        //document.getElementById('sub').innerHTML=subtotal.toFixed(2);
+        document.getElementById('sub').value=subtotal.toFixed(2); //teacher's example
+    }
+</script>
 @endsection

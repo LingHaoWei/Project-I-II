@@ -1,12 +1,24 @@
 @extends('shoppingPageLayout')
 @section('content')
 
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+    </style>
   <!--================Single Product Area =================-->
   <div class="product_image_area">
 		<div class="container">
 			<div class="row s_product_inner">
+
 			@foreach($products as $product)
-			
+
 			<input type="hidden" class="form-control" id="id" name="id" value="{{$product->id}}">
 
 				<div class="col-lg-6">
@@ -17,6 +29,8 @@
 					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
+                    <form action="{{route('addCart')}}" method="post">
+                    @csrf
 					<div class="s_product_text">
 						<h3>{{$product->name}}</h3>
 						<h2>RM {{$product->price}}</h2>
@@ -29,16 +43,19 @@
               <label for="qty">Quantity:</label>
               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
-							<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+							<input type="number" name="quantity" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty" max="{{ $product->quantity }}" min="1">
 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-							<a class="button primary-btn" href="#">Add to Cart</a>               
-						</div>
+
+						</div><br>
+                        <input type="hidden" class="form-control" id="productID" name="productID" value="{{$product->productID}}">
+                        <button type="submit" class="button button--active button-review">Add to cart</button>
 						<div class="card_area d-flex align-items-center">
 						</div>
 					</div>
-				</div>
-			
+			</form>
+        	</div>
+
 			</div>
 		</div>
 	</div>
