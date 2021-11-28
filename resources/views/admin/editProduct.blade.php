@@ -60,7 +60,7 @@
                     </div>
                     <label class="" for="Product Quantity">Quantity</label>
                     <div class="">
-                        <input type="number" class="form-control" id="productQuantity" name="productQuantity" value="{{ $product->quantity }}">
+                        <input type="number" class="form-control" id="productQuantity" name="productQuantity" value="{{ $product->quantity }}" readonly>
                     </div>
                     <label class="" for="Category ID">Categoty</label>
                     <div class="">
