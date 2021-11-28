@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use DB;
 use Auth;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Illuminate\Http\Request;
 use App\Models\product;
 
