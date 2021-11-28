@@ -15,14 +15,18 @@ class CartController extends Controller
         $this->middleware('auth');
     }
 
-    public function add(){
-        $r=request();
-        $addItem=Cart::create([
-            'quantity'=>$r->quantity,
-            'orderID'=>'',
-            'productID'=>$r->productID,
-            'userID'=>Auth::id(),
+    public function add(Request $r){
+        $r->validate([
+            'productID'=>'required|unique:carts',
         ]);
+        $addItem=Cart::create([
+        'quantity'=>$r->quantity,
+        'orderID'=>'',
+        'productID'=>$r->productID,
+        'userID'=>Auth::id(),
+        ]);
+        $array = array('productID');
+        $array = array_unique($array);
         Return redirect()->route('shoppingShowProductPage');
     }
 
