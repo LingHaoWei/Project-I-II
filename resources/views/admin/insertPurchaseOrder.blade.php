@@ -46,18 +46,20 @@
             </thead>
         <tbody>
         @forelse($product as $product)
+            <input type="hidden" class="form-control" id="productID" name="productID" value="{{$product->productID}}">
+            <input type="hidden" class="form-control" id="productName" name="productName" value="{{$product->name}}">
             <tr>
                 <td width="50"> 
                 </td>
                 <td class="link">
-                    <a href="{{ route('editProduct',['id'=>$product->id]) }}"><div class="p-2">{{$product->productID}}</div></a>
+                    <div class="p-2">{{$product->productID}}</div>
                 </td>
                 <td class="link">
-                <a href="{{ route('editProduct',['id'=>$product->id]) }}"><img src="{{asset('images/')}}/{{$product->image}}" alt="" width="60" height="50"></a>
-                    <a href="{{ route('editProduct',['id'=>$product->id]) }}"><div class="p-2">{{$product->name}}</div></a>
+                <img src="{{asset('images/')}}/{{$product->image}}" alt="" width="60" height="50">
+                    <div>{{$product->name}}</div>
                 </td>
                 <td class="link">
-                    <div class="p-2"><input type="number" class="form-control" id="productQuantity" name="productQuantity" value="{{ $product->quantity }}"></div>
+                    <div class="p-2"><input type="number" class="form-control" id="poProductQuantity" name="poProductQuantity" value=""></div>
                 </td>
             </tr>
             @empty
@@ -81,7 +83,7 @@
             <div class="">
                 <select name="status" class="form-control" required value="#">
                     <option value="">---Select Status---</option>
-                    <option value="Available">Avtive</option>
+                    <option value="Available">Pending</option>
                     <option value="Unavailable">Complete</option>
                 </select>
             </div>

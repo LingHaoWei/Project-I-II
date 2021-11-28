@@ -19,7 +19,9 @@ class PurchaseOrderController extends Controller
 
     public function view(){
 
-        Return view('admin.adminPurchaseOrderPage');
+        $purchaseOrder = purchaseOrder::all();
+
+        Return view('admin.adminPurchaseOrderPage',compact('purchaseOrder'));
 
     }
 
