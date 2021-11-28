@@ -32,37 +32,37 @@
     </div>
 
     <div class="" id="pwrapper2">
-        <table class="table">
+    <table class="table">
             <thead>
                 <tr>
                 <th scope="col"></th>
-                <th scope="col">ID</th>
+                <th scope="col">Document No</th>
                 <th scope="col">Product</th>
+                <th scope="col">Unit Price</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Vendor</th>
-                <th scope="col">Status</th>
                 <th scope="col">Option</th>
                 </tr>
             </thead>
         <tbody>
+        @forelse($purchaseOrder as $po)
             <tr>
                 <td width="50"> 
                 </td>
                 <td class="link">
-                    <a href="#"><div class="p-2"></div></a>
+                    <a href="#"><div class="p-2">{{$po->document_no}}</div></a>
                 </td>
                 <td class="link">
-                <a href="#"><img src="" alt="" width="60" height="50"></a>
-                    <a href="#"><div class="p-2"></div></a>
+                    <a href="#"><div class="p-2">{{$po->productID}}</div></a>
                 </td>
                 <td class="link">
-                    <a href="#"><div class="p-2"></div></a>
+                    <a href="#"><div class="p-2">{{$po->unitPrice}}</div></a>
                 </td>
                 <td class="link">
-                    <a href="#"><div class="p-2"></div></a>
+                    <div class="p-2">{{$po->quantity}}</div>
                 </td>
                 <td class="link">
-                    <div class="p-2"></div>
+                    <a href="{{ route('viewSupplier') }}"><div class="p-2">{{$po->supplierID}}</div></a>
                 </td>
                 <td>
                     <Button type="button" class="editBtn">
@@ -74,10 +74,24 @@
                     </button>
                 </td>
             </tr>
+            @empty
+            <tr>
+                <td width="50"> 
+                </td>
+                <td class="link">
+                    Do not have such purchase order
+                </td>
+            </tr>
+            
+        @endforelse
+        
         </tbody>
+        
         </table>
 
 
     </div>
+
+    
 
 @endsection
