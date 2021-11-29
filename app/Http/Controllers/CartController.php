@@ -25,8 +25,6 @@ class CartController extends Controller
         'productID'=>$r->productID,
         'userID'=>Auth::id(),
         ]);
-        $array = array('productID');
-        $array = array_unique($array);
         Return redirect()->route('shoppingShowProductPage');
     }
 
@@ -38,6 +36,12 @@ class CartController extends Controller
         ->where('carts.userID','=',Auth::id())
         ->get();
     Return view('shoppingCartPage')->with('carts',$carts);
+    }
+
+    public function delete($id){
+        $data=Cart::find($id);
+        $data->delete();
+        Return redirect()->route('myCart');
     }
 
 }

@@ -1,6 +1,17 @@
 @extends('shoppingPageLayout')
 @section('content')
-
+<style>
+.deleteCart {
+  background-color: #f44336;
+  border: none;
+  color: rgb(206, 206, 206);
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+a{
+    color: rgb(0, 0, 0);
+}
+</style>
 <!--================Cart Area =================-->
 <section class="cart_area">
       <div class="container">
@@ -15,6 +26,7 @@
                               <th scope="col">Price</th>
                               <th scope="col">Quantity</th>
                               <th scope="col">Total</th>
+                              <th>Actions</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -27,6 +39,11 @@
                                 <td>{{$cart->price}}</td>
                                 <td>{{$cart->cartQty}}</td>
                                 <td>RM{{$cart->price*$cart->cartQty}}</td>
+                                <td>
+                                    <button type="button" class="deleteCart">
+                                        <a href="{{ route('deleteCart',['id'=>$cart->cid]) }}" class="deleteCart" title="Delete" data-toggle="tooltip">Delete</a>
+                                    </button>
+                                </td>
                           </tr>
                           @endforeach
                           <tr>
