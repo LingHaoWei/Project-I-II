@@ -9,19 +9,19 @@
     <div id="pwrapper1">
         <div class="productRow1"> 
             <div class="">
-                <div class="pageTopic"><h2>Supplier List</h2></div>
+                <div class="pageTopic"><h2>Customer List</h2></div>
             </div>
             <div class="addProBtn">
                 <div class="p-3">
                     <Button type="button" class="addButton">
-                        <a href="{{ route('insertSupplier') }}" class="addProduct" title="New" data-toggle="tooltip">+Add Supplier</a>
+                        <a href="{{ route('insertUser') }}" class="addProduct" title="New" data-toggle="tooltip">+Add Customer</a>
                     </Button>
                 </div>
             </div>
         </div>
         
         <div class="iq-search-bar device-search">
-            <form method="POST" action="{{route('search.supplier')}}" class="searchbox">
+            <form method="POST" action="{{route('search.user')}}" class="searchbox">
             @csrf
                 Search:<a class="search-link" href="#"><i class="ri-search-line"></i></a>
                 <input type="text" name="keyword" type="search" placeholder="Search" aria-label="Search">
@@ -35,31 +35,27 @@
                 <thead>
                     <tr>
                     <th></th>
-                    <th>Supplier ID</th>
-                    <th>Company Name</th>
-                    <th>Contact Person</th>
-                    <th>Status</th>
+                    <th>ID</th>
+                    <th>Customer Name</th>
                     <th>Option</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($supplier as $supplier)
+                @foreach($user as $user)
                     <tr>
                     <td width="60"> 
                     </td>
-                    <td>{{$supplier->supplierID}}</td>
+                    <td>{{$user->id}}</td>
                     <td>
-                        <a href="{{ route('editSupplier',['id'=>$supplier->id]) }}" style="color:black; text-decoration:none;">{{$supplier->supplierName}}</a>
+                        <a href="{{ route('editSupplier',['id'=>$user->id]) }}" style="color:black; text-decoration:none;">{{$user->name}}</a>
                     </td>
-                    <td>{{$supplier->contactPerson}}</td>
-                    <td>{{$supplier->status}}</td>
                     <td>
                         <Button type="button" class="addButton">
-                            <a href="{{ route('editSupplier',['id'=>$supplier->id]) }}" class="editCategory" title="Edit" data-toggle="tooltip">Edit</a>
+                            <a href="{{ route('editUser',['id'=>$user->id]) }}" class="editCategory" title="Edit" data-toggle="tooltip">Edit</a>
                         </Button>
 
                         <button type="button" class="deleteBtn">
-                            <a href="{{ route('deleteSupplier',['id'=>$supplier->id]) }}" class="deleteSupplier" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
+                            <a href="{{ route('deleteUser',['id'=>$user->id]) }}" class="deleteSupplier" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
                         </button>
                     </td>
                     </tr>

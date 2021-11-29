@@ -51,6 +51,8 @@
             <input type="hidden" class="form-control" id="productName" name="productName" value="{{$product->name}}">
             <tr>
                 <td width="50"> 
+                <input type="checkbox" name="cid[]" id="cid[]" value="" onclick="cal()" >
+                    <input type="hidden" name="subtotal[]" id="subtotal[]" value="">
                 </td>
                 <td class="link">
                     <div class="p-2">{{$product->productID}}</div>
@@ -60,7 +62,7 @@
                     <div>{{$product->name}}</div>
                 </td>
                 <td class="link">
-                    <div class="p-2">{{$product->unitPrice}}</div>
+                    <div class="p-2">RM {{$product->unitPrice}}.00</div>
                 </td>
                 <td class="link">
                     <div class="p-2"><input type="number" class="form-control" id="poProductQuantity" name="poProductQuantity" value=""></div>
@@ -80,6 +82,9 @@
         </tbody>
         
         </table>
+
+        
+
         </div>
 
         <div class="form-group addProRow4">

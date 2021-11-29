@@ -76,4 +76,16 @@ class SupplierController extends Controller
         Return redirect()->route('viewSupplier');
     }
 
+    public function searchSupplier(){
+        $r=request();
+        $keyword=$r->keyword;
+        $supplier=DB::table('suppliers')
+        ->where('suppliers.supplierID','like','%'.$keyword.'%') 
+        ->orWhere('suppliers.supplierName','like','%'.$keyword.'%')
+        //select * from products where name like '%$keyword%'
+        ->get();
+
+        Return view('admin.showSupplier')->with('supplier',$supplier);
+    }
+
 }

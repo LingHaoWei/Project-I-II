@@ -86,14 +86,15 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/editSupplier/{id}', [App\Http\Controllers\SupplierController::class, 'edit'])->name('editSupplier');
         Route::post('/updateSupplier', [App\Http\Controllers\SupplierController::class, 'update'])->name('updateSupplier');
         Route::get('/deleteSupplier/{id}', [App\Http\Controllers\SupplierController::class, 'delete'])->name('deleteSupplier');
+        Route::post('/showSupplier', [App\Http\Controllers\SupplierController::class, 'searchSupplier'])->name('search.supplier');
 
-        //Staff Route
-        Route::get('/showStaff', [App\Http\Controllers\StaffController::class, 'viewStaff'])->name('showStaff');
-        Route::post('/insertStaff/store', [App\Http\Controllers\StaffController::class, 'insert'])->name('addStaff');
-        Route::get('/insertStaff', [App\Http\Controllers\StaffController::class, 'staff'])->name('insertStaff');
-        Route::get('/editStaff/{id}', [App\Http\Controllers\StaffController::class, 'edit'])->name('editStaff');
-        Route::post('/updateStaff', [App\Http\Controllers\StaffController::class, 'update'])->name('updateStaff');
-        Route::get('/deleteStaff/{id}', [App\Http\Controllers\StaffController::class, 'delete'])->name('deleteStaff');
+        //User Route
+        Route::get('/viewUser', [App\Http\Controllers\UserController::class, 'viewUser'])->name('viewUser');
+        Route::post('/insertUser/store', [App\Http\Controllers\UserController::class, 'insert'])->name('insertUser');
+        Route::get('/editUser/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('editUser');
+        Route::post('/updateUser', [App\Http\Controllers\UserController::class, 'update'])->name('updateUser');
+        Route::get('/deleteUser/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('deleteUser');
+        Route::post('/showUser', [App\Http\Controllers\UserController::class, 'searchUser'])->name('search.user');
 
         //Purchase Order Route
         Route::get('/viewPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'view'])->name('viewPurchaseOrder');

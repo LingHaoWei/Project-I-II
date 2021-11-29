@@ -41,7 +41,7 @@
                     </td>
                     <td>{{$supplier->supplierID}}</td>
                     <td>
-                        <a href="{{ route('editSupplier',['id'=>$supplier->id]) }}" style="color:black; text-decoration:none;">{{$supplier->supplierName}}</a>
+                        {{$supplier->supplierName}}
                     </td>
                     <td>{{$supplier->contactPerson}}</td>
                     <td>{{$supplier->status}}</td>
