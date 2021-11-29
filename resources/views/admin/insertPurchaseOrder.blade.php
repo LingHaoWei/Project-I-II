@@ -41,6 +41,7 @@
                 <th scope="col"></th>
                 <th scope="col">ID</th>
                 <th scope="col">Product</th>
+                <th scope="col">Unit Price</th>
                 <th scope="col">Quantity</th>
                 </tr>
             </thead>
@@ -57,6 +58,9 @@
                 <td class="link">
                 <img src="{{asset('images/')}}/{{$product->image}}" alt="" width="60" height="50">
                     <div>{{$product->name}}</div>
+                </td>
+                <td class="link">
+                    <div class="p-2">{{$product->unitPrice}}</div>
                 </td>
                 <td class="link">
                     <div class="p-2"><input type="number" class="form-control" id="poProductQuantity" name="poProductQuantity" value=""></div>
