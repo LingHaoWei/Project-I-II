@@ -15,15 +15,14 @@ class CreatePurchaseOderRSTable extends Migration
     {
         Schema::create('purchase_oder_r_s', function (Blueprint $table) {
             $table->bigIncrements(column: 'id');
-            $table->string(column: 'invoiceNo');
-            $table->integer(column: 'total');
-            $table->integer(column: 'supplierID');
-            $table->integer(column: 'active');
-            $table->integer(column: 'status');
-            $table->integer(column: 'userModified');
-            $table->date(column: 'date');
-            $table->text(column: 'information')->nullable();
-            $table->timestamps();
+            $table->integer(column: 'purchase_order')->unsigned();
+            $table->integer(column: 'productID')->unsigned();
+            $table->double(column: 'unitPrice', total: 10, places: 2);
+
+            $table->foreign('purchase_orders')->references('id')->on('purchase_orders')->onDelete('cascade');
+            $table->foreign('products')->references('id')->on('products')->onDelete('restrict');
+                
+            $table->engine = 'InnoDB';
         });
     }
 

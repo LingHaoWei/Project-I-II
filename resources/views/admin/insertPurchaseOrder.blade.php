@@ -15,7 +15,7 @@
   
   <div class="form addProForm row">
       
-        <form method="POST" , action="#" enctype="multipart/form-data">
+        <form method="POST" , action="{{route('addPO')}}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" class="form-control" id="id" name="id" value="{{$supplier->id}}">
 
@@ -27,7 +27,7 @@
         </div>
 
         <div class="form-group addProRow2">
-        <label class="" for="supplierName">Company Name</label>
+        <label class="" for="supplierName">Supplier Name</label>
             <div class="">
                 <input type="text" class="form-control" id="SupplierName" name="SupplierName" style=" background:transparent;" value="{{$supplier->supplierName}}" readonly>
             </div>
@@ -51,8 +51,8 @@
             <input type="hidden" class="form-control" id="productName" name="productName" value="{{$product->name}}">
             <tr>
                 <td width="50"> 
-                <input type="checkbox" name="cid[]" id="cid[]" value="" onclick="cal()" >
-                    <input type="hidden" name="subtotal[]" id="subtotal[]" value="">
+                <!--<input type="checkbox" name="is_po[]" value="{{$product->productID}}" onclick="cal()" >
+                    <input type="hidden" name="subtotal[]" id="subtotal[]" value="">-->
                 </td>
                 <td class="link">
                     <div class="p-2">{{$product->productID}}</div>
@@ -65,7 +65,7 @@
                     <div class="p-2">RM {{$product->unitPrice}}.00</div>
                 </td>
                 <td class="link">
-                    <div class="p-2"><input type="number" class="form-control" id="poProductQuantity" name="poProductQuantity" value=""></div>
+                    <div class="p-2"><input type="number" class="form-control" id="poProductQuantity" name="poQty[]" value="0" ></div>
                 </td>
             </tr>
             @empty
@@ -88,14 +88,14 @@
         </div>
 
         <div class="form-group addProRow4">
-            <label class="" for="Supplier status">Status</label>
+            <!--<label class="" for="Supplier status">Status</label>
             <div class="">
                 <select name="status" class="form-control" required value="#">
                     <option value="">---Select Status---</option>
                     <option value="Available">Pending</option>
                     <option value="Unavailable">Complete</option>
                 </select>
-            </div>
+            </div>-->
             <div class="">
             <Button type="button" class="backBtn">
                 <a href="{{ route('chooseSupplier') }}" class="" title="Back" data-toggle="tooltip">Back</a>

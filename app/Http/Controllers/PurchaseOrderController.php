@@ -40,4 +40,13 @@ class PurchaseOrderController extends Controller
         return view('admin.insertPurchaseOrder',compact('docno','supplier','product'));
     }
 
+    public function store(Request $request){
+        try{
+            $data = $request->except(['_token,_method']);
+            dd($data);
+        } catch (\Exeption $e) {
+            \Session::flash('failed',$e->getMessage());
+        }
+    }
+
 }
