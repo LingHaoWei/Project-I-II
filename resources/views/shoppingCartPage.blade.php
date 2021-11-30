@@ -8,6 +8,13 @@
   padding: 3px 10px;
   border-radius: 10px;
 }
+.btn1 {
+  background-color: #00ff15;
+  border: none;
+  color: rgb(48, 72, 104);
+  padding: 3px 10px;
+  border-radius: 10px;
+}
 a{
     color: rgb(0, 0, 0);
 }
@@ -37,11 +44,18 @@ a{
                                 <td><img src="{{ asset('images/') }}/{{$cart->image}}" alt="" width="100"></td>
                                 <td><h5>{{$cart->name}}</h5></td>
                                 <td>{{$cart->price}}</td>
-                                <td>{{$cart->cartQty}}</td>
+
+                                <td> <form action="{{ route('updateCart') }}" method="POST"  enctype="multipart/form-data">
+                                @csrf
+                                    <input type="hidden" name="cid" id="cid" value="{{ $cart->cid }}">
+                                    <input type="number" name="quantity" id="quantity" size="2" maxlength="12" value="{{ $cart->cartQty }}"  class="input-text qty" max="{{ $cart->quantity }}" min="1">
+                                    <button type="submit" class="button btn1">update</button>
+                                </form></td>
+
                                 <td>RM{{$cart->price*$cart->cartQty}}</td>
                                 <td>
                                     <button type="button" class="deleteCart">
-                                        <a href="{{ route('deleteCart',['id'=>$cart->cid]) }}" class="deleteCart" title="Delete" data-toggle="tooltip">Delete</a>
+                                        <a href="{{ route('deleteCart',['id'=>$cart->cid]) }}" class="deleteCart" title="Delete" data-toggle="tooltip" value="update">Delete</a>
                                     </button>
                                 </td>
                           </tr>

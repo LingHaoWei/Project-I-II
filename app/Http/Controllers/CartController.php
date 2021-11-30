@@ -43,5 +43,15 @@ class CartController extends Controller
         $data->delete();
         Return redirect()->route('myCart');
     }
+    public function update()
+    {
+        $r=request();
+        $cart=Cart::find($r->cid);
+        $cart->quantity=$r->quantity;
+        $cart->save();
 
+        session()->flash('success', 'Item Cart is Updated Successfully !');
+
+        return redirect()->route('myCart');
+    }
 }
