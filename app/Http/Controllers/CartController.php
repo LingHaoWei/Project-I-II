@@ -25,8 +25,6 @@ class CartController extends Controller
         'productID'=>$r->productID,
         'userID'=>Auth::id(),
         ]);
-        $array = array('productID');
-        $array = array_unique($array);
         Return redirect()->route('shoppingShowProductPage');
     }
 
@@ -40,4 +38,20 @@ class CartController extends Controller
     Return view('shoppingCartPage')->with('carts',$carts);
     }
 
+    public function delete($id){
+        $data=Cart::find($id);
+        $data->delete();
+        Return redirect()->route('myCart');
+    }
+    public function update()
+    {
+        $r=request();
+        $cart=Cart::find($r->cid);
+        $cart->quantity=$r->quantity;
+        $cart->save();
+
+        session()->flash('success', 'Item Cart is Updated Successfully !');
+
+        return redirect()->route('myCart');
+    }
 }
