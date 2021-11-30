@@ -20,6 +20,15 @@ a{
 }
 </style>
 <!--================Cart Area =================-->
+@if(Session::has('success'))
+
+    <div class="alert alert-success" role="alert">
+
+        {{Session::get('success')}}
+
+    </div>
+
+@endif
 <section class="cart_area">
       <div class="container">
           <div class="cart_inner">
