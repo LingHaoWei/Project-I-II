@@ -9,13 +9,7 @@ class purchaseOderR extends Model
 {
     use HasFactory;
 
-    protected $fillable=['invoiceNo','total','supplierID','active','status','userModified','date','information'];
-
-    public function userModify(){
-        return $this->belongsTo('App\Models\Admin', foreignKey: 'userModified');
-    }
-
-    public function supplier(){
-        return $this->belongsTo('App\Models\Supplier', foreignKey: 'supplierID');
-    }
+    protected $table = 'purchase_oder_r_s';
+    public $timestamps = false;
+    
 }

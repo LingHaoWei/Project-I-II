@@ -17,7 +17,7 @@
       
         <form method="POST" , action="{{route('addPO')}}" enctype="multipart/form-data">
         @csrf
-        <input type="hidden" class="form-control" id="id" name="id" value="{{$supplier->id}}">
+        <input type="hidden" class="form-control" id="SupplierID" name="SupplierID" name="SupplierID" value="{{$supplier->id}}">
 
         <div class="form-group addProRow1">
             <label class="" for="Document No">Document No</label>
@@ -47,8 +47,6 @@
             </thead>
         <tbody>
         @forelse($product as $product)
-            <input type="hidden" class="form-control" id="productID" name="productID" value="{{$product->productID}}">
-            <input type="hidden" class="form-control" id="productName" name="productName" value="{{$product->name}}">
             <tr>
                 <td width="50"> 
                 <!--<input type="checkbox" name="is_po[]" value="{{$product->productID}}" onclick="cal()" >
@@ -62,6 +60,8 @@
                     <div>{{$product->name}}</div>
                 </td>
                 <td class="link">
+                    <input type="hidden" class="form-control" id="productID" name="product[]" value="{{$product->productID}}">
+
                     <div class="p-2">RM {{$product->unitPrice}}.00</div>
                 </td>
                 <td class="link">
