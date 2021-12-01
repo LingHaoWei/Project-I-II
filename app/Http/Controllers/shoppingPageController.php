@@ -8,6 +8,7 @@ use App\Models\category;
 use App\Models\brand;
 use App\Models\Supplier;
 use Session;
+use Auth;
 use DB;
 
 class shoppingPageController extends Controller
@@ -32,14 +33,16 @@ class shoppingPageController extends Controller
                                               ->with('brandID',brand::all());
 
     }
-    
+
     public function viewDetails($id){
         $products=product::all()->where('id',$id);
+        $uid=Auth::id();
         //select * from where id='$id'
 
-        Return view('shoppingShowProductDetails')->with('products',$products)
+        Return view('shoppingShowProductDetails',compact('uid'))->with('products',$products)
                                                  ->with('categoryID',category::all())
                                                  ->with('brandID',brand::all());
+
     }
 
     public function searchProduct(){
@@ -54,7 +57,7 @@ class shoppingPageController extends Controller
             'products.*','categories.id as catid','categories.name as catname',
             'products.*','brands.id as brandid','brands.name as brandname'
             )
-        ->where('products.productID','like','%'.$keyword.'%') 
+        ->where('products.productID','like','%'.$keyword.'%')
         ->orWhere('products.name','like','%'.$keyword.'%')
         ->orWhere('products.categoryID','like','%'.$keyword.'%')
         ->orWhere('products.brandID','like','%'.$keyword.'%')

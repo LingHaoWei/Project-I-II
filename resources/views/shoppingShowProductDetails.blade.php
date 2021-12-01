@@ -48,7 +48,7 @@
                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
 
 						</div><br>
-                        <input type="hidden" class="form-control" id="productID" name="productID" value="{{$product->productID}}">
+                        <input type="hidden" class="form-control" id="productID" name="productID" value="{{$product->productID}}-{{ $uid }}">
                         <button type="submit" class="button button--active button-review">Add to cart</button>
 						<div class="card_area d-flex align-items-center">
 						</div>
