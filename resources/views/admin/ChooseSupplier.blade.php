@@ -25,7 +25,7 @@
                     
                     <label class="" for="Supplier ID">Supplier</label>
                     <div class="">
-                    <select name="supplier" id="supplier" class="form-control selectSupplier" >
+                    <select name="chooseSupplier" id="supplier" class="form-control chooseSupplier" >
 
                         <option selected="" disabled="">---Select Supplier---</option>
 
@@ -63,7 +63,7 @@
 <script>
     $(document).ready(function(){
 
-        $("select[name='supplier']").change(function(e){
+        $(".chooseSupplier").click(function(e){
         var id_supplier = $(this).val();
         var url = "{{ url('admin/insertPurchaseOrder') }}"+'/'+id_supplier;
 
