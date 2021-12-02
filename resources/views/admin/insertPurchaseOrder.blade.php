@@ -24,15 +24,16 @@
             <div class="">
                 <input type="text" class="form-control" id="DocumentNo" name="DocumentNo" value="{{$docno}}" readonly>
             </div>
-        </div>
-
-        <div class="form-group addProRow2">
-        <label class="" for="supplierName">Supplier Name</label>
+            <label class="" for="supplierName">Supplier Name</label>
             <div class="">
                 <input type="text" class="form-control" id="SupplierName" name="SupplierName" style=" background:transparent;" value="{{$supplier->supplierName}}" readonly>
             </div>
         </div>
         @endforeach
+        <div class="form-group addProRow2">
+        
+        </div>
+        
         
         <div class="form-group addProRow3">
         <table class="table">
