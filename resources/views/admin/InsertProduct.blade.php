@@ -84,7 +84,7 @@
                     <div class="">
                     <select name="SupplierID" id="SupplierID" class="form-control">
 
-                        <option value="">---Select Brand---</option>
+                        <option value="">---Select Supplier---</option>
 
                         @foreach($SupplierID as $supplier)
 

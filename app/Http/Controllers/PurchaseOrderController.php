@@ -27,10 +27,11 @@ class PurchaseOrderController extends Controller
     }
 
     public function chooseSupplier(){
+        $docno = 'PO-'.rand();
 
         $supplier = Supplier::orderBy('supplierName','asc')->get();
 
-        return view('admin.purchaseOrderCSP',compact('supplier'));
+        return view('admin.purchaseOrderCSP',compact('docno','supplier'));
     }
 
     public function getProduct($id){
