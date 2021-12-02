@@ -13,6 +13,11 @@
     }
     </style>
   <!--================Single Product Area =================-->
+  @if (count($errors) > 0)
+  <div class="alert alert-danger">
+      Product already exists in cart
+  </div>
+@endif
   <div class="product_image_area">
 		<div class="container">
 			<div class="row s_product_inner">
@@ -48,7 +53,8 @@
                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
 
 						</div><br>
-                        <input type="hidden" class="form-control" id="productID" name="productID" value="{{$product->productID}}-{{ $uid }}">
+                        <input type="hidden" class="form-control" id="productID" name="productID" value="{{$product->productID}}">
+                        <input type="hidden" class="form-control" id="productCartID" name="productCartID" value="{{$product->productID}}-{{ $uid }}">
                         <button type="submit" class="button button--active button-review">Add to cart</button>
 						<div class="card_area d-flex align-items-center">
 						</div>
