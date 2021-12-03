@@ -9,7 +9,7 @@
 
 <div class="content" id="pwrapper1">
   <div class="">
-        @foreach($supplier as $supplier)
+        
           <div class="pageTopic addPro"><h2>Fill in Details</h2></div>
   </div>
   
@@ -17,6 +17,7 @@
       
         <form method="POST" , action="{{route('addPO')}}" enctype="multipart/form-data">
         @csrf
+        @foreach($supplier as $supplier)
         <input type="hidden" class="form-control" id="SupplierID" name="SupplierID" name="SupplierID" value="{{$supplier->id}}">
 
         <div class="form-group addProRow1">
@@ -99,7 +100,7 @@
             </div>-->
             <div class="">
             <Button type="button" class="backBtn">
-                <a href="{{ route('chooseSupplier') }}" class="" title="Back" data-toggle="tooltip">Back</a>
+                <a href="{{ route('selectSupplier') }}" class="" title="Back" data-toggle="tooltip">Back</a>
             </Button>
             <button type="submit" class="subBtn" title="Submit">Submit</button>
             </div>

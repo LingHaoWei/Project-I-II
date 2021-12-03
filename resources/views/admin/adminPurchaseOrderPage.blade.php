@@ -15,7 +15,7 @@
             <div class="addProBtn">
                 <div class="p-3">
                     <Button type="button" class="addButton">
-                        <a href="{{route('chooseSupplier')}}" class="addProduct" title="New" data-toggle="tooltip">+Add Purchase Order</a>
+                        <a href="{{route('selectSupplier')}}" class="addProduct" title="New" data-toggle="tooltip">+Add Purchase Order</a>
                     </Button>
                 </div>
             </div>

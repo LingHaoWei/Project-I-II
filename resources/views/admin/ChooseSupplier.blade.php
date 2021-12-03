@@ -13,7 +13,7 @@
       </div>
 
         <div class="form addProForm">
-            <form method="POST", action="{{ route('addProduct') }}" enctype="multipart/form-data">
+            <form method="POST", action="#" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group addProRow1">
@@ -25,13 +25,13 @@
                     
                     <label class="" for="Supplier ID">Supplier</label>
                     <div class="">
-                    <select name="chooseSupplier" id="supplier" class="form-control chooseSupplier" >
+                    <select name="chooseSupplier" id="chooseSupplier" class="form-control chooseSupplier" onchange="window.location.href=this.options[this.selectedIndex].value;">
 
                         <option selected="" disabled="">---Select Supplier---</option>
 
                         @foreach($supplier as $supplier)
 
-                        <option value="{{$supplier->supplierID}}">{{$supplier->supplierName}}</option>
+                        <a href=""><option value="{{ route('getProduct',['id'=>$supplier->supplierID]) }}">{{$supplier->supplierName}}</option></a>
 
                         @endforeach
 
@@ -49,7 +49,9 @@
                 </div>
 
                 <div class="form-group addProRow4">
-
+                    <Button type="button" class="backBtn">
+                        <a href="{{ route('viewPurchaseOrder') }}" class="" title="Back" data-toggle="tooltip">Back</a>
+                    </Button>
                     <button type="submit" class="subBtn" title="Submit">Submit</button>
                     
                 </div>
@@ -60,17 +62,6 @@
         </div>
 </div>
 
-<script>
-    $(document).ready(function(){
-
-        $(".chooseSupplier").click(function(e){
-        var id_supplier = $(this).val();
-        var url = "{{ url('admin/insertPurchaseOrder') }}"+'/'+id_supplier;
-
-        window.location.heref = url;
-        })
-
-    })
-</script>
 
 @endsection
+
