@@ -17,14 +17,16 @@ class CartController extends Controller
 
     public function add(Request $r){
         $r->validate([
-            'productID'=>'required|unique:carts',
+            'productCartID'=>'required|unique:carts',
         ]);
         $addItem=Cart::create([
         'quantity'=>$r->quantity,
         'orderID'=>'',
         'productID'=>$r->productID,
+        'productCartID'=>$r->productCartID,
         'userID'=>Auth::id(),
         ]);
+        session()->flash('error');
         Return redirect()->route('shoppingShowProductPage');
     }
 
