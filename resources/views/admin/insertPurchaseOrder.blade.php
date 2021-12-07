@@ -31,15 +31,16 @@
             </div>
         </div>
         @endforeach
+        
         <div class="form-group addProRow2">
-        
+
         </div>
-        
         
         <div class="form-group addProRow3">
         <table class="table">
             <thead>
                 <tr>
+                <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col">ID</th>
                 <th scope="col">Product</th>
@@ -48,45 +49,33 @@
                 </tr>
             </thead>
         <tbody>
-        @forelse($product as $product)
+        
             <tr>
                 <td width="50"> 
-                <!--<input type="checkbox" name="is_po[]" value="{{$product->productID}}" onclick="cal()" >
-                    <input type="hidden" name="subtotal[]" id="subtotal[]" value="">-->
+                
+                </td>
+                <td > 
+                    
                 </td>
                 <td class="link">
-                    <div class="p-2">{{$product->productID}}</div>
+                    
                 </td>
                 <td class="link">
-                <img src="{{asset('images/')}}/{{$product->image}}" alt="" width="60" height="50">
-                    <div>{{$product->name}}</div>
+                
                 </td>
                 <td class="link">
-                    <input type="hidden" class="form-control" id="productID" name="product[]" value="{{$product->productID}}">
+                    
 
-                    <div class="p-2">RM {{$product->unitPrice}}.00</div>
+                    
                 </td>
                 <td class="link">
-                    <div class="p-2"><input type="number" class="form-control" id="poProductQuantity" name="poQty[]" value="0" ></div>
+                    
                 </td>
             </tr>
-            @empty
-            <tr>
-                <td width="50"> 
-                </td>
-                <td class="link">
-                    no such product
-                </td>
-            </tr>
-            
-        @endforelse
         
         </tbody>
         
         </table>
-
-        
-
         </div>
 
         <div class="form-group addProRow4">
