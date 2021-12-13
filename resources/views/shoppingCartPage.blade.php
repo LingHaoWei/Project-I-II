@@ -1,5 +1,6 @@
 @extends('shoppingPageLayout')
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 .deleteCart {
   background-color: #f44336;
@@ -33,6 +34,9 @@ a{
       <div class="container">
           <div class="cart_inner">
               <div class="table-responsive">
+                  <form action="{{ route('payment.post') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
+                        @csrf
+
                   <table class="table ">
                       <thead>
                           <tr>
@@ -45,6 +49,7 @@ a{
                               <th>Actions</th>
                           </tr>
                       </thead>
+
                       <tbody>
                         @foreach($carts as $cart)
                           <tr>
@@ -72,14 +77,56 @@ a{
                           <tr>
                             <td colspan="4"></td>
                             <td>Total Amount</td>
-                            <td>RM<input type="text" id="sub" name="sub" value="0" style="border:none; background:transparent"  readonly></td>
+                            <td>RM<input type="text" id="sub1" name="sub1" value="0" style="border:none; background:transparent"  readonly></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <div class="panel panel-default credit-card-box">
+                                <p><b>Billing Details</b></p><br>
+
+                                <label class='control-label'>Name on Card</label>
+                                <input class='form-control' size='4' type='text'>
+
+                                <label class='control-label'>Card Number</label>
+                                <input autocomplete='off' class='form-control card-number' size='20' type='text'>
+
+                                <label class='control-label'>CVC</label>
+                                <input autocomplete='off' class='form-control card-cvc' placeholder='ex. 311' size='4' type='text'>
+
+                                <label class='control-label'>Expiration Month</label>
+                                <input class='form-control card-expiry-month' placeholder='MM' size='2' type='text'>
+
+                                <label class='control-label'>Expiration Year</label>
+                                <input class='form-control card-expiry-year' placeholder='YYYY' size='4' type='text'>
+
+                                <p>Delivery Address</p>
+                                <textarea class="form-control" name="address" id="address" rows="5" value="{{ $cart->address }}">{{ $cart->address }}</textarea>
+
+                                <p>Contact Number</p>
+                                <input class='form-control' type="text" name="contact" id="contact" value="{{ $cart->contact }}">
+                                <br>
+                                <p>Total: <input type="text" id="sub" name="sub" value="0" style="border:none; background:transparent"  readonly></p>
+                                <button type="submit" class="button button--active button-review">Pay Now</button>
+                            </div></td>
+                            <td>
+                                <p><b>Shipping fee</b></p>
+                                <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" checked>
+                                <label for="1">Flat Rate: RM5.00</label><br>
+                                <input type="radio" name="shipping" id="shipping" value="0" onclick="cal()" >
+                                <label for="1">Free Shipping</label><br>
+                                <input type="radio" name="shipping" id="shipping" value="2" onclick="cal()" >
+                                <label for="1">Local Delivery: RM2.00</label>
+                            </td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td colspan="5" style='border:none;'></td>
-                            <td style='border:none;'><button type="submit" class="button button--active button-review">Checkout</button></td>
                         </tr>
                       </tbody>
+
                   </table>
+                </form>
               </div>
           </div>
       </div>
@@ -91,15 +138,73 @@ a{
         var subtotal = 0;
         var tax = 0;
         var total = 0;
-        var cboxes = document.getElementsByName('cid[]')
+        var shipping = document.getElementsByName('shipping');
+        var cboxes = document.getElementsByName('cid[]');
         var len = cboxes.length;
         for(var i=0; i<len; i++){
             if(cboxes[i].checked){
                 subtotal=parseFloat(names[i].value)+parseFloat(subtotal);
             }
         }
+        //var e = $("input:radio[name ='shipping']:checked").val(shipping);
+        for (var i = 0, length = shipping.length; i < length; i++) {
+        if (shipping[i].checked) {
+            subtotal = parseFloat(shipping[i].value) + parseFloat(subtotal);
+            }
+        }
         //document.getElementById('sub').innerHTML=subtotal.toFixed(2);
         document.getElementById('sub').value=subtotal.toFixed(2); //teacher's example
+        document.getElementById('sub1').value=subtotal.toFixed(2);
     }
+</script>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+$(function() {
+  var $form = $(".require-validation");
+  $('form.require-validation').bind('submit', function(e) {
+    var $form = $(".require-validation"),
+    inputSelector = ['input[type=email]', 'input[type=password]', 'input[type=text]', 'input[type=file]', 'textarea'].join(', '),
+    $inputs = $form.find('.required').find(inputSelector),
+    $errorMessage = $form.find('div.error'),
+    valid = true;
+    $errorMessage.addClass('hide');
+    $('.has-error').removeClass('has-error');
+    $inputs.each(function(i, el) {
+        var $input = $(el);
+        if ($input.val() === '') {
+            $input.parent().addClass('has-error');
+            $errorMessage.removeClass('hide');
+            e.preventDefault();
+        }
+    });
+    if (!$form.data('cc-on-file')) {
+      e.preventDefault();
+      Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+      Stripe.createToken({
+          number: $('.card-number').val(),
+          cvc: $('.card-cvc').val(),
+          exp_month: $('.card-expiry-month').val(),
+          exp_year: $('.card-expiry-year').val()
+      }, stripeResponseHandler);
+    }
+  });
+
+  function stripeResponseHandler(status, response) {
+      if (response.error) {
+          $('.error')
+              .removeClass('hide')
+              .find('.alert')
+              .text(response.error.message);
+      } else {
+          /* token contains id, last4, and card type */
+          var token = response['id'];
+          $form.find('input[type=text]').empty();
+          $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+          $form.get(0).submit();
+      }
+  }
+});
+
 </script>
 @endsection

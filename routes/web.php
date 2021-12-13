@@ -38,6 +38,8 @@ Route::get('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageControl
 Route::get('/shoppingShowProductDetails/{id}', [App\Http\Controllers\shoppingPageController::class, 'viewDetails'])->name('shoppingShowProductDetails');
 Route::post('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageController::class, 'searchProduct'])->name('search.product');
 
+Route::post('\checkout', [App\Http\Controllers\OrderController::class, 'paymentPost'])->name('payment.post');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -103,7 +105,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/chooseSupplier', [App\Http\Controllers\PurchaseOrderController::class, 'chooseSupplier'])->name('chooseSupplier');
         Route::get('/insertPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'selectSupplier'])->name('selectSupplier');
         Route::get('/insertPurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'getProduct'])->name('getProduct');
-        
+
         Route::post('/addPO', [App\Http\Controllers\PurchaseOrderController::class, 'store'])->name('addPO');
 
         //admin logout

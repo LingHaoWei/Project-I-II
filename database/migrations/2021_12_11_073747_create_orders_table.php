@@ -19,6 +19,8 @@ class CreateOrdersTable extends Migration
             $table->string('paymentStatus');
             $table->string('userID');
             $table->double('amount',8,2);
+            $table->string('address');
+            $table->string('contact');
             $table->timestamps();
         });
     }
