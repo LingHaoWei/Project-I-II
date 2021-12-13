@@ -27,21 +27,13 @@ class PurchaseOrderController extends Controller
 
     }
 
-    public function chooseSupplier(){
-        $docno = 'PO-'.rand();
-
-        $supplier = Supplier::orderBy('supplierName','asc')->get();
-
-        return view('admin.purchaseOrderCSP',compact('docno','supplier'));
-    }
-
-    public function selectSupplier(){
+    public function insertPO(){
         $docno = 'PO-'.rand();
 
         $supplier = Supplier::orderBy('supplierName','asc')->get();
         $product = product::orderBy('name','asc')->get();
 
-        return view('admin.ChooseSupplier',compact('docno','supplier','product'));
+        return view('admin.insertPurchaseOrder',compact('docno','supplier','product'));
     }
 
     public function getProduct($id){
@@ -49,7 +41,7 @@ class PurchaseOrderController extends Controller
         $supplier = Supplier::where('supplierID',$id)->get();
         $product = product::where('supplierID',$id)->get();
 
-        return view('admin.insertPurchaseOrder',compact('docno','supplier','product'));
+        return view('admin.insertPO',compact('docno','supplier','product'));
     }
 
     public function store(Request $request){

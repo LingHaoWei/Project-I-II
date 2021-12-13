@@ -100,7 +100,7 @@ Route::group(['prefix' => 'admin'], function() {
 
         //Purchase Order Route
         Route::get('/viewPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'view'])->name('viewPurchaseOrder');
-        Route::get('/insertPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'selectSupplier'])->name('selectSupplier');
+        Route::get('/insertPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'insertPO'])->name('insertPO');
         Route::get('/insertPurchaseOrder/{supplier}', [App\Http\Controllers\PurchaseOrderController::class, 'getProduct'])->name('getProduct');
         
         Route::post('/addPO', [App\Http\Controllers\PurchaseOrderController::class, 'store'])->name('addPO');
