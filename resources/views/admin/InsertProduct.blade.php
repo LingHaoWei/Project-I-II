@@ -37,6 +37,20 @@
                     <div class="">
                         <input type="file" class="form-control" id="product-image" name="product-image">
                     </div>
+                    <label class="" for="Supplier ID">Supplier</label>
+                    <div class="">
+                    <select name="SupplierID" id="SupplierID" class="form-control">
+
+                        <option value="">---Select Supplier---</option>
+
+                        @foreach($SupplierID as $supplier)
+
+                        <option value="{{$supplier->supplierID}}">{{$supplier->supplierName}}</option>
+
+                        @endforeach
+
+                    </select>
+                    </div>
                 </div>
 
                 <div class="form-group addProRow2">
@@ -80,20 +94,7 @@
 
                     </select>
                     </div>
-                    <label class="" for="Supplier ID">Supplier</label>
-                    <div class="">
-                    <select name="SupplierID" id="SupplierID" class="form-control">
-
-                        <option value="">---Select Supplier---</option>
-
-                        @foreach($SupplierID as $supplier)
-
-                        <option value="{{$supplier->supplierID}}">{{$supplier->supplierName}}</option>
-
-                        @endforeach
-
-                    </select>
-                    </div>
+                    
                 </div>
 
                 <div class="form-group addProRow3">

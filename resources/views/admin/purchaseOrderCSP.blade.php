@@ -113,4 +113,65 @@
   </div>
 </div>
 
+<script>    
+$(document).ready(function(){
+
+var count = 1;
+
+dynamic_field(count);
+
+function dynamic_field(number){
+    var html = '<tr>';
+    html += '<td><input type="text" name="productName[]" /></td>';
+    html += '<td><input type="text" name="unitPrice[]" /></td>';
+    html += '<td><input type="text" name="quantity[]" /></td>';
+    if(number > 1){
+        html += '<td><button type="button" name="remove" id="remove" class="subBtn">Remove</button></td></tr>';
+        $('tbody').append(html);
+    }
+    else{
+        html += '<td><button type="button" name="add" id="add" class="subBtn">Add</button></td></tr>';
+        $('tbody').html(html);
+    }
+}
+
+$('#add').click(function(){
+    count++;
+    dynamic_field(count);
+});
+
+$(document).on('click', '#remove', function(){
+    count--;
+    dynamic_field(count);
+});
+
+$('#dynamic_form').on('submit', function(event){
+    event.preventDefault();
+    $.ajax({
+        url:'{{route("addPO")}}',
+        method:'post',
+        data:$(this).serialize(),
+        dataType:'json',
+        beforeSend:function(){
+            $('save').attr('disabled','disabled');
+        },
+        success:function(data){
+            if(data.error){
+                var error_html = '';
+                for(car count = 0; count < data.error.length; count++){
+                    error_html += '<p>'+data.error[count]+'</p>';
+                }
+                $('#result').html('<div class="">'+error_html+'</div>');
+            }
+            else{
+                dynamic_field(1);
+                $('#result').html('<div class="">'+data.success+'</div>');
+            }
+            $('#save').attr('disabled', false);
+        }
+    })
+});
+
+});</script>
+
 @endsection

@@ -9,6 +9,7 @@ use App\Models\brand;
 use App\Models\Supplier;
 use App\Models\purchaseOrder;
 use App\Models\purchaseOderR;
+use Validator;
 use Session;
 use DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
@@ -38,8 +39,9 @@ class PurchaseOrderController extends Controller
         $docno = 'PO-'.rand();
 
         $supplier = Supplier::orderBy('supplierName','asc')->get();
+        $product = product::orderBy('name','asc')->get();
 
-        return view('admin.ChooseSupplier',compact('docno','supplier'));
+        return view('admin.ChooseSupplier',compact('docno','supplier','product'));
     }
 
     public function getProduct($id){
