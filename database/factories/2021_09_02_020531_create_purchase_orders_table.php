@@ -16,10 +16,6 @@ class CreatePurchaseOrdersTable extends Migration
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->bigIncrements(column: 'id');
             $table->integer(column: 'supplierID')->unasigned();
-            $table->integer(column: 'productID')->unasigned();
-            $table->double(column: 'unitPrice', total: 10, places: 2)->unasigned();
-            $table->integer(column: 'quantity');
-
             
             $table->timestamps();
         });
