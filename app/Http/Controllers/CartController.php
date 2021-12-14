@@ -33,7 +33,8 @@ class CartController extends Controller
     public function showMyCart(){
         $carts=DB::table('carts')
         ->leftjoin('products','products.productID','=','carts.productID')
-        ->select('products.name as cartName','carts.id as cid','carts.quantity as cartQty', 'products.*')
+        ->leftjoin('users','users.id','=','carts.userID')
+        ->select('products.name as cartName','carts.id as cid','carts.quantity as cartQty', 'products.*','users.address as address','users.contact as contact')
         ->where('carts.orderID','=','')
         ->where('carts.userID','=',Auth::id())
         ->get();
