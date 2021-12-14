@@ -73,7 +73,7 @@ a{
                                     </button>
                                 </td>
                           </tr>
-                          @endforeach
+
                           <tr>
                             <td colspan="4"></td>
                             <td>Total Amount</td>
@@ -105,7 +105,7 @@ a{
 
                                 <p>Contact Number</p>
                                 <input class='form-control' type="text" name="contact" id="contact" value="{{ $cart->contact }}">
-                                <br>
+                                <br>@endforeach
                                 <p>Total: <input type="text" id="sub" name="sub" value="0" style="border:none; background:transparent"  readonly></p>
                                 <button type="submit" class="button button--active button-review">Pay Now</button>
                             </div></td>
