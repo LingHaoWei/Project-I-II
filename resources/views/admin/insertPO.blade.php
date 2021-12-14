@@ -18,10 +18,7 @@
         <form method="POST" , action="{{route('addPO')}}" enctype="multipart/form-data" id="dynamic_form">
         @csrf
         <div class="form-group addProRow1">
-            <label class="" for="Document No">Document No</label>
-            <div class="">
-                <input type="text" class="form-control" id="DocumentNo" name="DocumentNo" value="{{$docno}}" readonly>
-            </div>
+            
             @foreach($supplier as $supplier)
             <input type="hidden" class="form-control" id="SupplierID" name="SupplierID" name="SupplierID" value="{{$supplier->id}}">
             <label class="" for="supplierName">Supplier Name</label>
@@ -38,8 +35,10 @@
         
         
         <div class="form-group addProRow2">
-
-            
+            <label class="" for="Document No">Document No</label>
+            <div class="">
+                <input type="text" class="form-control" id="DocumentNo" name="DocumentNo" value="{{$docno}}" readonly>
+            </div>
         </div>
         
         <div class="form-group addProRow3">
@@ -62,7 +61,7 @@
                     <select name="chooseProduct" id="chooseProduct" class="form-control chooseProduct" onchange="this.options[this.selectedIndex];">
                         <option selected="" disabled="">---Select Product---</option>
                         @foreach($product as $product)
-                        <a href=""><option value="{{$product->productID}}">{{$product->productID}}</option></a>
+                        <a href=""><option value="{{$product->productID}}" data-price="{{$product->unitPrice}}">{{$product->name}} ({{$product->productID}})</option></a>
                         @endforeach
                         </select>
                     </td>
@@ -111,19 +110,21 @@
 
 function myFunction() {
     var count = 0;
+    
     var productID = $('#chooseProduct').find(":selected").val();
-  var table = document.getElementById("myTable");
-  var row = table.insertRow(count+1);
-  var cell1 = row.insertCell(0);
-  var cell2 = row.insertCell(1);
-  var cell3 = row.insertCell(2);
-  var cell4 = row.insertCell(3);
-  var cell5 = row.insertCell(4);
-  cell1.innerHTML = '<input type="checkbox" name="is_po[]" value="{{$product->productID}}" onclick="cal()" hidden>';
-  cell2.innerHTML = '<input type="hidden" class="form-control" id="productID" name="product[]" value="'+productID+'">' + productID + '</div>';
-  cell3.innerHTML = '<div class="p-2">RM {{$product->unitPrice}}.00</div>';
-  cell4.innerHTML = '<td><input type="text" name="quantity[]"  /></td>';
-  cell5.innerHTML = '<button type="button" class="deleteBtn" onclick="deleteRow(this)"><a href="#" class="deletePOProduct" title="Delete" data-toggle="tooltip"">Delete</a></button>';
+    var productUP = $('#chooseProduct').find(':selected').data('price');
+    var table = document.getElementById("myTable");
+    var row = table.insertRow(count+1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    cell1.innerHTML = '<input type="checkbox" name="is_po[]" value="{{$product->productID}}" onclick="cal()" hidden>';
+    cell2.innerHTML = '<input type="hidden" class="form-control" id="productID" name="product[]" value="'+productID+'">' + productID + '</div>';
+    cell3.innerHTML = '<div class="p-2">RM '+ productUP + '</div>';
+    cell4.innerHTML = '<div class="p-2"><input type="number" class="form-control" id="poProductQuantity" name="poQty[]" value="0" ></div>';
+    cell5.innerHTML = '<button type="button" class="deleteBtn" onclick="deleteRow(this)"><a href="#" class="deletePOProduct" title="Delete" data-toggle="tooltip"">Delete</a></button>';
 }
 
 function deleteRow(r) {
