@@ -66,7 +66,9 @@
                         @endforeach
                         </select>
                     </td>
-                    <td></td>
+                    <td>
+                        
+                    </td>
                     <td></td>
                     <td>
                     <button type="button" class="subBtn" onclick="myFunction()">Add</button>
@@ -117,7 +119,7 @@ function myFunction() {
   var cell3 = row.insertCell(2);
   var cell4 = row.insertCell(3);
   var cell5 = row.insertCell(4);
-  cell1.innerHTML = '<input type="checkbox" name="is_po[]" value="{{$product->productID}}" onclick="cal()" >';
+  cell1.innerHTML = '<input type="checkbox" name="is_po[]" value="{{$product->productID}}" onclick="cal()" hidden>';
   cell2.innerHTML = '<input type="hidden" class="form-control" id="productID" name="product[]" value="'+productID+'">' + productID + '</div>';
   cell3.innerHTML = '<div class="p-2">RM {{$product->unitPrice}}.00</div>';
   cell4.innerHTML = '<td><input type="text" name="quantity[]"  /></td>';
