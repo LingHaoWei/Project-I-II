@@ -28,7 +28,8 @@ class PurchaseOrderController extends Controller
     }
 
     public function insertPO(){
-        $docno = 'PO-'.rand();
+
+        $docno = null;
 
         $supplier = Supplier::orderBy('supplierName','asc')->get();
         $product = product::orderBy('name','asc')->get();
@@ -37,7 +38,8 @@ class PurchaseOrderController extends Controller
     }
 
     public function getProduct($id){
-        $docno = 'PO-'.rand();
+
+        $docno = 'PO-'.date('Y').'0001';
         $supplier = Supplier::where('supplierID',$id)->get();
         $product = product::where('supplierID',$id)->get();
 

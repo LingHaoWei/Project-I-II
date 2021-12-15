@@ -45,33 +45,29 @@
         <table class="table" id="myTable">
             <thead>
                 <tr>
-                <th scope="col" width="2%"></th>
-                <th scope="col" width="30%">Product</th>
-                <th scope="col">Unit Price</th>
-                <th scope="col" width="30%">Quantity</th>
-                <th scope="col" width="30%">Option</th>
+                <th scope="col" width="3%"></th>
+                <th scope="col" width="20%">Product</th>
+                <th scope="col" width="20%">Unit Price</th>
+                <th scope="col" width="20%">Quantity</th>
+                <th scope="col" width="20%">Total</th>
+                <th scope="col" width="20%">Option</th>
                 </tr>
             </thead>
         <tbody>
                     <tr>
-                    <td> 
-                    </td>
-
+                    <td></td>
                     <td>
                     <select name="chooseProduct" id="chooseProduct" class="form-control chooseProduct" onchange="this.options[this.selectedIndex];">
                         <option selected="" disabled="">---Select Product---</option>
                         @foreach($product as $product)
-                        <a href=""><option value="{{$product->productID}}" data-price="{{$product->unitPrice}}">{{$product->name}} ({{$product->productID}})</option></a>
+                        <a href=""><option value="{{$product->productID}}" data-name="{{$product->name}}" data-price="{{$product->unitPrice}}">{{$product->name}} ({{$product->productID}})</option></a>
                         @endforeach
                         </select>
                     </td>
-                    <td>
-                        
-                    </td>
                     <td></td>
-                    <td>
-                    <button type="button" class="subBtn" onclick="myFunction()">Add</button>
-                    </td>
+                    <td></td>
+                    <td></td>
+                    <td><button type="button" class="subBtn" onclick="myFunction(this)">Add</button></td>
                     </tr>
         </tbody>
         <tfoot>
@@ -108,23 +104,26 @@
 
 <script>
 
-function myFunction() {
-    var count = 0;
-    
+function myFunction(r) {
+    var i = r.parentNode.parentNode.rowIndex;
     var productID = $('#chooseProduct').find(":selected").val();
     var productUP = $('#chooseProduct').find(':selected').data('price');
+    var productName = $('#chooseProduct').find(':selected').data('name');
+    var productNum = $('#chooseProduct').find(':selected').data('no');
     var table = document.getElementById("myTable");
-    var row = table.insertRow(count+1);
+    var row = table.insertRow(table.rows.length);
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
-    cell1.innerHTML = '<input type="checkbox" name="is_po[]" value="{{$product->productID}}" onclick="cal()" hidden>';
-    cell2.innerHTML = '<input type="hidden" class="form-control" id="productID" name="product[]" value="'+productID+'">' + productID + '</div>';
+    var cell6 = row.insertCell(5);
+    cell1.innerHTML = '<input type="checkbox" name="is_po[]" value="{{$product->productID}}" onclick="cal()" hidden>'+i;
+    cell2.innerHTML = '<input type="hidden" class="form-control" id="productID" name="product[]" value="'+productID+'">' + productName + ' (' + productID + ') ' + '</div>';
     cell3.innerHTML = '<div class="p-2">RM '+ productUP + '</div>';
     cell4.innerHTML = '<div class="p-2"><input type="number" class="form-control" id="poProductQuantity" name="poQty[]" value="0" ></div>';
-    cell5.innerHTML = '<button type="button" class="deleteBtn" onclick="deleteRow(this)"><a href="#" class="deletePOProduct" title="Delete" data-toggle="tooltip"">Delete</a></button>';
+    cell5.innerHTML = '<div>Total</div>';
+    cell6.innerHTML = '<button type="button" class="deleteBtn" onclick="deleteRow(this)"><a href="#" class="deletePOProduct" title="Delete" data-toggle="tooltip"">X</a></button>';
 }
 
 function deleteRow(r) {
