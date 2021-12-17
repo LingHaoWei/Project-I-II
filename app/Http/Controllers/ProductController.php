@@ -45,7 +45,7 @@ class ProductController extends Controller
         
         $product=DB::table('products')
 
-        ->leftjoin('suppliers','suppliers.supplierID','=','products.SupplierID')
+        ->leftjoin('suppliers','suppliers.supplierID','=','products.supplierID')
         ->leftjoin('categories','categories.categoryID','=','products.categoryID')
         ->leftjoin('brands','brands.brandID','=','products.brandID')
         ->select(
@@ -53,7 +53,7 @@ class ProductController extends Controller
             'products.*','categories.name as catname',
             'products.*','brands.id as brandid','brands.name as brandname'
             )
-        ->orderByDesc('id')
+        
         ->paginate(6);
         
         Return view('admin.showProduct')->with('products',$product);

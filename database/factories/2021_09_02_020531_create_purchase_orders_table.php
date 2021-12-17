@@ -15,7 +15,9 @@ class CreatePurchaseOrdersTable extends Migration
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->bigIncrements(column: 'id');
-            $table->integer(column: 'supplierID')->unasigned();
+            $table->string(column: 'document_no');
+            $table->integer(column: 'supplierID');
+            $table->integer(column: 'status');
             
             $table->timestamps();
         });

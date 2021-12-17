@@ -50,7 +50,7 @@
                     <a href="#"><div class="p-2">{{$po->document_no}}</div></a>
                 </td>
                 <td class="link">
-                    <a href="{{ route('viewSupplier') }}"><div class="p-2">{{$po->supplierID}}</div></a>
+                    <a href="{{ route('viewSupplier') }}"><div class="p-2">{{$po->supname}}</div></a>
                 </td>
                 <td>
                     <Button type="button" class="editBtn">
@@ -79,7 +79,7 @@
 
 
     </div>
-
+    {{$purchaseOrder->links()}}
     
 
 @endsection

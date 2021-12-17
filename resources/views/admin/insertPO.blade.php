@@ -2,6 +2,9 @@
 @section('content')
 
 <style>
+    td .prc{
+        width: 200px;
+    }
 </style>
 
 <!--Page topic-->
@@ -37,7 +40,8 @@
         <div class="form-group addProRow2">
             <label class="" for="Document No">Document No</label>
             <div class="">
-                <input type="text" class="form-control" id="DocumentNo" name="DocumentNo" value="{{$docno}}" readonly>
+                <input type="text" class="form-control" id="DocumentNo" name="DocumentNo" value="" readonly>
+                <h5><i>*Leave this blank to Automatically Generate upon saving.</i><h5>
             </div>
         </div>
         
@@ -78,14 +82,14 @@
         </div>
 
         <div class="form-group addProRow4">
-            <!--<label class="" for="Supplier status">Status</label>
+            <label class="" for="Supplier status">Status</label>
             <div class="">
                 <select name="status" class="form-control" required value="#">
                     <option value="">---Select Status---</option>
                     <option value="Available">Pending</option>
                     <option value="Unavailable">Complete</option>
                 </select>
-            </div>-->
+            </div>
             <div class="">
             <Button type="button" class="backBtn">
                 <a href="{{ route('insertPO') }}" class="" title="Back" data-toggle="tooltip">Back</a>
@@ -111,7 +115,7 @@ function myFunction(r) {
     var productName = $('#chooseProduct').find(':selected').data('name');
     var productNum = $('#chooseProduct').find(':selected').data('no');
     var table = document.getElementById("myTable");
-    var row = table.insertRow(table.rows.length);
+    var row = table.insertRow(r.parentNode.parentNode.rowIndex);
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
@@ -121,15 +125,27 @@ function myFunction(r) {
     cell1.innerHTML = '<input type="checkbox" name="is_po[]" value="{{$product->productID}}" onclick="cal()" hidden>'+i;
     cell2.innerHTML = '<input type="hidden" class="form-control" id="productID" name="product[]" value="'+productID+'">' + productName + ' (' + productID + ') ' + '</div>';
     cell3.innerHTML = '<div class="p-2">RM '+ productUP + '</div>';
-    cell4.innerHTML = '<div class="p-2"><input type="number" class="form-control" id="poProductQuantity" name="poQty[]" value="0" ></div>';
-    cell5.innerHTML = '<div>Total</div>';
+    cell4.innerHTML = '<input type="number" class="form-control prc" id="poProductQuantity" name="poQty[]" value="0" />';
+    cell5.innerHTML = '<output id="total">RM</output>';
     cell6.innerHTML = '<button type="button" class="deleteBtn" onclick="deleteRow(this)"><a href="#" class="deletePOProduct" title="Delete" data-toggle="tooltip"">X</a></button>';
+
+    $(row).on('input','.prc',function(){
+    var totalSum = 0;
+    $('.form-group .prc').each(function(){
+        var inputVal = $(this).val();
+        if($.isNumeric(inputVal)){
+            totalSum = parseFloat(inputVal * productUP);
+        }
+    });
+    $(cell5).text('RM '+totalSum);
+    });
 }
 
 function deleteRow(r) {
   var i = r.parentNode.parentNode.rowIndex;
   document.getElementById("myTable").deleteRow(i);
 }
+
 
 
 </script>

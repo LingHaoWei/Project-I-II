@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Helpers\Helper;
 use App\Models\product;
 use App\Models\category;
 use App\Models\brand;
@@ -21,7 +22,13 @@ class PurchaseOrderController extends Controller
 
     public function view(){
 
-        $purchaseOrder = purchaseOrder::all();
+        $purchaseOrder = DB::table('purchase_orders')
+
+        ->leftjoin('suppliers','suppliers.id','=','purchase_orders.supplierID')
+        ->select(
+            'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
+            )
+        ->paginate(10);
 
         Return view('admin.adminPurchaseOrderPage',compact('purchaseOrder'));
 
@@ -39,7 +46,9 @@ class PurchaseOrderController extends Controller
 
     public function getProduct($id){
 
-        $docno = 'PO-'.date('Y').'0001';
+        $poVal = '0001';
+        $docno = 'PO-'.date('Y').$poVal;
+        $latestOrder = purchaseOrder::orderBy('created_at','DESC')->first();
         $supplier = Supplier::where('supplierID',$id)->get();
         $product = product::where('supplierID',$id)->get();
 
@@ -51,7 +60,7 @@ class PurchaseOrderController extends Controller
             $productID = $request->product;
             $quantity = $request->poQty;
 
-            $document_no = $request->DocumentNo;
+            $document_no = Helper::IDGenerator(new purchaseOrder, 'document_no', 4, 'PO'.date('Y'));
             $SupplierID = $request->SupplierID;
 
             $id_po = purchaseOrder::insertGetId([
