@@ -473,8 +473,16 @@ ul.pagination li a {
   width: 24%;
 }
 
+.printpoaddProRow4 {
+  width: 49%;
+}
+
 .addProRow5 {
   width: 74%;
+}
+
+.printpoaddProRow5 {
+  width: 49%;
 }
 
 .addProRow3 textarea {

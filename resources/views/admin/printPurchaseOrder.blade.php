@@ -9,6 +9,8 @@
     .poNotesArea textarea{
         width: 100%;
         height: 100px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 </style>
 
@@ -84,15 +86,12 @@
             
         </div>
 
-        <div class="form-group addProRow4">
+        <div class="form-group printpoaddProRow4">
         <label class="" for="PurchaseOrder Notes">Notes</label>
                     <div class="poNotesArea">
                         <textarea type="text" class="form-control" id="poNotes" name="poNotes" >{{$po->notes}}</textarea>
                     </div>
-            <label class="" for="Supplier status">Status</label>
-            <div class="">
-                <input type="text" class="form-control" id="SupplierName" name="SupplierName" style=" background:transparent;" value="{{$po->status}}" readonly>
-            </div>
+            
             <div class="">
             <Button type="button" class="backBtn">
                 <a href="{{ route('viewPurchaseOrder') }}" class="" title="Back" data-toggle="tooltip">Back</a>
@@ -101,8 +100,11 @@
             </div>
         </div>
         
-        <div class="form-group addProRow5">
-            
+        <div class="form-group printpoaddProRow5">
+            <label class="" for="Supplier status">Status</label>
+            <div class="">
+                <input type="text" class="form-control" id="SupplierName" name="SupplierName" style=" background:transparent;" value="{{$po->status}}" readonly>
+            </div>
         </div>
         @endforeach
         </form>
