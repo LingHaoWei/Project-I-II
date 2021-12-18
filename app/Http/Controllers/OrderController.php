@@ -42,12 +42,8 @@ class OrderController extends Controller
 
         $orderID=DB::table('orders')->where('userID','=',Auth::id())->orderBy('created_at','desc')->first();
 
-        $items=$request->input('cid');
-        foreach($items as $item=>$value){
-            $carts=Cart::find($value);  //get the item record
-            $carts->orderID=$orderID->id;
-            $carts->save();
-        }
+        $data=Cart::find($request->cid);
+        $data->delete();
 
 
         Session::flash('success','Order successfully!');

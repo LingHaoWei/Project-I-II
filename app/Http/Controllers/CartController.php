@@ -8,6 +8,7 @@ use Auth;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Illuminate\Http\Request;
 use App\Models\product;
+use App\Models\User;
 
 class CartController extends Controller
 {
@@ -30,7 +31,7 @@ class CartController extends Controller
         Return redirect()->route('shoppingShowProductPage');
     }
 
-    public function showMyCart(){
+    public function showMyCart(Request $r){
         $carts=DB::table('carts')
         ->leftjoin('products','products.productID','=','carts.productID')
         ->leftjoin('users','users.id','=','carts.userID')
@@ -38,7 +39,19 @@ class CartController extends Controller
         ->where('carts.orderID','=','')
         ->where('carts.userID','=',Auth::id())
         ->get();
-    Return view('shoppingCartPage')->with('carts',$carts);
+        $address=DB::table('users')
+        ->leftjoin('carts','carts.userID','=','users.id')
+        ->select('users.address as address')
+        ->where('carts.userID','=',Auth::id())
+        ->take(1)
+        ->get();
+        $contact=DB::table('users')
+        ->leftjoin('carts','carts.userID','=','users.id')
+        ->select('users.contact as contact')
+        ->where('carts.userID','=',Auth::id())
+        ->take(1)
+        ->get();
+    Return view('shoppingCartPage',compact('address','contact'))->with('carts',$carts);
     }
 
     public function delete($id){
