@@ -62,10 +62,14 @@ class PurchaseOrderController extends Controller
 
             $document_no = Helper::IDGenerator(new purchaseOrder, 'document_no', 4, 'PO'.date('Y'));
             $SupplierID = $request->SupplierID;
+            $status = $request->status;
+            $notes = $request->poNotes;
 
             $id_po = purchaseOrder::insertGetId([
                 'document_no' => $document_no,
                 'supplierID' => $SupplierID,
+                'status' =>  $status,
+                'notes' => $notes,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
@@ -93,6 +97,26 @@ class PurchaseOrderController extends Controller
             \Session::flash('failed',$e->getMessage());
         }
         Return redirect()->route('viewPurchaseOrder');
+    }
+
+    public function previewPrint($id){
+        $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
+                                                ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+                                                ->select(
+                                                    'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
+                                                    )
+                                                ->get();
+        
+        $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
+        ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
+        ->select(
+            'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
+            )
+        ->get();
+        
+        //select * from where id='$id'
+
+        return view('admin.printPurchaseOrder',compact('PurchaseOrder','PurchaseOrderR'));
     }
 
 }

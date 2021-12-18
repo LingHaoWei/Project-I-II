@@ -2,6 +2,13 @@
 @section('content')
 <style>
 
+.printPOBtn {
+  background-color: #5ab071;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+    
 </style>
 
 <!--Page topic-->
@@ -36,7 +43,7 @@
             <thead>
                 <tr>
                 <th scope="col"></th>
-                <th scope="col">Document No</th>
+                <th scope="col" >Document No</th>
                 <th scope="col">Vendor</th>
                 <th scope="col">Option</th>
                 </tr>
@@ -53,8 +60,12 @@
                     <a href="{{ route('viewSupplier') }}"><div class="p-2">{{$po->supname}}</div></a>
                 </td>
                 <td>
+                    <Button type="button" class="printPOBtn">
+                        <a href="{{ route('printPurchaseOrder',['id'=>$po->id]) }}" class="printPO" title="PrintPO" data-toggle="tooltip"><i class="fa fa-print"></i></a>
+                    </Button>
+
                     <Button type="button" class="editBtn">
-                        <a href="#" class="editProduct" title="Edit" data-toggle="tooltip">Edit</a>
+                        <a href="#" class="" title="Edit" data-toggle="tooltip">Edit</a>
                     </Button>
 
                     <button type="button" class="deleteBtn">

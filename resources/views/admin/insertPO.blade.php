@@ -5,6 +5,11 @@
     td .prc{
         width: 200px;
     }
+
+    .poNotesArea textarea{
+        width: 100%;
+        height: 100px;
+    }
 </style>
 
 <!--Page topic-->
@@ -41,7 +46,7 @@
             <label class="" for="Document No">Document No</label>
             <div class="">
                 <input type="text" class="form-control" id="DocumentNo" name="DocumentNo" value="" readonly>
-                <h5><i>*Leave this blank to Automatically Generate upon saving.</i><h5>
+                <h5><i>*This blank will Automatically Generate upon saving.</i><h5>
             </div>
         </div>
         
@@ -79,15 +84,21 @@
         </tfoot>
         
         </table>
+
+            
         </div>
 
         <div class="form-group addProRow4">
+        <label class="" for="PurchaseOrder Notes">Notes</label>
+                    <div class="poNotesArea">
+                        <textarea type="text" class="form-control" id="poNotes" name="poNotes" ></textarea>
+                    </div>
             <label class="" for="Supplier status">Status</label>
             <div class="">
                 <select name="status" class="form-control" required value="#">
                     <option value="">---Select Status---</option>
-                    <option value="Available">Pending</option>
-                    <option value="Unavailable">Complete</option>
+                    <option value="0">Pending</option>
+                    <option value="2">Fulfilled</option>
                 </select>
             </div>
             <div class="">

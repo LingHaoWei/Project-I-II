@@ -38,8 +38,8 @@
                 <div class="form-group addProRow2">
                     <label class="" for="Document No">Document No</label>
                     <div class="">
-                    <input type="text" class="form-control" id="DocumentNo" name="DocumentNo" value="{{$docno}}">
-                    <h5><i>*Leave this blank to Automatically Generate upon saving.</i><h5>
+                    <input type="text" class="form-control" id="DocumentNo" name="DocumentNo" value="{{$docno}}" readonly>
+                    <h5><i>*This blank will Automatically Generate upon saving.</i><h5>
                     </div>
                 </div>
 

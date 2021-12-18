@@ -113,6 +113,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/insertPurchaseOrder/{supplier}', [App\Http\Controllers\PurchaseOrderController::class, 'getProduct'])->name('getProduct');
 
         Route::post('/addPO', [App\Http\Controllers\PurchaseOrderController::class, 'store'])->name('addPO');
+        Route::get('/printPurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'previewPrint'])->name('printPurchaseOrder');
 
         //admin logout
         Route::get('/logout', [App\Http\Controllers\AdminController::class, 'logout'])->name('admin.logout');

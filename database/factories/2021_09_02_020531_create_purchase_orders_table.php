@@ -17,6 +17,7 @@ class CreatePurchaseOrdersTable extends Migration
             $table->bigIncrements(column: 'id');
             $table->string(column: 'document_no');
             $table->integer(column: 'supplierID');
+            $table->string(column: 'notes');
             $table->integer(column: 'status');
             
             $table->timestamps();
