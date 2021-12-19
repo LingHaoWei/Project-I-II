@@ -46,6 +46,10 @@ class OrderController extends Controller
         $data->delete();
 
 
+        $getQuantity = product::where(['productID'=>$data['productID']])->first();
+        $stock = $getQuantity['quantity']- $data['quantity'];
+        product::where(['productID'=>$data['productID']])->update(['quantity'=>$stock]);
+
         Session::flash('success','Order successfully!');
 
         return back();
