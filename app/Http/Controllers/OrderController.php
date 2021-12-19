@@ -42,13 +42,18 @@ class OrderController extends Controller
 
         $orderID=DB::table('orders')->where('userID','=',Auth::id())->orderBy('created_at','desc')->first();
 
-        $data=Cart::find($request->cid);
-        $data->delete();
+        $data = $request->all();
 
+        foreach ($data['cid'] as $i => $id) {
 
-        $getQuantity = product::where(['productID'=>$data['productID']])->first();
-        $stock = $getQuantity['quantity']- $data['quantity'];
-        product::where(['productID'=>$data['productID']])->update(['quantity'=>$stock]);
+            $pur=Cart::find($id);
+
+        $pur->delete();
+        $getQuantity = product::where(['productID'=>$pur['productID']])->first()->toArray();
+        $stock = $getQuantity['quantity']- $pur['quantity'];
+        product::where(['productID'=>$pur['productID']])->update(['quantity'=>$stock]);
+        }
+
 
         Session::flash('success','Order successfully!');
 
