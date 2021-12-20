@@ -17,8 +17,10 @@ class CreateOrderDetailsTable extends Migration
             $table->id();
             $table->string('orderID');
             $table->string('userID');
+            $table->string('name');
             $table->integer('quantity')->unsigned();
             $table->string('productID');
+            $table->timestamps();
         });
     }
 

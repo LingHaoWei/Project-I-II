@@ -53,7 +53,7 @@ a{
                       <tbody>
                         @foreach($carts as $cart)
                           <tr>
-                            <td><input type="checkbox" name="cid[]" id="cid[]" value="{{$cart->cid}}" onclick="cal()" >
+                            <td><input type="checkbox" class="form-check-input" name="cid[]" id="cid[]" value="{{$cart->cid}}" onclick="cal()" >
                                 <input type="hidden" name="subtotal[]" id="subtotal[]" value="{{ $cart->price*$cart->cartQty }}"> </td>
                                 <td><img src="{{ asset('images/') }}/{{$cart->image}}" alt="" width="100"></td>
                                 <td><h5>{{$cart->name}}</h5></td>
@@ -62,6 +62,8 @@ a{
                                 <td> <form action="{{ route('updateCart') }}" method="POST"  enctype="multipart/form-data">
                                 @csrf
                                     <input type="hidden" name="cid" id="cid" value="{{ $cart->cid }}">
+                                    <input type="hidden" name="id" id="id" value="{{ $cart->productID }}">
+                                    <input type="hidden" name="name" id="name" value="{{ $cart->name }}">
                                     <input type="number" name="quantity" id="quantity" size="2" maxlength="12" value="{{ $cart->cartQty }}"  class="input-text qty" max="{{ $cart->quantity }}" min="1">
                                     <button type="submit" class="button btn1">update</button>
                                 </form></td>

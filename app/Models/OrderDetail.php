@@ -7,10 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderDetail extends Model
 {
-    protected $fillable=['orderID','userID','quantity','productID'];
+    protected $fillable=['orderID','userID','name','quantity','productID'];
 
     public function user(){
         return $this->belongsTo('App\Models\User');
+    }
+    public function setProductAttribute($value)
+    {
+        $this->attributes['productID'] = json_encode($value);
+    }
+
+    public function getProductAttribute($value)
+    {
+        return $this->attributes['productID'] = json_decode($value);
     }
     use HasFactory;
 }
