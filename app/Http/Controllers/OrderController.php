@@ -42,11 +42,16 @@ class OrderController extends Controller
 
         $orderID=DB::table('orders')->where('userID','=',Auth::id())->orderBy('created_at','desc')->first();
 
-        $items=$request->input('cid');
-        foreach($items as $item=>$value){
-            $carts=Cart::find($value);  //get the item record
-            $carts->orderID=$orderID->id;
-            $carts->save();
+        $data = $request->all();
+
+        foreach ($data['cid'] as $i => $id) {
+
+            $pur=Cart::find($id);
+
+        $pur->delete();
+        $getQuantity = product::where(['productID'=>$pur['productID']])->first()->toArray();
+        $stock = $getQuantity['quantity']- $pur['quantity'];
+        product::where(['productID'=>$pur['productID']])->update(['quantity'=>$stock]);
         }
 
 

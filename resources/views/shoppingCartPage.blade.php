@@ -101,10 +101,13 @@ a{
                                 <input class='form-control card-expiry-year' placeholder='YYYY' size='4' type='text'>
 
                                 <p>Delivery Address</p>
-                                <textarea class="form-control" name="address" id="address" rows="5" value="{{ $cart->address }}">{{ $cart->address }}</textarea>
-
+                                @foreach($address as $ad)
+                                <textarea class="form-control" name="address" id="address" rows="5" value="{{$ad->address }}">{{ $ad->address }}</textarea>
+                                @endforeach
                                 <p>Contact Number</p>
-                                <input class='form-control' type="text" name="contact" id="contact" value="{{ $cart->contact }}">
+                                @foreach($contact as $co)
+                                <input class='form-control' type="text" name="contact" id="contact" value="{{ $co->contact }}">
+                                @endforeach
                                 <br>
                                 <p>Total: <input type="text" id="sub" name="sub" value="0" style="border:none; background:transparent"  readonly></p>
                                 <button type="submit" class="button button--active button-review">Pay Now</button>
