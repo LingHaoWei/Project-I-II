@@ -13,6 +13,7 @@ use App\Models\purchaseOderR;
 use Validator;
 use Session;
 use DB;
+use PDF;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Contracts\Session\Session as SessionSession;
 
@@ -70,8 +71,8 @@ class PurchaseOrderController extends Controller
                 'supplierID' => $SupplierID,
                 'status' =>  $status,
                 'notes' => $notes,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
+                'created_at' => date('Y-m-d'),
+                'updated_at' => date('Y-m-d')
             ]);
 
             foreach($quantity as $e=>$qt) {
@@ -101,11 +102,14 @@ class PurchaseOrderController extends Controller
 
     public function previewPrint($id){
         $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
-                                                ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
-                                                ->select(
-                                                    'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
-                                                    )
-                                                ->get();
+        ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+        ->select(
+        'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
+        'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
+        'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
+        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail'
+        )
+        ->get();
         
         $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
         ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
@@ -117,6 +121,18 @@ class PurchaseOrderController extends Controller
         //select * from where id='$id'
 
         return view('admin.printPurchaseOrder',compact('PurchaseOrder','PurchaseOrderR'));
+    }
+
+    function pdf(){
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->convert_po_to_html());
+    } 
+
+    function convert_po_to_html(){
+        $customer_data = $this->previewPrint();
+        $output = '
+        
+        ';
     }
 
 }

@@ -12,6 +12,20 @@
         margin-top: 10px;
         margin-bottom: 10px;
     }
+
+    .poStatus input {
+        outline: none;
+        border: none;
+    }
+
+    .addRow {
+        width: 99%;
+    }
+
+    .notesandstatus {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 </style>
 
 <!--Page topic-->
@@ -28,25 +42,54 @@
         <form method="POST" , action="{{route('addPO')}}" enctype="multipart/form-data" id="dynamic_form">
         @csrf
         @foreach($PurchaseOrder as $po)
-        <div class="form-group addProRow1">
-            
-            <label class="" for="supplierName">Supplier Name</label>
-            <div class="">
-                <input type="text" class="form-control" id="SupplierName" name="SupplierName" style=" background:transparent;" value="{{$po->supname}}" readonly>
-            </div>
-            
+        <div class="addRow">
+
             
 
-            <label for="choose product">Product</label>
+        </div>
+            
+            
+        <div class="form-group addProRow1">
+            
+            <div class="myAddress">
+            
+            My Sample Company Co.
+            <br>
+            info@sampleco.com
+            <br>
+            Sample Address, 23rd St., Sample City, ####
+            <br></br>
+
+            </div>
+
+            <div class="supAddress">
+            <br>
+            <b>Vendor: {{$po->supname}}</b><br>
+            {{$po->supadd}}, <br> 
+            {{$po->supcity}}, {{$po->supzipcode}}, {{$po->supstate}}.<br>
+            {{$po->supcp}} <br>
+            {{$po->supcn}} <br>
+            {{$po->supemail}} <br></br>
+            
+
+            </div>
 
         </div>
         
         
         <div class="form-group addProRow2">
-            <label class="" for="Document No">Document No</label>
+            <label class="" for="Document No"><b>P.O. No:</b></label>
             <div class="">
-                <input type="text" class="form-control" id="DocumentNo" name="DocumentNo" value="{{$po->document_no}}" readonly>
-                <h5><i>*This blank will Automatically Generate upon saving.</i><h5>
+                {{$po->document_no}}
+                <br></br>
+                <br>
+                
+            </div>
+            <label class="" for="Document No"><b>Date Created:</b></label>
+            <div class="">
+                {{$po->created_at}}
+                <br>
+                
             </div>
         </div>
         
@@ -62,7 +105,7 @@
                 <th scope="col" width="20%">Unit Price</th>
                 <th scope="col" width="20%">Quantity</th>
                 <th scope="col" width="20%">Total</th>
-                <th scope="col" width="20%"></th>
+                <th scope="col" width="20%">Grand Total</th>
                 </tr>
             </thead>
             @foreach($PurchaseOrderR as $por)
@@ -88,23 +131,19 @@
 
         <div class="form-group printpoaddProRow4">
         <label class="" for="PurchaseOrder Notes">Notes</label>
-                    <div class="poNotesArea">
-                        <textarea type="text" class="form-control" id="poNotes" name="poNotes" >{{$po->notes}}</textarea>
+                    <div class="poNotesArea notesandstatus">
+                        {{$po->notes}}
                     </div>
             
-            <div class="">
-            <Button type="button" class="backBtn">
-                <a href="{{ route('viewPurchaseOrder') }}" class="" title="Back" data-toggle="tooltip">Back</a>
-            </Button>
-            <button type="submit" class="subBtn" title="Submit">Submit</button>
-            </div>
         </div>
         
         <div class="form-group printpoaddProRow5">
             <label class="" for="Supplier status">Status</label>
-            <div class="">
-                <input type="text" class="form-control" id="SupplierName" name="SupplierName" style=" background:transparent;" value="{{$po->status}}" readonly>
+            <div class="poStatus notesandstatus" id="poStatus">
+                <input hidden value="{{$po->status}}" id="poVal"></input>
+                
             </div>
+
         </div>
         @endforeach
         </form>
@@ -114,6 +153,15 @@
 
 <script>
 
+
+var statusNum = document.getElementById("poVal");
+if (statusNum = 0) {
+    document.getElementById("poStatus").innerHTML = "Pending";
+} else if (statusNum = 1){
+    document.getElementById("poStatus").innerHTML = "Partially Fulfilled";
+} else {
+    document.getElementById("poStatus").innerHTML = "Fulfilled";
+}
 
 
 </script>
