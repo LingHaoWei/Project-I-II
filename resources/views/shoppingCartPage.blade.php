@@ -61,7 +61,7 @@ a{
 
                                 <td> <form action="{{ route('updateCart') }}" method="POST"  enctype="multipart/form-data">
                                 @csrf
-                                    <input type="hidden" name="cid" id="cid" value="{{ $cart->cid }}">
+                                    <input type="hidden" name="cid1" id="cid1" value="{{ $cart->cid }}">
                                     <input type="hidden" name="id" id="id" value="{{ $cart->productID }}">
                                     <input type="hidden" name="name" id="name" value="{{ $cart->name }}">
                                     <input type="number" name="quantity" id="quantity" size="2" maxlength="12" value="{{ $cart->cartQty }}"  class="input-text qty" max="{{ $cart->quantity }}" min="1">
@@ -116,12 +116,12 @@ a{
                             </div></td>
                             <td>
                                 <p><b>Shipping fee</b></p>
-                                <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" checked>
-                                <label for="1">Flat Rate: RM5.00</label><br>
-                                <input type="radio" name="shipping" id="shipping" value="0" onclick="cal()" >
+                                <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" disabled>
+                                <label for="1">East Malaysia: RM5.00</label><br>
+                                <input type="radio" name="shipping" id="shipping" value="0" onclick="cal()" disabled >
                                 <label for="1">Free Shipping</label><br>
-                                <input type="radio" name="shipping" id="shipping" value="2" onclick="cal()" >
-                                <label for="1">Local Delivery: RM2.00</label>
+                                <input type="radio" name="shipping" id="shipping" value="2" onclick="cal()" checked disabled>
+                                <label for="1">West Malaysia: RM2.00</label>
                             </td>
                             <td></td>
                         </tr>

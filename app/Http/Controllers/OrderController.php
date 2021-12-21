@@ -68,6 +68,7 @@ class OrderController extends Controller
             ]);
         }*/
         foreach($request->cid as $key=>$value){
+            $insert=Cart::find($value);
             $insert = [
                 'orderID'=>'',
                 'userID'=>Auth::id(),
