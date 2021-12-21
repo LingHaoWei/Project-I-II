@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Cart;
 use App\Models\product;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use Notification;
-
+use Stripe\Product as StripeProduct;
 
 class OrderController extends Controller
 {
@@ -30,7 +31,7 @@ class OrderController extends Controller
                 "source" => $request->stripeToken,
                 "description" => "This payment is testing purpose of southern online",
         ]);
-
+        $data = $request->all();
         $newOrder=Order::Create([
             'orderID'=>'',
             'paymentStatus'=>'Done',
@@ -39,10 +40,48 @@ class OrderController extends Controller
             'address'=>$request->address,
             'contact'=>$request->contact,
         ]);
+        /*$newOrder=Order::Create([
+            'orderID'=>'',
+            'userID'=>Auth::id(),
+            'name'=>$request->name,
+            'quantity'=>$request->quantity,
+            'productID'=>$request->cid,
+        ]);*/
+
+        /*$loop = $request->get('cid');
+        $deta = new orderDetail;
+
+        foreach($data['cid'] as $i => $id){
+            $deta->orderID = '';
+            $deta->userID = Auth::id();
+            $deta->name = $request->name;
+            $deta->quantity = $request->quantity;
+            $deta->productID = $value;
+            $deta->save();
+            $pu=Product::find($id);
+            $pu=Orderdetail::Create([
+                'orderID'=>'',
+                'userID'=>Auth::id(),
+                'name'=>$request->name,
+                'quantity'=>$request->quantity,
+                'productID'=>$request->id,
+            ]);
+        }*/
+        foreach($request->cid as $key=>$value){
+            $insert=Cart::find($value);
+            $insert = [
+                'orderID'=>'',
+                'userID'=>Auth::id(),
+                'name'=>$request->name,
+                'quantity'=>$request->quantity,
+                'productID'=>$request->id,
+            ];
+            DB::table('order_details')->insert($insert);
+        }
+
+
 
         $orderID=DB::table('orders')->where('userID','=',Auth::id())->orderBy('created_at','desc')->first();
-
-        $data = $request->all();
 
         foreach ($data['cid'] as $i => $id) {
 
@@ -52,7 +91,9 @@ class OrderController extends Controller
         $getQuantity = product::where(['productID'=>$pur['productID']])->first()->toArray();
         $stock = $getQuantity['quantity']- $pur['quantity'];
         product::where(['productID'=>$pur['productID']])->update(['quantity'=>$stock]);
+
         }
+
 
 
         Session::flash('success','Order successfully!');
