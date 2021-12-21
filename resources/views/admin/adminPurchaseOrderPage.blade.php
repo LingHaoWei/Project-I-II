@@ -54,10 +54,10 @@
                 <td width="50"> 
                 </td>
                 <td class="link">
-                    <a href="#"><div class="p-2">{{$po->document_no}}</div></a>
+                    <a href="{{ route('viewPurchaseOrderDetail',['id'=>$po->id]) }}"><div class="p-2">{{$po->document_no}}</div></a>
                 </td>
                 <td class="link">
-                    <a href="{{ route('viewSupplier') }}"><div class="p-2">{{$po->supname}}</div></a>
+                    <div class="p-2">{{$po->supname}}</div>
                 </td>
                 <td>
                     <Button type="button" class="printPOBtn">

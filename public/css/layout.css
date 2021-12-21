@@ -441,6 +441,7 @@ ul.pagination li a {
   border: 1px solid #8b8b8b;
   border-radius: 5px 5px 0px 0px;
   padding: 15px;
+  
 }
 
 .addProForm {
@@ -474,7 +475,7 @@ ul.pagination li a {
 }
 
 .printpoaddProRow4 {
-  width: 49%;
+  width: 62%;
 }
 
 .addProRow5 {
@@ -482,7 +483,7 @@ ul.pagination li a {
 }
 
 .printpoaddProRow5 {
-  width: 49%;
+  width: 36%;
 }
 
 .addProRow3 textarea {

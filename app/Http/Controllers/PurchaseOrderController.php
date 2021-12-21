@@ -14,6 +14,7 @@ use Validator;
 use Session;
 use DB;
 use PDF;
+use Dompdf\Dompdf;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Contracts\Session\Session as SessionSession;
 
@@ -71,8 +72,8 @@ class PurchaseOrderController extends Controller
                 'supplierID' => $SupplierID,
                 'status' =>  $status,
                 'notes' => $notes,
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
             ]);
 
             foreach($quantity as $e=>$qt) {
@@ -123,16 +124,208 @@ class PurchaseOrderController extends Controller
         return view('admin.printPurchaseOrder',compact('PurchaseOrder','PurchaseOrderR'));
     }
 
-    function pdf(){
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($this->convert_po_to_html());
-    } 
-
-    function convert_po_to_html(){
-        $customer_data = $this->previewPrint();
-        $output = '
+    public function createPDF($id){
+        $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
+        ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+        ->select(
+        'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
+        'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
+        'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
+        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail'
+        )
+        ->get();
         
-        ';
+        $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
+        ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
+        ->select(
+            'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
+            )
+        ->get();
+
+        $output = '<style>
+        td .prc{
+            width: 200px;
+        }
+    
+        .poNotesArea textarea{
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    
+        .poStatus input {
+            outline: none;
+            border: none;
+        }
+    
+        .addRow {
+            width: 99%;
+        }
+    
+        .notesandstatus {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .printPOBtn {
+            background-color: #5ab071;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+    
+        .addPo{
+            border: 1px solid #8b8b8b;
+            border-radius: 5px 5px 0px 0px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+    
+    
+    </style>
+    
+    <!--Page topic-->
+    <!--Page topic-->
+    
+    <div class="content" id="pwrapper1">
+      <div class="">
+            
+            <div class="pageTopic addPo">
+                <div><h2>Purchase Order</h2></div>
+    
+            </div>
+    
+      </div>
+      
+      <div class="form addProForm row">
+          
+            <form method="POST" , action="#" enctype="multipart/form-data" id="dynamic_form">
+            @csrf
+            @foreach($PurchaseOrder as $po)
+            <div class="addRow">
+            </div>
+
+            <div class="form-group addProRow1">
+                
+                <div class="myAddress">
+                
+                My Sample Company Co.
+                <br>
+                info@sampleco.com
+                <br>
+                Sample Address, 23rd St., Sample City, ####
+                <br></br>
+    
+                </div>
+    
+                <div class="supAddress">
+                <br>
+                <b>Vendor: {{$po->supname}}</b><br>
+                {{$po->supadd}}, <br> 
+                {{$po->supcity}}, {{$po->supzipcode}}, {{$po->supstate}}.<br>
+                {{$po->supcp}} <br>
+                {{$po->supcn}} <br>
+                {{$po->supemail}} <br></br>
+                
+    
+                </div>
+    
+            </div>
+            
+            
+            <div class="form-group addProRow2">
+                <label class="" for="Document No"><b>P.O. #:</b></label>
+                <div class="">
+                    '.$PurchaseOrder->document_no.'
+                    <br></br>
+                    <br>
+                    
+                </div>
+                <label class="" for="Document No"><b>Date Created:</b></label>
+                <div class="">
+                    {{$po->created_at}}
+                    <br>
+                    
+                </div>
+            </div>
+            
+    
+           
+            <div class="form-group addProRow3">
+            <table class="table" id="myTable">
+            
+                <thead>
+                    <tr>
+                    <th scope="col" width="3%"></th>
+                    <th scope="col" width="25%">Product</th>
+                    <th scope="col" width="25%">Unit Price (RM)</th>
+                    <th scope="col" width="15%">Quantity</th>
+                    <th scope="col" width="15%">Total (RM)</th>
+    
+                    </tr>
+                </thead>
+                
+                <tbody>
+                @foreach($PurchaseOrderR as $por)
+                        <tr>
+                        <td></td>
+                        <td>{{$por->proname}}</td>
+                        <td>{{$por->unitPrice}}</td>
+                        <td>{{$por->quantity}}</td>
+                        <td>{{$por->grand_total}}</td>
+                        </tr>
+                @endforeach
+                        <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><b> Total <b></td>
+                        <td hidden>0</td>
+                        <td><span id="totalVal" style=""></span></td>
+                        </tr>
+                </tbody>
+                
+            <tfoot>
+            
+            </tfoot>
+                
+            </table>
+    
+            <br>
+                
+            </div>
+    
+            <div class="form-group printpoaddProRow4">
+                <label class="" for="PurchaseOrder Notes"><b>Notes</b></label>
+                <div class="poNotesArea notesandstatus">
+                    {{$po->notes}}
+                </div>
+    
+            </div>
+            
+            <div class="form-group printpoaddProRow5">
+                <label class="" for="Supplier status"><b>Status</b></label>
+                <div class="poStatus notesandstatus" id="poStatus">
+                    <input hidden value="{{$po->status}}" id="poVal"></input>
+                </div>
+            </div>
+            @endforeach
+            </form>
+    
+      </div>
+    </div>';
+
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($output);
+
+    $dompdf->setPaper('A4', 'landscape');
+
+    $dompdf->render();
+
+    $dompdf->stream();
+
     }
 
 }

@@ -26,6 +26,23 @@
         margin-top: 10px;
         margin-bottom: 10px;
     }
+    
+    .printPOBtn {
+        background-color: #5ab071;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 10px;
+    }
+
+    .addPo{
+        border: 1px solid #8b8b8b;
+        border-radius: 5px 5px 0px 0px;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+
 </style>
 
 <!--Page topic-->
@@ -34,7 +51,21 @@
 <div class="content" id="pwrapper1">
   <div class="">
         
-          <div class="pageTopic addPro"><h2>Purchase Order Details</h2></div>
+        <div class="pageTopic addPo">
+            <div><h2>Purchase Order</h2></div>
+        
+                <div class="optionButton">
+                    <Button type="button" class="editBtn">
+                        <a href="#" class="" title="Edit" data-toggle="tooltip">Edit</a>
+                    </Button>
+
+                    <button type="button" class="deleteBtn">
+                        <a href="{{ route('viewPurchaseOrder') }}" class="backBtn" title="Back" data-toggle="tooltip">Back</a> 
+                    </button>
+                </div>
+
+        </div>
+
   </div>
   
   <div class="form addProForm row">
@@ -78,7 +109,7 @@
         
         
         <div class="form-group addProRow2">
-            <label class="" for="Document No"><b>P.O. No:</b></label>
+            <label class="" for="Document No"><b>P.O. #:</b></label>
             <div class="">
                 {{$po->document_no}}
                 <br></br>
@@ -101,49 +132,57 @@
             <thead>
                 <tr>
                 <th scope="col" width="3%"></th>
-                <th scope="col" width="20%">Product</th>
-                <th scope="col" width="20%">Unit Price</th>
-                <th scope="col" width="20%">Quantity</th>
-                <th scope="col" width="20%">Total</th>
-                <th scope="col" width="20%">Grand Total</th>
+                <th scope="col" width="25%">Product</th>
+                <th scope="col" width="25%">Unit Price (RM)</th>
+                <th scope="col" width="15%">Quantity</th>
+                <th scope="col" width="15%">Total (RM)</th>
+
                 </tr>
             </thead>
-            @foreach($PurchaseOrderR as $por)
+            
             <tbody>
+            @foreach($PurchaseOrderR as $por)
                     <tr>
                     <td></td>
                     <td>{{$por->proname}}</td>
-                    <td>RM {{$por->unitPrice}}</td>
+                    <td>{{$por->unitPrice}}</td>
                     <td>{{$por->quantity}}</td>
-                    <td>RM {{$por->grand_total}}</td>
+                    <td>{{$por->grand_total}}</td>
+                    </tr>
+            @endforeach
+                    <tr>
                     <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><b> Total <b></td>
+                    <td hidden>0</td>
+                    <td><span id="totalVal" style=""></span></td>
                     </tr>
             </tbody>
-            @endforeach
+            
         <tfoot>
-
-        </tfoot>
         
+        </tfoot>
+            
         </table>
 
+        <br>
             
         </div>
 
         <div class="form-group printpoaddProRow4">
-        <label class="" for="PurchaseOrder Notes">Notes</label>
-                    <div class="poNotesArea notesandstatus">
-                        {{$po->notes}}
-                    </div>
-            
+            <label class="" for="PurchaseOrder Notes"><b>Notes</b></label>
+            <div class="poNotesArea notesandstatus">
+                {{$po->notes}}
+            </div>
+
         </div>
         
         <div class="form-group printpoaddProRow5">
-            <label class="" for="Supplier status">Status</label>
+            <label class="" for="Supplier status"><b>Status</b></label>
             <div class="poStatus notesandstatus" id="poStatus">
                 <input hidden value="{{$po->status}}" id="poVal"></input>
-                
             </div>
-
         </div>
         @endforeach
         </form>
@@ -154,15 +193,22 @@
 <script>
 
 
-var statusNum = document.getElementById("poVal");
-if (statusNum = 0) {
-    document.getElementById("poStatus").innerHTML = "Pending";
-} else if (statusNum = 1){
-    document.getElementById("poStatus").innerHTML = "Partially Fulfilled";
+if (document.getElementById('poVal').value == 0) {
+    document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="color:white;">'+"Pending"+'</Button>';
+} else if (document.getElementById('poVal').value == 1){
+    document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="background-color:orange;color:white;">'+"Partially Fulfilled"+'</Button>';
 } else {
-    document.getElementById("poStatus").innerHTML = "Fulfilled";
+    document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="background-color:green;color:white;">'+"Fulfilled"+'</Button>';
 }
 
+var table = document.getElementById("myTable"), sumVal=0;
+total = table.rows[2].cells[4].innerHTML.value;
+for(var i = 1; i < table.rows.length; i++){
+    sumVal = sumVal + parseInt(table.rows[i].cells[4].innerHTML);
+}
+
+document.getElementById("totalVal").innerHTML = "RM " + sumVal;
+console.log(sumVal);
 
 </script>
 
