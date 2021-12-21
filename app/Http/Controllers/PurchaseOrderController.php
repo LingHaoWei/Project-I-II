@@ -133,16 +133,18 @@ class PurchaseOrderController extends Controller
         'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
         'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail'
         )
-        ->get();
+        ->first();
         
         $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
         ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
         ->select(
             'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
             )
-        ->get();
+        ->first();
 
-        $output = '<style>
+        $output = '
+        <style>
+        
         td .prc{
             width: 200px;
         }
@@ -202,8 +204,7 @@ class PurchaseOrderController extends Controller
       <div class="form addProForm row">
           
             <form method="POST" , action="#" enctype="multipart/form-data" id="dynamic_form">
-            @csrf
-            @foreach($PurchaseOrder as $po)
+
             <div class="addRow">
             </div>
 
@@ -222,12 +223,12 @@ class PurchaseOrderController extends Controller
     
                 <div class="supAddress">
                 <br>
-                <b>Vendor: {{$po->supname}}</b><br>
-                {{$po->supadd}}, <br> 
-                {{$po->supcity}}, {{$po->supzipcode}}, {{$po->supstate}}.<br>
-                {{$po->supcp}} <br>
-                {{$po->supcn}} <br>
-                {{$po->supemail}} <br></br>
+                <b>Vendor: '.$PurchaseOrder->supname.'</b><br>
+                '.$PurchaseOrder->supadd.', <br> 
+                '.$PurchaseOrder->supcity.', '.$PurchaseOrder->supzipcode.', '.$PurchaseOrder->supstate.'.<br>
+                '.$PurchaseOrder->supcp.' <br>
+                '.$PurchaseOrder->supcn.' <br>
+                '.$PurchaseOrder->supemail.' <br></br>
                 
     
                 </div>
@@ -245,7 +246,7 @@ class PurchaseOrderController extends Controller
                 </div>
                 <label class="" for="Document No"><b>Date Created:</b></label>
                 <div class="">
-                    {{$po->created_at}}
+                '.$PurchaseOrder->created_at.'
                     <br>
                     
                 </div>
@@ -268,15 +269,15 @@ class PurchaseOrderController extends Controller
                 </thead>
                 
                 <tbody>
-                @foreach($PurchaseOrderR as $por)
+
                         <tr>
                         <td></td>
-                        <td>{{$por->proname}}</td>
-                        <td>{{$por->unitPrice}}</td>
-                        <td>{{$por->quantity}}</td>
-                        <td>{{$por->grand_total}}</td>
+                        <td>'.$PurchaseOrderR->proname.'</td>
+                        <td>'.$PurchaseOrderR->unitPrice.'</td>
+                        <td>'.$PurchaseOrderR->quantity.'</td>
+                        <td>'.$PurchaseOrderR->grand_total.'</td>
                         </tr>
-                @endforeach
+
                         <tr>
                         <td></td>
                         <td></td>
@@ -300,7 +301,7 @@ class PurchaseOrderController extends Controller
             <div class="form-group printpoaddProRow4">
                 <label class="" for="PurchaseOrder Notes"><b>Notes</b></label>
                 <div class="poNotesArea notesandstatus">
-                    {{$po->notes}}
+                '.$PurchaseOrder->notes.'
                 </div>
     
             </div>
@@ -308,10 +309,10 @@ class PurchaseOrderController extends Controller
             <div class="form-group printpoaddProRow5">
                 <label class="" for="Supplier status"><b>Status</b></label>
                 <div class="poStatus notesandstatus" id="poStatus">
-                    <input hidden value="{{$po->status}}" id="poVal"></input>
+                    <input hidden value="'.$PurchaseOrder->status.'" id="poVal"></input>
                 </div>
             </div>
-            @endforeach
+
             </form>
     
       </div>
