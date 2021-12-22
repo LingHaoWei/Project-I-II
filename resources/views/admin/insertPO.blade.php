@@ -98,7 +98,8 @@
                 <select name="status" class="form-control" required value="#">
                     <option value="">---Select Status---</option>
                     <option value="0">Pending</option>
-                    <option value="2">Fulfilled</option>
+                    <option value="1">Approved</option>
+                    <option value="2">Cancelled</option>
                 </select>
             </div>
             <div class="">
