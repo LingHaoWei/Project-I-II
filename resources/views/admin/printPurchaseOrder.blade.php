@@ -196,9 +196,9 @@
 if (document.getElementById('poVal').value == 0) {
     document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="color:white;">'+"Pending"+'</Button>';
 } else if (document.getElementById('poVal').value == 1){
-    document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="background-color:orange;color:white;">'+"Partially Fulfilled"+'</Button>';
+    document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="background-color:green;color:white;">'+"Approved"+'</Button>';
 } else {
-    document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="background-color:green;color:white;">'+"Fulfilled"+'</Button>';
+    document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="background-color:red;color:white;">'+"Cancelled"+'</Button>';
 }
 
 var table = document.getElementById("myTable"), sumVal=0;
