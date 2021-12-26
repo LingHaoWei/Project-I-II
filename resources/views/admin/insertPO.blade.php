@@ -35,10 +35,8 @@
             </div>
             @endforeach
             
-
             <label for="choose product">Product</label>
             
-
         </div>
         
         
@@ -71,7 +69,7 @@
                         @foreach($product as $product)
                         <a href=""><option value="{{$product->productID}}" data-name="{{$product->name}}" data-price="{{$product->unitPrice}}">{{$product->name}} ({{$product->productID}})</option></a>
                         @endforeach
-                        </select>
+                    </select>
                     </td>
                     <td></td>
                     <td></td>
