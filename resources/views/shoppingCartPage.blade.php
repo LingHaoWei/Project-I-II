@@ -58,15 +58,12 @@ a{
                                 <td><img src="{{ asset('images/') }}/{{$cart->image}}" alt="" width="100"></td>
                                 <td><h5>{{$cart->name}}</h5></td>
                                 <td>{{$cart->price}}</td>
-
-                                <td> <form action="{{ route('updateCart') }}" method="POST"  enctype="multipart/form-data">
-                                @csrf
+                                <input type="hidden" class="form-check-input" name="id[]" id="id[]" value="{{ $cart->productID }}" onclick="cal()">
+                                <input type="hidden" class="form-check-input" name="name[]" id="name[]" value="{{ $cart->name }}" onclick="cal()">
+                                <td>
                                     <input type="hidden" name="cid1" id="cid1" value="{{ $cart->cid }}">
-                                    <input type="hidden" name="id" id="id" value="{{ $cart->productID }}">
-                                    <input type="hidden" name="name" id="name" value="{{ $cart->name }}">
-                                    <input type="number" name="quantity" id="quantity" size="2" maxlength="12" value="{{ $cart->cartQty }}"  class="input-text qty" max="{{ $cart->quantity }}" min="1">
-                                    <button type="submit" class="button btn1">update</button>
-                                </form></td>
+                                    <input type="number" name="quantity[]" id="quantity[]" size="2" maxlength="12" value="{{ $cart->cartQty }}"  class="input-text qty" max="{{ $cart->quantity }}" min="1">
+                                    </td>
 
                                 <td>RM{{$cart->price*$cart->cartQty}}</td>
                                 <td>
@@ -145,6 +142,9 @@ a{
         var total = 0;
         var shipping = document.getElementsByName('shipping');
         var cboxes = document.getElementsByName('cid[]');
+        var cboxes1 = document.getElementsByName('id[]');
+        var cboxes2 = document.getElementsByName('name[]');
+        var cboxes3 = document.getElementsByName('quantity[]');
         var len = cboxes.length;
         for(var i=0; i<len; i++){
             if(cboxes[i].checked){

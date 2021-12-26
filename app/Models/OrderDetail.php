@@ -21,5 +21,6 @@ class OrderDetail extends Model
     {
         return $this->attributes['productID'] = json_decode($value);
     }
+    protected $table = 'order_details';
     use HasFactory;
 }

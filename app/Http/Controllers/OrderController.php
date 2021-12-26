@@ -22,6 +22,26 @@ class OrderController extends Controller
     }
     public function paymentPost(Request $request)
     {
+        try {
+
+            $cid = $request->cid;
+            $productID = $request->id;
+            $name = $request->name;
+            $quantity = $request->quantity;
+            foreach($cid as $e=>$value){
+
+                OrderDetail::create([
+                    'orderID'=>'',
+                    'userID'=>Auth::id(),
+                    'name'=>$name[$e],
+                    'quantity'=>$quantity[$e],
+                    'productID'=>$productID[$e]
+
+                ]);
+            }
+        }catch(\Exception $e){
+
+        }
 
 
 	Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -67,18 +87,26 @@ class OrderController extends Controller
                 'productID'=>$request->id,
             ]);
         }*/
-        foreach($request->cid as $key=>$value){
-            $insert=Cart::find($value);
-            $insert = [
-                'orderID'=>'',
-                'userID'=>Auth::id(),
-                'name'=>$request->name,
-                'quantity'=>$request->quantity,
-                'productID'=>$request->id,
-            ];
-            DB::table('order_details')->insert($insert);
-        }
-
+        /*foreach($data['cid'] as $key=>$value){
+            $deta = new OrderDetail;
+            if(in_array($value,$request->cid)){
+                $dx= $request->except(['_token','_method']);
+                dd($dx);
+            $deta->orderID = $value;
+            $deta->userID = Auth::id();
+            $deta->name = implode(",",$request->name);
+            $deta->quantity = implode(",",$request->quantity);
+            $deta->productID = implode(",",$request->cid);
+            $deta->save();
+            }
+        /*$insert = [
+            'orderID'=>'',
+            'userID'=>Auth::id(),
+            'name'=>$request->name,
+            'quantity'=>$request->quantity,
+            'productID'=>$request->id,
+        ];
+        DB::table('order_details')->insert($insert);*/
 
 
         $orderID=DB::table('orders')->where('userID','=',Auth::id())->orderBy('created_at','desc')->first();
