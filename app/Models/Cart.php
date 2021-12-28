@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     use HasFactory;
+
+    public $selectedProducts = [];
+
     protected $fillable=[
         'orderID',
         'userID',

@@ -48,15 +48,9 @@
 <!--Page topic-->
 <!--Page topic-->
 
-<div class="content" id="pwrapper1">
-  <div class="">
-        
-        <div class="pageTopic addPo">
-            <div><h2>Purchase Order</h2></div>
-        
-                <div class="optionButton">
+<div class="optionButton">
                     <Button type="button" class="editBtn">
-                        <a href="#" class="" title="Edit" data-toggle="tooltip">Edit</a>
+                    <a href="javascript:generatePDF()" id="downloadBtn" class="printPDF" title="print" data-toggle="tooltip">Print PDF</a>
                     </Button>
 
                     <button type="button" class="deleteBtn">
@@ -64,6 +58,11 @@
                     </button>
                 </div>
 
+<div class="content" id="pwrapper1">
+  <div class="">
+        
+        <div class="pageTopic addPo">
+            <div><h2>Purchase Order</h2></div>
         </div>
 
   </div>
@@ -190,6 +189,10 @@
   </div>
 </div>
 
+<div id="elementH"></div>
+
+
+
 <script>
 
 
@@ -209,6 +212,29 @@ for(var i = 1; i < table.rows.length; i++){
 
 document.getElementById("totalVal").innerHTML = "RM " + sumVal;
 console.log(sumVal);
+
+
+async function generatePDF(){
+
+    document.getElementById("downloadBtn").innerHTML = "Print PDF";
+
+    var downloading = document.getElementById("pwrapper1");
+    var doc = new jsPDF('l', 'pt');
+
+    await html2canvas(downloading, {
+                //allowTaint: true,
+                //useCORS: true,
+            }).then((canvas) => {
+                //Canvas (convert to PNG)
+                doc.addImage(canvas.toDataURL("image/png"), 'PNG', 5, 5, 833, 400);
+            })
+
+            doc.save("Document.pdf");
+
+    document.getElementById("downloadBtn").innerHTML = "Print PDF";
+
+}
+
 
 </script>
 

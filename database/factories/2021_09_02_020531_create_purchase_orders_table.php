@@ -19,7 +19,7 @@ class CreatePurchaseOrdersTable extends Migration
             $table->integer(column: 'supplierID');
             $table->string(column: 'notes');
             $table->integer(column: 'status');
-            
+            $table->integer(column: 'invoice_no');
             $table->timestamps();
         });
     }
