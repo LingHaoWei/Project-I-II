@@ -28,10 +28,11 @@ class OrderController extends Controller
             $productID = $request->id;
             $name = $request->name;
             $quantity = $request->quantity;
+            $ra = rand();
             foreach($cid as $e=>$value){
 
                 OrderDetail::create([
-                    'orderID'=>'',
+                    'orderID'=>$ra,
                     'userID'=>Auth::id(),
                     'name'=>$name[$e],
                     'quantity'=>$quantity[$e],
@@ -127,5 +128,22 @@ class OrderController extends Controller
         Session::flash('success','Order successfully!');
 
         return back();
+    }
+    public function showOrder(){
+        $order = OrderDetail::all();
+        $orders = Order::all();
+        $address=DB::table('users')
+        ->leftjoin('carts','carts.userID','=','users.id')
+        ->select('users.address as address')
+        ->where('carts.userID','=',Auth::id())
+        ->take(1)
+        ->get();
+        $contact=DB::table('users')
+        ->leftjoin('carts','carts.userID','=','users.id')
+        ->select('users.contact as contact')
+        ->where('carts.userID','=',Auth::id())
+        ->take(1)
+        ->get();
+        return view('order',compact('address','contact'))->with('order',$order)->with('orders',$orders);
     }
 }
