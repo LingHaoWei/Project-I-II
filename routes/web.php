@@ -41,6 +41,7 @@ Route::get('/shoppingShowProductDetails/{id}', [App\Http\Controllers\shoppingPag
 Route::post('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageController::class, 'searchProduct'])->name('search.product');
 
 Route::post('\checkout', [App\Http\Controllers\OrderController::class, 'paymentPost'])->name('payment.post');
+Route::get('/order', [App\Http\Controllers\OrderController::class, 'showOrder'])->name('myOrder');
 
 Auth::routes();
 
