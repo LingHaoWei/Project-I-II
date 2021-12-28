@@ -52,18 +52,18 @@
   <div class="">
         
         <div class="pageTopic addPo">
-            <div><h2>Purchase Order</h2></div>
+            <div><h2>Delivery Order</h2></div>
         </div>
 
   </div>
   
   <div class="form addProForm row">
-  @foreach($PurchaseOrder as $po)
-        <form method="POST" , action="{{ route('savePO',['id'=>$po->id]) }}" enctype="multipart/form-data" id="dynamic_form">
+      
+        <form method="POST" , action="#" enctype="multipart/form-data" id="dynamic_form">
         @csrf
-        
+        @foreach($PurchaseOrder as $po)
         <div class="addRow">
-        <input hidden id="id" name="id" value="{{$po->id}}" />
+            <input hidden value="{{$po->id}}" />
             
 
         </div>
@@ -108,8 +108,15 @@
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
                 {{$po->created_at}}
+                <br></br>
                 <br>
-                
+            </div>
+
+            <label class="" for="Document No"><b>Delivery Order No:</b></label>
+            <div class="">
+                {{$po->invoice_no}}
+                <br></br>
+                <br>
             </div>
         </div>
         
@@ -122,10 +129,9 @@
                 <tr>
                 <th scope="col" width="3%"></th>
                 <th scope="col" width="25%">Product</th>
-                <th scope="col" width="25%">Unit Price (RM)</th>
-                <th scope="col" width="15%">Quantity</th>
+                <th scope="col" width="15%">Order Quantity</th>
                 <th scope="col" width="15%">Received Quantity</th>
-                <th scope="col" width="15%">Total (RM)</th>
+
 
                 </tr>
             </thead>
@@ -134,25 +140,12 @@
             @foreach($PurchaseOrderR as $por)
                     <tr>
                     <td></td>
-                    <td>{{$por->proname}}</td>
-                    <td>{{$por->unitPrice}}</td>
+                    <td>{{$por->proname}} ({{$por->productID}})</td>
                     <td>{{$por->quantity}}</td>
-                    <td>
-                        <input type="text" width="20" class="prc" id="productID" name="product[]" value="{{$por->productID}}" hidden>
-                        <input type="text" width="20" class="prc" id="receivedQuantity" name="receivedQuantity[]" value="{{$por->received_quantity}}">
-                    </td>
-                    <td>{{$por->grand_total}}</td>
+                    <td>{{$por->received_quantity}}</td>
+
                     </tr>
             @endforeach
-                    <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><b> Total <b></td>
-                    <td hidden>0</td>
-                    <td><span id="totalVal" style=""></span></td>
-                    </tr>
             </tbody>
             
         <tfoot>
@@ -166,41 +159,40 @@
         </div>
 
         <div class="form-group printpoaddProRow4">
-            <label class="" for="Document No">Invoice No:</label>
-            <div class="">
-                <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="{{$po->invoice_no}}">
+            <label class="" for="PurchaseOrder Notes"><b>Notes</b></label>
+            <div class="poNotesArea notesandstatus">
+                {{$po->notes}}
             </div>
 
-            <label class="" for="PurchaseOrder Notes">Notes</label>
-                    <div class="poNotesArea">
-                        <textarea type="text" class="form-control" id="poNotes" name="poNotes" >{{$po->notes}}</textarea>
-                    </div>
-
-            <label class="" for="Supplier status">Status</label>
-            <div class="">
-                <select name="status" class="form-control" required value="#">
-                    <option value="">---Select Status---</option>
-                    <option value="0">Pending</option>
-                    <option value="1">Approved</option>
-                    <option value="2">Cancelled</option>
-                </select>
-            </div>
-            <div class="">
-            <Button type="button" class="backBtn">
-                <a href="{{ route('viewPurchaseOrderDetail',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
-            </Button>
-            <button type="submit" class="subBtn" title="Submit">Submit</button>
-            </div>
         </div>
         
         <div class="form-group printpoaddProRow5">
-            
+            <label class="" for="Supplier status"><b>Status</b></label>
+            <div class="poStatus notesandstatus" id="poStatus">
+                <input hidden value="{{$po->status}}" id="poVal"></input>
+            </div>
         </div>
         @endforeach
         </form>
 
   </div>
 </div>
+
+    <div id="printBtnWrapper">
+        <div class="optionButton">
+            <button type="button" class="deleteBtn">
+                <a href="{{ route('viewPurchaseOrder') }}" class="backBtn" title="Back" data-toggle="tooltip">Back</a> 
+            </button>
+
+            <Button type="button" class="editBtn">
+                <a href="javascript:generatePDF()" id="downloadBtn" class="printPDF" title="print" data-toggle="tooltip">Print PDF</a>
+            </Button>
+
+            <button type="button" class="printPOBtn">
+                <a href="{{ route('updatePurchaseOrder',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Update DO</a> 
+            </button>
+        </div>
+    </div>
 
 
 <div id="elementH"></div>

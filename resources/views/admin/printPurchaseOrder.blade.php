@@ -59,7 +59,7 @@
   
   <div class="form addProForm row">
       
-        <form method="POST" , action="{{route('addPO')}}" enctype="multipart/form-data" id="dynamic_form">
+        <form method="POST" , action="#" enctype="multipart/form-data" id="dynamic_form">
         @csrf
         @foreach($PurchaseOrder as $po)
         <div class="addRow">
@@ -141,10 +141,10 @@
             @foreach($PurchaseOrderR as $por)
                     <tr>
                     <td></td>
-                    <td>{{$por->proname}}</td>
+                    <td>{{$por->proname}} ({{$por->productID}})</td>
                     <td>{{$por->unitPrice}}</td>
                     <td>{{$por->quantity}}</td>
-                    <td>0</td>
+                    <td>{{$por->received_quantity}}</td>
                     <td>{{$por->grand_total}}</td>
                     </tr>
             @endforeach

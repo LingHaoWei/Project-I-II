@@ -38,7 +38,7 @@
             <thead>
                 <tr>
                 <th scope="col"></th>
-                <th scope="col" >Document No</th>
+                <th scope="col" >Purchase No</th>
                 <th scope="col">Vendor</th>
                 <th scope="col">Option</th>
                 </tr>
@@ -56,7 +56,11 @@
                 </td>
                 <td>
                     <Button type="button" class="editBtn">
-                        <a href="{{ route('viewPurchaseOrderDetail',['id'=>$po->id]) }}" class="" title="Edit" data-toggle="tooltip"><i class="fa fa-print"></i>View</a>
+                        <a href="{{ route('viewDeliveryOrder',['id'=>$po->id]) }}" class="" title="Edit" data-toggle="tooltip">Delivery Order</a>
+                    </Button>
+
+                    <Button type="button" class="printPOBtn">
+                        <a href="{{ route('viewInvoice',['id'=>$po->id]) }}" class="" title="Edit" data-toggle="tooltip">Invoice</a>
                     </Button>
 
                     <button type="button" class="deleteBtn">
@@ -85,3 +89,7 @@
     
 
 @endsection
+
+<script>
+
+</script>

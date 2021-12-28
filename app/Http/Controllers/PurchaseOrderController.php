@@ -89,6 +89,7 @@ class PurchaseOrderController extends Controller
                     'purchase_order' => $id_po, 
                     'productID' => $productID[$e],
                     'quantity' => $qt,
+                    'received_quantity' => "0",
                     'unitPrice' => $unitPrice,
                     'grand_total' => $grand_total
                 ]);
@@ -124,6 +125,52 @@ class PurchaseOrderController extends Controller
         return view('admin.printPurchaseOrder',compact('PurchaseOrder','PurchaseOrderR'));
     }
 
+    public function previewDO($id){
+        $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
+        ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+        ->select(
+        'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
+        'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
+        'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
+        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail'
+        )
+        ->get();
+        
+        $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
+        ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
+        ->select(
+            'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
+            )
+        ->get();
+        
+        //select * from where id='$id'
+
+        return view('admin.poDeliveryOrder',compact('PurchaseOrder','PurchaseOrderR'));
+    }
+
+    public function previewInvoice($id){
+        $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
+        ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+        ->select(
+        'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
+        'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
+        'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
+        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail'
+        )
+        ->get();
+        
+        $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
+        ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
+        ->select(
+            'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
+            )
+        ->get();
+        
+        //select * from where id='$id'
+
+        return view('admin.poInvoice',compact('PurchaseOrder','PurchaseOrderR'));
+    }
+
     public function updatePO($id){
         $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
         ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
@@ -145,6 +192,41 @@ class PurchaseOrderController extends Controller
         //select * from where id='$id'
 
         return view('admin.updatePurchaseOrder',compact('PurchaseOrder','PurchaseOrderR'));
+    }
+
+    public function savePO($id, Request $request){
+        
+        $productID = $request->product;
+        $rquantity = $request->receivedQuantity;
+
+        $invoice_no = $request->InvoiceNo;
+        $notes = $request->poNotes;
+        $status = $request->status;
+        
+
+        purchaseOrder::where('id',$id)->update([
+            'invoice_no' => $invoice_no,
+            'notes'=> $notes,
+            'status' => $status
+        ]);
+
+        foreach($rquantity as $e=>$rqt) {
+            if($rqt == 0){
+                continue;
+            }
+
+            $dt_product = product::where('productID',$productID[$e])->first();
+
+            $data =DB::table('purchase_orders')
+                    ->leftJoin('purchase_oder_r_s','purchase_orders.id', '=','purchase_oder_r_s.purchase_order')
+                    ->where('purchase_orders.id', $id); 
+            DB::table('purchase_oder_r_s')->where('purchase_order', $id)->update([
+                'productID' => $productID[$e],
+                'received_quantity' => $rqt,
+            ]); 
+        }
+
+        return redirect()->route('viewPurchaseOrderDetail',$id);
     }
 
     public function deletePO($id){       
