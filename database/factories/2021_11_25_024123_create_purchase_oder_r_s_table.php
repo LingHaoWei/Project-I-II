@@ -19,6 +19,7 @@ class CreatePurchaseOderRSTable extends Migration
             $table->String(column: 'productID');
             $table->double(column: 'unitPrice', total: 10, places: 2);
             $table->integer(column: 'quantity');
+            $table->integer(column: 'received_quantity');
             $table->double(column: 'grand_total', total: 10, places: 2);
                 
             $table->engine = 'InnoDB';

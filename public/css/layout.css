@@ -350,6 +350,13 @@
   border-radius: 5px;
 }
 
+#printBtnWrapper {
+  width: 98%;
+  margin-left: auto;
+	margin-right: auto;
+  padding: 10px;
+}
+
 .pageTopic {
   color: #3c3c3d;
 }
@@ -373,6 +380,13 @@ button a {
 
 .editBtn {
   background-color: #008CBA;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.printPOBtn {
+  background-color: #5ab071;
   border: none;
   padding: 10px 15px;
   border-radius: 10px;

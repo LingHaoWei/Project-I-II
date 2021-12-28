@@ -59,11 +59,11 @@
   
   <div class="form addProForm row">
       
-        <form method="POST" , action="{{route('addPO')}}" enctype="multipart/form-data" id="dynamic_form">
+        <form method="POST" , action="{{route('savePO')}}" enctype="multipart/form-data" id="dynamic_form">
         @csrf
         @foreach($PurchaseOrder as $po)
         <div class="addRow">
-            <input hidden value="{{$po->id}}" />
+        <input hidden value="{{$po->id}}" />
             
 
         </div>
@@ -108,15 +108,8 @@
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
                 {{$po->created_at}}
-                <br></br>
                 <br>
-            </div>
-
-            <label class="" for="Document No"><b>Invoice No:</b></label>
-            <div class="">
-                {{$po->invoice_no}}
-                <br></br>
-                <br>
+                
             </div>
         </div>
         
@@ -130,7 +123,7 @@
                 <th scope="col" width="3%"></th>
                 <th scope="col" width="25%">Product</th>
                 <th scope="col" width="25%">Unit Price (RM)</th>
-                <th scope="col" width="15%">Order Quantity</th>
+                <th scope="col" width="15%">Quantity</th>
                 <th scope="col" width="15%">Received Quantity</th>
                 <th scope="col" width="15%">Total (RM)</th>
 
@@ -144,7 +137,9 @@
                     <td>{{$por->proname}}</td>
                     <td>{{$por->unitPrice}}</td>
                     <td>{{$por->quantity}}</td>
-                    <td>0</td>
+                    <td>
+                        <input type="text" width="20" class="prc">
+                    </td>
                     <td>{{$por->grand_total}}</td>
                     </tr>
             @endforeach
@@ -170,40 +165,41 @@
         </div>
 
         <div class="form-group printpoaddProRow4">
-            <label class="" for="PurchaseOrder Notes"><b>Notes</b></label>
-            <div class="poNotesArea notesandstatus">
-                {{$po->notes}}
+            <label class="" for="Document No">Invoice No:</label>
+            <div class="">
+                <input type="text" class="form-control" id="DocumentNo" name="DocumentNo" value="">
             </div>
 
+            <label class="" for="PurchaseOrder Notes">Notes</label>
+                    <div class="poNotesArea">
+                        <textarea type="text" class="form-control" id="poNotes" name="poNotes" >{{$po->notes}}</textarea>
+                    </div>
+
+            <label class="" for="Supplier status">Status</label>
+            <div class="">
+                <select name="status" class="form-control" required value="#">
+                    <option value="">---Select Status---</option>
+                    <option value="0">Pending</option>
+                    <option value="1">Approved</option>
+                    <option value="2">Cancelled</option>
+                </select>
+            </div>
+            <div class="">
+            <Button type="button" class="backBtn">
+                <a href="{{ route('viewPurchaseOrderDetail',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
+            </Button>
+            <button type="submit" class="subBtn" title="Submit">Submit</button>
+            </div>
         </div>
         
         <div class="form-group printpoaddProRow5">
-            <label class="" for="Supplier status"><b>Status</b></label>
-            <div class="poStatus notesandstatus" id="poStatus">
-                <input hidden value="{{$po->status}}" id="poVal"></input>
-            </div>
+            
         </div>
         @endforeach
         </form>
 
   </div>
 </div>
-
-    <div id="printBtnWrapper">
-        <div class="optionButton">
-            <button type="button" class="deleteBtn">
-                <a href="{{ route('viewPurchaseOrder') }}" class="backBtn" title="Back" data-toggle="tooltip">Back</a> 
-            </button>
-
-            <Button type="button" class="editBtn">
-                <a href="javascript:generatePDF()" id="downloadBtn" class="printPDF" title="print" data-toggle="tooltip">Print PDF</a>
-            </Button>
-
-            <button type="button" class="printPOBtn">
-                <a href="{{ route('updatePurchaseOrder',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Update PO</a> 
-            </button>
-        </div>
-    </div>
 
 
 <div id="elementH"></div>
