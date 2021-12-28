@@ -9,7 +9,7 @@ class purchaseOrder extends Model
 {
     use HasFactory;
 
-    protected $fillable=['id','document_no','supplierID','notes','status'];
+    protected $table = 'purchase_orders';
 
     public function purchaseOrderR(){
 

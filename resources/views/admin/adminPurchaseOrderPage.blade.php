@@ -2,12 +2,7 @@
 @section('content')
 <style>
 
-.printPOBtn {
-  background-color: #5ab071;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 10px;
-}
+
     
 </style>
 
@@ -60,16 +55,12 @@
                     <div class="p-2">{{$po->supname}}</div>
                 </td>
                 <td>
-                    <Button type="button" class="printPOBtn">
-                        <a href="{{ route('printPurchaseOrder',['id'=>$po->id]) }}" class="printPO" title="PrintPO" data-toggle="tooltip"><i class="fa fa-print"></i></a>
-                    </Button>
-
                     <Button type="button" class="editBtn">
-                        <a href="#" class="" title="Edit" data-toggle="tooltip">Edit</a>
+                        <a href="{{ route('viewPurchaseOrderDetail',['id'=>$po->id]) }}" class="" title="Edit" data-toggle="tooltip"><i class="fa fa-print"></i>View</a>
                     </Button>
 
                     <button type="button" class="deleteBtn">
-                        <a href="#" class="deleteProduct" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
+                        <a href="{{ route('deletePurchaseOrder',['id'=>$po->id]) }}" class="deleteProduct" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
                     </button>
                 </td>
             </tr>
