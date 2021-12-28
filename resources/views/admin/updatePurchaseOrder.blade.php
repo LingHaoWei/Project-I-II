@@ -124,7 +124,6 @@
                 <th scope="col" width="25%">Product</th>
                 <th scope="col" width="25%">Unit Price (RM)</th>
                 <th scope="col" width="15%">Quantity</th>
-                <th scope="col" width="15%">Received Quantity</th>
                 <th scope="col" width="15%">Total (RM)</th>
 
                 </tr>
@@ -137,15 +136,10 @@
                     <td>{{$por->proname}}</td>
                     <td>{{$por->unitPrice}}</td>
                     <td>{{$por->quantity}}</td>
-                    <td>
-                        <input type="text" width="20" class="prc" id="productID" name="product[]" value="{{$por->productID}}" hidden>
-                        <input type="text" width="20" class="prc" id="receivedQuantity" name="receivedQuantity[]" value="{{$por->received_quantity}}">
-                    </td>
                     <td>{{$por->grand_total}}</td>
                     </tr>
             @endforeach
                     <tr>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -221,7 +215,7 @@ if (document.getElementById('poVal').value == 0) {
 var table = document.getElementById("myTable"), sumVal=0;
 
 for(var i = 1; i < table.rows.length; i++){
-    sumVal = sumVal + parseInt(table.rows[i].cells[5].innerHTML);
+    sumVal = sumVal + parseInt(table.rows[i].cells[4].innerHTML);
 }
 
 document.getElementById("totalVal").innerHTML = "RM " + sumVal;

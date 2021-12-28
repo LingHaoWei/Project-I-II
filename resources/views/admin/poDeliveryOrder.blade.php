@@ -189,7 +189,7 @@
             </Button>
 
             <button type="button" class="printPOBtn">
-                <a href="{{ route('updatePurchaseOrder',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Update DO</a> 
+                <a href="{{ route('updateDeliveryOrder',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Update DO</a> 
             </button>
         </div>
     </div>

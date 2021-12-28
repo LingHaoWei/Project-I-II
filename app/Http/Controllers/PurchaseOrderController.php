@@ -148,6 +148,29 @@ class PurchaseOrderController extends Controller
         return view('admin.poDeliveryOrder',compact('PurchaseOrder','PurchaseOrderR'));
     }
 
+    public function updateDO($id){
+        $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
+        ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+        ->select(
+        'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
+        'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
+        'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
+        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail'
+        )
+        ->get();
+        
+        $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
+        ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
+        ->select(
+            'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
+            )
+        ->get();
+        
+        //select * from where id='$id'
+
+        return view('admin.updateDeliveryOrder',compact('PurchaseOrder','PurchaseOrderR'));
+    }
+
     public function previewInvoice($id){
         $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
         ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
