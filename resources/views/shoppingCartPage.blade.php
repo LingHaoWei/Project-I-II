@@ -55,11 +55,13 @@ a{
                           <tr>
                             <td><input type="checkbox" class="form-check-input" name="cid[]" id="cid[]" value="{{$cart->cid}}" onclick="cal()" >
                                 <input type="hidden" name="subtotal[]" id="subtotal[]" value="{{ $cart->price*$cart->cartQty }}"> </td>
-                                <td><img src="{{ asset('images/') }}/{{$cart->image}}" alt="" width="100"></td>
+                                <td><img src="{{ asset('images/') }}/{{$cart->image}}" alt="" width="100" name="image"></td>
                                 <td><h5>{{$cart->name}}</h5></td>
                                 <td>{{$cart->price}}</td>
                                 <input type="hidden" class="form-check-input" name="id[]" id="id[]" value="{{ $cart->productID }}" onclick="cal()">
                                 <input type="hidden" class="form-check-input" name="name[]" id="name[]" value="{{ $cart->name }}" onclick="cal()">
+                                <input type="hidden" name="price[]" id="price[]" value="{{ $cart->price }}">
+                                <input type="hidden" name="status" id="status" value=0>
                                 <td>
                                     <input type="hidden" name="cid1" id="cid1" value="{{ $cart->cid }}">
                                     <input type="number" name="quantity[]" id="quantity[]" size="2" maxlength="12" value="{{ $cart->cartQty }}"  class="input-text qty" max="{{ $cart->quantity }}" min="1">
@@ -76,7 +78,7 @@ a{
                           <tr>
                             <td colspan="4"></td>
                             <td>Total Amount</td>
-                            <td>RM<input type="text" id="sub1" name="sub1" value="0" style="border:none; background:transparent"  readonly></td>
+                            <td>RM<input type="text" id="sub" name="sub" value="0" style="border:none; background:transparent"  readonly></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -108,7 +110,7 @@ a{
                                 <input class='form-control' type="text" name="contact" id="contact" value="{{ $co->contact }}">
                                 @endforeach
                                 <br>
-                                <p>Total: <input type="text" id="sub" name="sub" value="0" style="border:none; background:transparent"  readonly></p>
+                                <p>Total: <input type="text" id="sub1" name="sub1" value="0" style="border:none; background:transparent"  readonly></p>
                                 <button type="submit" class="button button--active button-review">Pay Now</button>
                             </div></td>
                             <td>
@@ -154,12 +156,12 @@ a{
         //var e = $("input:radio[name ='shipping']:checked").val(shipping);
         for (var i = 0, length = shipping.length; i < length; i++) {
         if (shipping[i].checked) {
-            subtotal = parseFloat(shipping[i].value) + parseFloat(subtotal);
+            subtotal1 = parseFloat(shipping[i].value) + parseFloat(subtotal);
             }
         }
         //document.getElementById('sub').innerHTML=subtotal.toFixed(2);
         document.getElementById('sub').value=subtotal.toFixed(2); //teacher's example
-        document.getElementById('sub1').value=subtotal.toFixed(2);
+        document.getElementById('sub1').value=subtotal1.toFixed(2);
     }
 </script>
 

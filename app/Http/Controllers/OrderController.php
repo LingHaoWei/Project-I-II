@@ -21,22 +21,26 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
     public function paymentPost(Request $request)
-    {
+    { $ra = rand();
         try {
 
             $cid = $request->cid;
             $productID = $request->id;
             $name = $request->name;
             $quantity = $request->quantity;
-            $ra = rand();
+            $price=$request->price;
+            $status = $request->status;
+
             foreach($cid as $e=>$value){
 
                 OrderDetail::create([
                     'orderID'=>$ra,
                     'userID'=>Auth::id(),
+                    'price'=>$price[$e],
                     'name'=>$name[$e],
                     'quantity'=>$quantity[$e],
-                    'productID'=>$productID[$e]
+                    'productID'=>$productID[$e],
+                    'status'=>$status[$e],
 
                 ]);
             }
@@ -47,17 +51,17 @@ class OrderController extends Controller
 
 	Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
-                "amount" => $request->sub*100,
+                "amount" => $request->sub1*100,
                 "currency" => "MYR",
                 "source" => $request->stripeToken,
                 "description" => "This payment is testing purpose of southern online",
         ]);
         $data = $request->all();
         $newOrder=Order::Create([
-            'orderID'=>'',
+            'orderID'=>$ra,
             'paymentStatus'=>'Done',
             'userID'=>Auth::id(),
-            'amount'=>$request->sub,
+            'amount'=>$request->sub1,
             'address'=>$request->address,
             'contact'=>$request->contact,
         ]);
@@ -131,7 +135,6 @@ class OrderController extends Controller
     }
     public function showOrder(){
         $order = OrderDetail::all();
-        $orders = Order::all();
         $address=DB::table('users')
         ->leftjoin('carts','carts.userID','=','users.id')
         ->select('users.address as address')
@@ -144,6 +147,6 @@ class OrderController extends Controller
         ->where('carts.userID','=',Auth::id())
         ->take(1)
         ->get();
-        return view('order',compact('address','contact'))->with('order',$order)->with('orders',$orders);
+        return view('order',compact('address','contact'))->with('order',$order);
     }
 }

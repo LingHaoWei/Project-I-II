@@ -14,7 +14,7 @@
                 <th scope="col">Quantity</th>
                 <th scope="col">Delivery Address</th>
                 <th scope="col">Contact</th>
-                <th scope="col">Total</th>
+                <th scope="col">Price</th>
                 <th>status</th>
             </tr>
         </thead>
@@ -25,13 +25,9 @@
                   <td>{{ $order->orderID }}</td>
                   <td>{{$order->name}}</td>
                   <td>{{$order->quantity}}</td>
-                  @foreach($address as $ad)
-                  <td>{{$ad->address }}</td>
-                  @endforeach
-                  @foreach($contact as $co)
-                  <td>{{ $co->contact }}</td>
-                  @endforeach
-                  <td></td>
+                  <td>{{$order->address }}</td>
+                  <td>{{ $order->contact }}</td>
+                  <td>RM{{ $order->price }}</td>
                   <td>processing</td>
             </tr>
             @endforeach
