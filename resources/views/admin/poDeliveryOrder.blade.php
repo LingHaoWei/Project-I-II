@@ -52,7 +52,7 @@
   <div class="">
         
         <div class="pageTopic addPo">
-            <div><h2>Purchase Order</h2></div>
+            <div><h2>Delivery Order</h2></div>
         </div>
 
   </div>
@@ -112,9 +112,9 @@
                 <br>
             </div>
 
-            <label class="" for="Document No"><b></b></label>
+            <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-
+                {{$po->invoice_no}}
                 <br></br>
                 <br>
             </div>
@@ -129,9 +129,9 @@
                 <tr>
                 <th scope="col" width="3%"></th>
                 <th scope="col" width="25%">Product</th>
-                <th scope="col" width="25%">Unit Price (RM)</th>
                 <th scope="col" width="15%">Order Quantity</th>
-                <th scope="col" width="15%">Total (RM)</th>
+                <th scope="col" width="15%">Received Quantity</th>
+
 
                 </tr>
             </thead>
@@ -141,19 +141,11 @@
                     <tr>
                     <td></td>
                     <td>{{$por->proname}} ({{$por->productID}})</td>
-                    <td>{{$por->unitPrice}}</td>
                     <td>{{$por->quantity}}</td>
-                    <td>{{$por->grand_total}}</td>
+                    <td>{{$por->received_quantity}}</td>
+
                     </tr>
             @endforeach
-                    <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><b> Total <b></td>
-                    <td hidden>0</td>
-                    <td><span id="totalVal" style=""></span></td>
-                    </tr>
             </tbody>
             
         <tfoot>
@@ -197,7 +189,7 @@
             </Button>
 
             <button type="button" class="printPOBtn">
-                <a href="{{ route('updatePurchaseOrder',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Update PO</a> 
+                <a href="{{ route('updateDeliveryOrder',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Update DO</a> 
             </button>
         </div>
     </div>
@@ -221,7 +213,7 @@ if (document.getElementById('poVal').value == 0) {
 var table = document.getElementById("myTable"), sumVal=0;
 
 for(var i = 1; i < table.rows.length; i++){
-    sumVal = sumVal + parseInt(table.rows[i].cells[4].innerHTML);
+    sumVal = sumVal + parseInt(table.rows[i].cells[5].innerHTML);
 }
 
 document.getElementById("totalVal").innerHTML = "RM " + sumVal;

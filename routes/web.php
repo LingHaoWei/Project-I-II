@@ -114,11 +114,22 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/insertPurchaseOrder/{supplier}', [App\Http\Controllers\PurchaseOrderController::class, 'getProduct'])->name('getProduct');
 
         Route::post('/addPO', [App\Http\Controllers\PurchaseOrderController::class, 'store'])->name('addPO');
+        //PO
         Route::get('/viewPurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'previewPrint'])->name('viewPurchaseOrderDetail');
         Route::get('/updatePurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'updatePO'])->name('updatePurchaseOrder');
-        Route::get('/printPurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'createPDF'])->name('printPurchaseOrder');
+        Route::post('/savePO/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'savePO'])->name('savePO');
+
+        //DO
+        Route::get('/viewDeliveryOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'previewDO'])->name('viewDeliveryOrder');
+        Route::get('/updateDeliveryOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'updateDO'])->name('updateDeliveryOrder');
+
+        //Invoice
+        Route::get('/viewInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'previewInvoice'])->name('viewInvoice');
+        
+
+
         Route::get('/deletePurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'deletePO'])->name('deletePurchaseOrder');
-        Route::post('/savePO', [App\Http\Controllers\UserController::class, 'savePO'])->name('savePO');
+        
         //admin logout
         Route::get('/logout', [App\Http\Controllers\AdminController::class, 'logout'])->name('admin.logout');
 	});

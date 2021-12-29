@@ -52,7 +52,7 @@
   <div class="">
         
         <div class="pageTopic addPo">
-            <div><h2>Purchase Order</h2></div>
+            <div><h2>Invoice</h2></div>
         </div>
 
   </div>
@@ -112,9 +112,9 @@
                 <br>
             </div>
 
-            <label class="" for="Document No"><b></b></label>
+            <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-
+                {{$po->invoice_no}}
                 <br></br>
                 <br>
             </div>
@@ -131,6 +131,7 @@
                 <th scope="col" width="25%">Product</th>
                 <th scope="col" width="25%">Unit Price (RM)</th>
                 <th scope="col" width="15%">Order Quantity</th>
+                <th scope="col" width="15%">Received Quantity</th>
                 <th scope="col" width="15%">Total (RM)</th>
 
                 </tr>
@@ -143,10 +144,12 @@
                     <td>{{$por->proname}} ({{$por->productID}})</td>
                     <td>{{$por->unitPrice}}</td>
                     <td>{{$por->quantity}}</td>
+                    <td>{{$por->received_quantity}}</td>
                     <td>{{$por->grand_total}}</td>
                     </tr>
             @endforeach
                     <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -221,7 +224,7 @@ if (document.getElementById('poVal').value == 0) {
 var table = document.getElementById("myTable"), sumVal=0;
 
 for(var i = 1; i < table.rows.length; i++){
-    sumVal = sumVal + parseInt(table.rows[i].cells[4].innerHTML);
+    sumVal = sumVal + parseInt(table.rows[i].cells[5].innerHTML);
 }
 
 document.getElementById("totalVal").innerHTML = "RM " + sumVal;

@@ -58,12 +58,12 @@
   </div>
   
   <div class="form addProForm row">
-      
-        <form method="POST" , action="{{route('savePO')}}" enctype="multipart/form-data" id="dynamic_form">
+  @foreach($PurchaseOrder as $po)
+        <form method="POST" , action="{{ route('savePO',['id'=>$po->id]) }}" enctype="multipart/form-data" id="dynamic_form">
         @csrf
-        @foreach($PurchaseOrder as $po)
+        
         <div class="addRow">
-        <input hidden value="{{$po->id}}" />
+        <input hidden id="id" name="id" value="{{$po->id}}" />
             
 
         </div>
@@ -124,7 +124,6 @@
                 <th scope="col" width="25%">Product</th>
                 <th scope="col" width="25%">Unit Price (RM)</th>
                 <th scope="col" width="15%">Quantity</th>
-                <th scope="col" width="15%">Received Quantity</th>
                 <th scope="col" width="15%">Total (RM)</th>
 
                 </tr>
@@ -137,14 +136,10 @@
                     <td>{{$por->proname}}</td>
                     <td>{{$por->unitPrice}}</td>
                     <td>{{$por->quantity}}</td>
-                    <td>
-                        <input type="text" width="20" class="prc">
-                    </td>
                     <td>{{$por->grand_total}}</td>
                     </tr>
             @endforeach
                     <tr>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -167,7 +162,7 @@
         <div class="form-group printpoaddProRow4">
             <label class="" for="Document No">Invoice No:</label>
             <div class="">
-                <input type="text" class="form-control" id="DocumentNo" name="DocumentNo" value="">
+                <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="{{$po->invoice_no}}">
             </div>
 
             <label class="" for="PurchaseOrder Notes">Notes</label>
@@ -220,7 +215,7 @@ if (document.getElementById('poVal').value == 0) {
 var table = document.getElementById("myTable"), sumVal=0;
 
 for(var i = 1; i < table.rows.length; i++){
-    sumVal = sumVal + parseInt(table.rows[i].cells[5].innerHTML);
+    sumVal = sumVal + parseInt(table.rows[i].cells[4].innerHTML);
 }
 
 document.getElementById("totalVal").innerHTML = "RM " + sumVal;
