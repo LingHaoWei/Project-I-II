@@ -61,7 +61,7 @@ a{
                                 <input type="hidden" class="form-check-input" name="id[]" id="id[]" value="{{ $cart->productID }}" onclick="cal()">
                                 <input type="hidden" class="form-check-input" name="name[]" id="name[]" value="{{ $cart->name }}" onclick="cal()">
                                 <input type="hidden" name="price[]" id="price[]" value="{{ $cart->price }}">
-                                <input type="hidden" name="status" id="status" value=0>
+                                <input type="hidden" name="status[]" id="status[]" value=0>
                                 <td>
                                     <input type="hidden" name="cid1" id="cid1" value="{{ $cart->cid }}">
                                     <input type="number" name="quantity[]" id="quantity[]" size="2" maxlength="12" value="{{ $cart->cartQty }}"  class="input-text qty" max="{{ $cart->quantity }}" min="1">
