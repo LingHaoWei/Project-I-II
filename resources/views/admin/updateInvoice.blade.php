@@ -160,6 +160,11 @@
         </div>
 
         <div class="form-group printpoaddProRow4">
+            <label class="" for="Document No">Delivery Order No:</label>
+            <div class="">
+                <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="{{$po->invoice_no}}">
+            </div>
+
             <label class="" for="PurchaseOrder Notes">Notes</label>
                     <div class="poNotesArea">
                         <textarea type="text" class="form-control" id="poNotes" name="poNotes" >{{$po->notes}}</textarea>

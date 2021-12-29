@@ -38,7 +38,7 @@
             <thead>
                 <tr>
                 <th scope="col"></th>
-                <th scope="col" >Purchase No</th>
+                <th scope="col" >Purchase Order No</th>
                 <th scope="col">Vendor</th>
                 <th scope="col">Option</th>
                 </tr>

@@ -218,38 +218,39 @@ class PurchaseOrderController extends Controller
     }
 
     public function savePO($id, Request $request){
-        
-        $productID = $request->product;
-        $rquantity = $request->receivedQuantity;
 
-        $invoice_no = $request->InvoiceNo;
         $notes = $request->poNotes;
         $status = $request->status;
-        
 
         purchaseOrder::where('id',$id)->update([
-            'invoice_no' => $invoice_no,
             'notes'=> $notes,
             'status' => $status
         ]);
 
-        foreach($rquantity as $e=>$rqt) {
-            if($rqt == 0){
+        return redirect()->route('viewPurchaseOrderDetail',$id);
+    }
+
+    public function saveDO($id, Request $request){
+
+        $notes = $request->poNotes;
+        $deliveryOrderNo = $request->DeliveryOrderNo;
+        $proID = $request->productID;
+        $rquantity = $request->receivedQuantity;
+
+        purchaseOrder::where('id',$id)->update([
+            'notes'=> $notes,
+            'delivery_order' => $deliveryOrderNo
+        ]);
+
+        foreach($proID as $key =>$value){
+            if($rquantity == 0){
                 continue;
             }
-
-            $dt_product = product::where('productID',$productID[$e])->first();
-
-            $data =DB::table('purchase_orders')
-                    ->leftJoin('purchase_oder_r_s','purchase_orders.id', '=','purchase_oder_r_s.purchase_order')
-                    ->where('purchase_orders.id', $id); 
-            DB::table('purchase_oder_r_s')->where('purchase_order', $id)->update([
-                'productID' => $productID[$e],
-                'received_quantity' => $rqt,
-            ]); 
+            purchaseOderR::where('purchase_order',$id)->where('productID',$key)
+                ->update(['received_quantity'=>$rquantity]);
         }
 
-        return redirect()->route('viewPurchaseOrderDetail',$id);
+        return redirect()->route('viewDeliveryOrder',$id);
     }
 
     public function deletePO($id){       
