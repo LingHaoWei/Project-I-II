@@ -21,9 +21,9 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
     public function paymentPost(Request $request)
-    { $ra = rand();
+    {
         try {
-
+            $ra = rand();
             $cid = $request->cid;
             $productID = $request->id;
             $name = $request->name;
@@ -134,7 +134,11 @@ class OrderController extends Controller
         return back();
     }
     public function showOrder(){
-        $order = OrderDetail::all();
+        $order = DB::table('order_details')
+        ->leftjoin('users','users.id','=','order_details.userID')
+        ->select('order_details.orderID','order_details.name','order_details.quantity','order_details.price','users.*','users.address as address','users.contact as contact')
+        ->where('order_details.userID','=',Auth::id())
+        ->get();
         $address=DB::table('users')
         ->leftjoin('carts','carts.userID','=','users.id')
         ->select('users.address as address')
