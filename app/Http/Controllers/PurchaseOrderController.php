@@ -125,6 +125,46 @@ class PurchaseOrderController extends Controller
         return view('admin.printPurchaseOrder',compact('PurchaseOrder','PurchaseOrderR'));
     }
 
+    public function updatePO($id){
+        $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
+        ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+        ->select(
+        'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
+        'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
+        'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
+        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail'
+        )
+        ->get();
+        
+        $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
+        ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
+        ->select(
+            'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
+            )
+        ->get();
+        
+        //select * from where id='$id'
+
+        return view('admin.updatePurchaseOrder',compact('PurchaseOrder','PurchaseOrderR'));
+    }
+
+    public function savePO($id, Request $request){
+
+        $notes = $request->poNotes;
+        $status = $request->status;
+        $cdate = $request->date;
+
+        purchaseOrder::where('id',$id)->update([
+            'notes'=> $notes,
+            'status' => $status,
+            'created_at' => $cdate
+        ]);
+
+        return redirect()->route('viewPurchaseOrderDetail',$id);
+    }
+
+    // *** Delivery Order Controller *** //
+
     public function previewDO($id){
         $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
         ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
@@ -171,6 +211,43 @@ class PurchaseOrderController extends Controller
         return view('admin.updateDeliveryOrder',compact('PurchaseOrder','PurchaseOrderR'));
     }
 
+    public function saveDO($id, Request $request){
+
+        $notes = $request->poNotes;
+        $deliveryOrderNo = $request->DeliveryOrderNo;
+        $date = $request->date;
+
+        $proID = $request->productID;
+        $rquantity = $request->receivedQuantity;
+
+        purchaseOrder::where('id',$id)->update([
+            'notes'=> $notes,
+            'delivery_order' => $deliveryOrderNo,
+            'created_at' => $date
+        ]);
+
+        foreach($rquantity as $e=>$rqt) {
+            if($rqt == 0){
+                continue;
+            }
+
+            $getQuantity = purchaseOderR::where('purchase_order',$id)->where(['productID'=>$proID[$e]])->first()->toArray();
+            $rqtl[$e] = $getQuantity['received_quantity'] + $rqt;
+
+            purchaseOderR::where('purchase_order',$id)->where('productID',$proID[$e])->update([
+                'received_quantity' => $rqtl[$e],
+            ]);
+
+            $getQuantity = product::where(['productID'=>$proID[$e]])->first()->toArray();
+            $stock = $getQuantity['quantity'] + $rqt;
+            product::where(['productID'=>$proID[$e]])->update(['quantity'=>$stock]);
+        }
+
+        return redirect()->route('viewDeliveryOrder',$id);
+    }
+
+    // *** Invoice Controller *** //
+
     public function previewInvoice($id){
         $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
         ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
@@ -194,7 +271,7 @@ class PurchaseOrderController extends Controller
         return view('admin.poInvoice',compact('PurchaseOrder','PurchaseOrderR'));
     }
 
-    public function updatePO($id){
+    public function updateINV($id){
         $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
         ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
         ->select(
@@ -214,48 +291,20 @@ class PurchaseOrderController extends Controller
         
         //select * from where id='$id'
 
-        return view('admin.updatePurchaseOrder',compact('PurchaseOrder','PurchaseOrderR'));
+        return view('admin.updateInvoice',compact('PurchaseOrder','PurchaseOrderR'));
     }
 
-    public function savePO($id, Request $request){
+    public function saveINV($id, Request $request){
 
         $notes = $request->poNotes;
-        $status = $request->status;
-        $cdate = $request->date;
+        $InvoiceNo = $request->InvoiceNo;
 
         purchaseOrder::where('id',$id)->update([
             'notes'=> $notes,
-            'status' => $status,
-            'created_at' => $cdate
+            'invoice_no' => $InvoiceNo
         ]);
 
-        return redirect()->route('viewPurchaseOrderDetail',$id);
-    }
-
-    public function saveDO($id, Request $request){
-
-        $notes = $request->poNotes;
-        $deliveryOrderNo = $request->DeliveryOrderNo;
-
-        $proID = $request->productID;
-        $rquantity = $request->receivedQuantity;
-
-        purchaseOrder::where('id',$id)->update([
-            'notes'=> $notes,
-            'delivery_order' => $deliveryOrderNo
-        ]);
-
-        foreach($rquantity as $e=>$rqt) {
-            if($rqt == 0){
-                continue;
-            }
-
-            purchaseOderR::where('purchase_order',$id)->where('productID',$proID[$e])->update([
-                'received_quantity' => $rqt,
-            ]);
-        }
-
-        return redirect()->route('viewDeliveryOrder',$id);
+        return redirect()->route('viewInvoice',$id);
     }
 
     public function deletePO($id){       

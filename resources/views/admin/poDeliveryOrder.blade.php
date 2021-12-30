@@ -105,16 +105,17 @@
                 <br>
                 
             </div>
-            <label class="" for="Document No"><b>Date Created:</b></label>
-            <div class="">
-                {{$po->created_at}}
-                <br></br>
-                <br>
-            </div>
 
             <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
                 {{$po->delivery_order}}
+                <br></br>
+                <br>
+            </div>
+
+            <label class="" for="Document No"><b>Date Created:</b></label>
+            <div class="">
+                {{$po->created_at}}
                 <br></br>
                 <br>
             </div>

@@ -52,14 +52,14 @@
   <div class="">
         
         <div class="pageTopic addPo">
-            <div><h2>Purchase Order</h2></div>
+            <div><h2>Invoice</h2></div>
         </div>
 
   </div>
   
   <div class="form addProForm row">
   @foreach($PurchaseOrder as $po)
-        <form method="POST" , action="{{ route('savePO',['id'=>$po->id]) }}" enctype="multipart/form-data" id="dynamic_form">
+        <form method="POST" , action="{{ route('saveInvoice',['id'=>$po->id]) }}" enctype="multipart/form-data" id="dynamic_form">
         @csrf
         
         <div class="addRow">
@@ -70,7 +70,7 @@
             
             
         <div class="form-group addProRow1">
-            
+            <label class="" for="Document No"><b>Invoice No: {{$po->invoice_no}}</b></label>
             <div class="myAddress">
             
             My Sample Company Co.
@@ -108,8 +108,15 @@
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
                 {{$po->created_at}}
+                <br></br>
                 <br>
-                
+            </div>
+
+            <label class="" for="Document No"><b>Delivery Order No:</b></label>
+            <div class="">
+                {{$po->delivery_order}}
+                <br></br>
+                <br>
             </div>
         </div>
         
@@ -133,7 +140,7 @@
             @foreach($PurchaseOrderR as $por)
                     <tr>
                     <td></td>
-                    <td>{{$por->proname}}</td>
+                    <td>{{$por->proname}} ({{$por->productID}})</td>
                     <td>{{$por->unitPrice}}</td>
                     <td>{{$por->quantity}}</td>
                     <td>{{$por->grand_total}}</td>
@@ -160,7 +167,7 @@
         </div>
 
         <div class="form-group printpoaddProRow4">
-            <label class="" for="Document No">Delivery Order No:</label>
+            <label class="" for="Document No">Invoice No:</label>
             <div class="">
                 <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="{{$po->invoice_no}}">
             </div>
@@ -169,26 +176,19 @@
                     <div class="poNotesArea">
                         <textarea type="text" class="form-control" id="poNotes" name="poNotes" >{{$po->notes}}</textarea>
                     </div>
-
-            <label class="" for="Supplier status">Status</label>
-            <div class="">
-                <select name="status" class="form-control" required value="#">
-                    <option value="">---Select Status---</option>
-                    <option value="0">Pending</option>
-                    <option value="1">Approved</option>
-                    <option value="2">Cancelled</option>
-                </select>
-            </div>
             <div class="">
             <Button type="button" class="backBtn">
-                <a href="{{ route('viewPurchaseOrderDetail',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
+                <a href="{{ route('viewInvoice',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
             </Button>
             <button type="submit" class="subBtn" title="Submit">Submit</button>
             </div>
         </div>
         
         <div class="form-group printpoaddProRow5">
-            
+            <label class="" for="Supplier status"><b>Status</b></label>
+            <div class="poStatus notesandstatus" id="poStatus">
+                <input hidden value="{{$po->status}}" id="poVal"></input>
+            </div>
         </div>
         @endforeach
         </form>

@@ -107,8 +107,7 @@
             </div>
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
-                <input type="date" name="date" id="date" class="form-control" style="width: 50%; display: inline;" required value="{{$po->created_at}}">
-
+                {{$po->created_at}}
                 <br>
                 
             </div>
@@ -134,7 +133,7 @@
             @foreach($PurchaseOrderR as $por)
                     <tr>
                     <td></td>
-                    <td>{{$por->proname}}</td>
+                    <td>{{$por->proname}} ({{$por->productID}})</td>
                     <td>{{$por->unitPrice}}</td>
                     <td>{{$por->quantity}}</td>
                     <td>{{$por->grand_total}}</td>

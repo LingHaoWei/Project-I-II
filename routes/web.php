@@ -126,7 +126,8 @@ Route::group(['prefix' => 'admin'], function() {
 
         //Invoice
         Route::get('/viewInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'previewInvoice'])->name('viewInvoice');
-        
+        Route::get('/updateInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'updateINV'])->name('updateInvoice');
+        Route::post('/saveInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'saveINV'])->name('saveInvoice');
 
 
         Route::get('/deletePurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'deletePO'])->name('deletePurchaseOrder');

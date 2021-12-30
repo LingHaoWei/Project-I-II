@@ -70,7 +70,10 @@
             
             
         <div class="form-group addProRow1">
-            
+            <label class="" for="Document No"><b>Invoice No: {{$po->invoice_no}}</b></label>
+            <div class="">
+
+            </div>
             <div class="myAddress">
             
             My Sample Company Co.
@@ -78,7 +81,7 @@
             info@sampleco.com
             <br>
             Sample Address, 23rd St., Sample City, ####
-            <br></br>
+            <br>
 
             </div>
 
@@ -114,10 +117,11 @@
 
             <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                {{$po->invoice_no}}
+                {{$po->delivery_order}}
                 <br></br>
                 <br>
             </div>
+
         </div>
         
 
@@ -200,7 +204,7 @@
             </Button>
 
             <button type="button" class="printPOBtn">
-                <a href="{{ route('updatePurchaseOrder',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Update PO</a> 
+                <a href="{{ route('updateInvoice',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Update Invoice</a> 
             </button>
         </div>
     </div>

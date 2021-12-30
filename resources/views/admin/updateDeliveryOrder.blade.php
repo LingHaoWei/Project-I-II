@@ -105,9 +105,18 @@
                 <br>
                 
             </div>
+
+            <label class="" for="Document No"><b>Delivery Order No:</b></label>
+            <div class="">
+                {{$po->delivery_order}}
+                <br></br>
+                <br>
+            </div>
+
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
-                {{$po->created_at}}
+            <input type="date" name="date" id="date" class="form-control" style="width: 50%; display: inline;" required value="{{$po->created_at}}">
+                
                 <br>
                 
             </div>
@@ -124,7 +133,7 @@
                 <th scope="col" width="25%">Product</th>
                 <th scope="col" width="15%">Order Quantity</th>
                 <th scope="col" width="15%">Received Quantity</th>
-
+                <th scope="col" width="1%"></th>
                 </tr>
             </thead>
             
@@ -132,16 +141,18 @@
             @foreach($PurchaseOrderR as $por)
                     <tr>
                     <td></td>
-                    <td>{{$por->proname}}</td>
+                    <td>{{$por->proname}} ({{$por->productID}})</td>
                     <td>{{$por->quantity}}</td>
-                    <td>
+                    <td id="receivedQt">
+                        <input type="number" value="{{$por->quantity}}" id="receivedQuantity" name="receivedQuantity[]" class="prc" max="{{ $por->quantity }}" min="{{ $por->received_quantity }}" />
                         <input type="text" value="{{$por->productID}}" id="ProductID" name="productID[]" hidden readonly>
-                        <input type="number" value="{{$por->quantity}}" id="receivedQuantity" name="receivedQuantity[]" class="prc" max="{{ $por->quantity }}"> 
+                    </td>
+                    <td>
+                        <input type="number" value="{{$por->received_quantity}}" id="rreceivedQuantity" name="rreceivedQuantity[]" class="prc" hidden readonly />
                     </td>
                     </tr>
             @endforeach
             </tbody>
-            
         <tfoot>
         
         </tfoot>
@@ -190,6 +201,15 @@
 
 <script>
 
+var table = document.getElementById("myTable"), sumVal=0;
+for(var i = 1; i < table.rows.length; i++){
+    var rqt = table.rows[i].cells[4].children[0].value;
+    var oqt = table.rows[i].cells[3].children[0].value;
+
+    if (oqt == rqt) {
+    table.rows[i].cells[3].innerHTML = '{{$por->received_quantity}}';
+    } 
+}
 
 if (document.getElementById('poVal').value == 0) {
     document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="color:white;">'+"Pending"+'</Button>';
@@ -198,15 +218,6 @@ if (document.getElementById('poVal').value == 0) {
 } else {
     document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="background-color:red;color:white;">'+"Cancelled"+'</Button>';
 }
-
-var table = document.getElementById("myTable"), sumVal=0;
-
-for(var i = 1; i < table.rows.length; i++){
-    sumVal = sumVal + parseInt(table.rows[i].cells[4].innerHTML);
-}
-
-document.getElementById("totalVal").innerHTML = "RM " + sumVal;
-console.log(sumVal);
 
 
 async function generatePDF(){
@@ -229,6 +240,7 @@ async function generatePDF(){
     document.getElementById("downloadBtn").innerHTML = "Print PDF";
 
 }
+
 
 </script>
 
