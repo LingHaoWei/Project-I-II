@@ -52,14 +52,14 @@
   <div class="">
         
         <div class="pageTopic addPo">
-            <div><h2>Purchase Order</h2></div>
+            <div><h2>Delivery Order</h2></div>
         </div>
 
   </div>
   
   <div class="form addProForm row">
   @foreach($PurchaseOrder as $po)
-        <form method="POST" , action="{{ route('savePO',['id'=>$po->id]) }}" enctype="multipart/form-data" id="dynamic_form">
+        <form method="POST" , action="{{ route('saveDO',['id'=>$po->id]) }}" enctype="multipart/form-data" id="dynamic_form">
         @csrf
         
         <div class="addRow">
@@ -122,9 +122,8 @@
                 <tr>
                 <th scope="col" width="3%"></th>
                 <th scope="col" width="25%">Product</th>
-                <th scope="col" width="25%">Unit Price (RM)</th>
-                <th scope="col" width="15%">Quantity</th>
-                <th scope="col" width="15%">Total (RM)</th>
+                <th scope="col" width="15%">Order Quantity</th>
+                <th scope="col" width="15%">Received Quantity</th>
 
                 </tr>
             </thead>
@@ -134,19 +133,13 @@
                     <tr>
                     <td></td>
                     <td>{{$por->proname}}</td>
-                    <td>{{$por->unitPrice}}</td>
                     <td>{{$por->quantity}}</td>
-                    <td>{{$por->grand_total}}</td>
+                    <td>
+                        <input type="text" value="{{$por->productID}}" id="ProductID" name="productID[]" hidden readonly>
+                        <input type="number" value="{{$por->quantity}}" id="receivedQuantity" name="receivedQuantity[]" class="prc" max="{{ $por->quantity }}"> 
+                    </td>
                     </tr>
             @endforeach
-                    <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><b> Total <b></td>
-                    <td hidden>0</td>
-                    <td><span id="totalVal" style=""></span></td>
-                    </tr>
             </tbody>
             
         <tfoot>
@@ -162,7 +155,7 @@
         <div class="form-group printpoaddProRow4">
             <label class="" for="Document No">Delivery Order No:</label>
             <div class="">
-                <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="{{$po->invoice_no}}">
+                <input type="text" class="form-control" id="DeliveryOrderNo" name="DeliveryOrderNo" value="{{$po->delivery_order}}">
             </div>
 
             <label class="" for="PurchaseOrder Notes">Notes</label>
@@ -170,25 +163,19 @@
                         <textarea type="text" class="form-control" id="poNotes" name="poNotes" >{{$po->notes}}</textarea>
                     </div>
 
-            <label class="" for="Supplier status">Status</label>
-            <div class="">
-                <select name="status" class="form-control" required value="#">
-                    <option value="">---Select Status---</option>
-                    <option value="0">Pending</option>
-                    <option value="1">Approved</option>
-                    <option value="2">Cancelled</option>
-                </select>
-            </div>
             <div class="">
             <Button type="button" class="backBtn">
-                <a href="{{ route('viewPurchaseOrderDetail',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
+                <a href="{{ route('viewDeliveryOrder',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
             </Button>
             <button type="submit" class="subBtn" title="Submit">Submit</button>
             </div>
         </div>
         
         <div class="form-group printpoaddProRow5">
-            
+        <label class="" for="Supplier status"><b>Status</b></label>
+            <div class="poStatus notesandstatus" id="poStatus">
+                <input hidden value="{{$po->status}}" id="poVal"></input>
+            </div>
         </div>
         @endforeach
         </form>
@@ -242,7 +229,6 @@ async function generatePDF(){
     document.getElementById("downloadBtn").innerHTML = "Print PDF";
 
 }
-
 
 </script>
 

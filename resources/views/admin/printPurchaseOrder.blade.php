@@ -103,8 +103,8 @@
                 {{$po->document_no}}
                 <br></br>
                 <br>
-                
             </div>
+
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
                 {{$po->created_at}}

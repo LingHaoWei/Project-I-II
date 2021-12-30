@@ -114,7 +114,7 @@
 
             <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                {{$po->invoice_no}}
+                {{$po->delivery_order}}
                 <br></br>
                 <br>
             </div>

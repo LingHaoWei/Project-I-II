@@ -122,6 +122,7 @@ Route::group(['prefix' => 'admin'], function() {
         //DO
         Route::get('/viewDeliveryOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'previewDO'])->name('viewDeliveryOrder');
         Route::get('/updateDeliveryOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'updateDO'])->name('updateDeliveryOrder');
+        Route::post('/saveDO/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'saveDO'])->name('saveDO');
 
         //Invoice
         Route::get('/viewInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'previewInvoice'])->name('viewInvoice');
