@@ -136,7 +136,7 @@
                     <td>{{$por->quantity}}</td>
                     <td>
                         <input type="text" value="{{$por->productID}}" id="ProductID" name="productID[]" hidden readonly>
-                        <input type="text" value="{{$por->quantity}}" id="receivedQuantity" name="receivedQuantity[]" class="prc">
+                        <input type="number" value="{{$por->quantity}}" id="receivedQuantity" name="receivedQuantity[]" class="prc" max="{{ $por->quantity }}"> 
                     </td>
                     </tr>
             @endforeach
@@ -229,7 +229,6 @@ async function generatePDF(){
     document.getElementById("downloadBtn").innerHTML = "Print PDF";
 
 }
-
 
 </script>
 

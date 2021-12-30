@@ -72,7 +72,7 @@ class PurchaseOrderController extends Controller
                 'supplierID' => $SupplierID,
                 'status' =>  $status,
                 'notes' => $notes,
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
 
@@ -221,10 +221,12 @@ class PurchaseOrderController extends Controller
 
         $notes = $request->poNotes;
         $status = $request->status;
+        $cdate = $request->date;
 
         purchaseOrder::where('id',$id)->update([
             'notes'=> $notes,
-            'status' => $status
+            'status' => $status,
+            'created_at' => $cdate
         ]);
 
         return redirect()->route('viewPurchaseOrderDetail',$id);
@@ -234,6 +236,7 @@ class PurchaseOrderController extends Controller
 
         $notes = $request->poNotes;
         $deliveryOrderNo = $request->DeliveryOrderNo;
+
         $proID = $request->productID;
         $rquantity = $request->receivedQuantity;
 
@@ -242,12 +245,14 @@ class PurchaseOrderController extends Controller
             'delivery_order' => $deliveryOrderNo
         ]);
 
-        foreach($proID as $key =>$value){
-            if($rquantity == 0){
+        foreach($rquantity as $e=>$rqt) {
+            if($rqt == 0){
                 continue;
             }
-            purchaseOderR::where('purchase_order',$id)->where('productID',$key)
-                ->update(['received_quantity'=>$rquantity]);
+
+            purchaseOderR::where('purchase_order',$id)->where('productID',$proID[$e])->update([
+                'received_quantity' => $rqt,
+            ]);
         }
 
         return redirect()->route('viewDeliveryOrder',$id);

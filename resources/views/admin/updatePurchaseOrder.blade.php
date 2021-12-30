@@ -107,7 +107,8 @@
             </div>
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
-                {{$po->created_at}}
+                <input type="date" name="date" id="date" class="form-control" style="width: 50%; display: inline;" required value="{{$po->created_at}}">
+
                 <br>
                 
             </div>
