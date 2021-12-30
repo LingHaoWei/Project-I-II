@@ -30,12 +30,14 @@ class OrderController extends Controller
             $quantity = $request->quantity;
             $price=$request->price;
             $status = $request->status;
+            $image = $request->image;
 
             foreach($cid as $e=>$value){
 
                 OrderDetail::create([
                     'orderID'=>$ra,
                     'userID'=>Auth::id(),
+                    'image'=>$image[$e],
                     'price'=>$price[$e],
                     'name'=>$name[$e],
                     'quantity'=>$quantity[$e],
