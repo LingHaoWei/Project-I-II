@@ -24,7 +24,7 @@
         </div>
         
         <div class="iq-search-bar device-search">
-            <form method="POST" action="#" class="searchbox">
+            <form method="POST" action="{{ route('searchPurchaseOrder') }}" class="searchbox">
             @csrf
                 Search:<a class="search-link" href="#"><i class="ri-search-line"></i></a>
                 <input type="text" name="keyword" type="search" placeholder="Search" aria-label="Search">
