@@ -227,20 +227,23 @@ class PurchaseOrderController extends Controller
         ]);
 
         foreach($rquantity as $e=>$rqt) {
-            if($rqt == 0){
-                continue;
-            }
-
+            
             $getQuantity = purchaseOderR::where('purchase_order',$id)->where(['productID'=>$proID[$e]])->first()->toArray();
+            $rrqtl[$e] = $getQuantity['quantity'];
             $rqtl[$e] = $getQuantity['received_quantity'] + $rqt;
 
-            purchaseOderR::where('purchase_order',$id)->where('productID',$proID[$e])->update([
-                'received_quantity' => $rqtl[$e],
-            ]);
-
-            $getQuantity = product::where(['productID'=>$proID[$e]])->first()->toArray();
-            $stock = $getQuantity['quantity'] + $rqt;
-            product::where(['productID'=>$proID[$e]])->update(['quantity'=>$stock]);
+            if($rqtl[$e] >= $rrqtl[$e]){
+                
+                break;
+            } else {
+                purchaseOderR::where('purchase_order',$id)->where('productID',$proID[$e])->update([
+                    'received_quantity' => $rqtl[$e],
+                ]);
+                $getQuantity = product::where(['productID'=>$proID[$e]])->first()->toArray();
+                $stock = $getQuantity['quantity'] + $rqt;
+                product::where(['productID'=>$proID[$e]])->update(['quantity'=>$stock]);
+            }
+            
         }
 
         return redirect()->route('viewDeliveryOrder',$id);
