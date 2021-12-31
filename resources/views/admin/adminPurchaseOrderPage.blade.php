@@ -34,7 +34,7 @@
     </div>
 
     <div class="" id="pwrapper2">
-    <table class="table">
+    <table class="table" id="myTable">
             <thead>
                 <tr>
                 <th scope="col"></th>
