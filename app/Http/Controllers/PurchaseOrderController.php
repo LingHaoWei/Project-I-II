@@ -232,7 +232,7 @@ class PurchaseOrderController extends Controller
             $rrqtl[$e] = $getQuantity['quantity'];
             $rqtl[$e] = $getQuantity['received_quantity'] + $rqt;
 
-            if($rqtl[$e] >= $rrqtl[$e]){
+            if($rqtl[$e] > $rrqtl[$e]){
                 
                 break;
             } else {

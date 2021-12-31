@@ -207,7 +207,7 @@ for(var i = 1; i < table.rows.length; i++){
     var oqt = table.rows[i].cells[3].children[0].value;
 
     if (oqt == rqt) {
-    table.rows[i].cells[3].innerHTML = '{{$por->received_quantity}}';
+    table.rows[i].cells[3].innerHTML = '<input type="number" class="prc" readonly value="'+ rqt +'" />';
     } 
 }
 
