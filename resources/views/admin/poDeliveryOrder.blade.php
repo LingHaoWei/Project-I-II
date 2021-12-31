@@ -1,6 +1,7 @@
 @extends('layout')
 @section('content')
 
+
 <style>
     td .prc{
         width: 200px;
@@ -42,10 +43,41 @@
         justify-content: space-between;
     }
 
+    .alert-failed{
+        padding: 10px;
+        background-color: #cf4242;
+        color: white;
+    }
+
+    .alert-success{
+        padding: 10px;
+        background-color: #2d8a39;
+        color: white;
+    }
+
 
 </style>
 
 <!--Page topic-->
+@if(Session::has('failed'))
+
+    <div class="alert alert-failed" role="alert">
+
+        {{Session::get('failed')}}
+
+    </div>
+
+@endif
+
+@if(Session::has('sucess'))
+
+    <div class="alert alert-success" role="alert">
+
+        {{Session::get('sucess')}}
+
+    </div>
+
+@endif
 <!--Page topic-->
 
 <div class="content" id="pwrapper1">
@@ -115,7 +147,7 @@
 
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
-                {{$po->created_at}}
+                {{$po->updated_at}}
                 <br></br>
                 <br>
             </div>

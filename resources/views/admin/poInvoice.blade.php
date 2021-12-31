@@ -42,10 +42,24 @@
         justify-content: space-between;
     }
 
+    .alert-success{
+        padding: 10px;
+        background-color: #2d8a39;
+        color: white;
+    }
 
 </style>
 
 <!--Page topic-->
+@if(Session::has('sucess'))
+
+    <div class="alert alert-success" role="alert">
+
+        {{Session::get('sucess')}}
+
+    </div>
+
+@endif
 <!--Page topic-->
 
 <div class="content" id="pwrapper1">

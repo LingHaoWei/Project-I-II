@@ -10,6 +10,8 @@ use App\Models\brand;
 use App\Models\Supplier;
 use App\Models\purchaseOrder;
 use App\Models\purchaseOderR;
+use App\Models\DeliveryOrder;
+use App\Models\Invoice;
 use Validator;
 use Session;
 use DB;
@@ -72,7 +74,7 @@ class PurchaseOrderController extends Controller
                 'supplierID' => $SupplierID,
                 'status' =>  $status,
                 'notes' => $notes,
-                'created_at' => date('Y-m-d'),
+                'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
 
@@ -172,7 +174,7 @@ class PurchaseOrderController extends Controller
         'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
         'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
         'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
-        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail'
+        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail',
         )
         ->get();
         
@@ -213,6 +215,7 @@ class PurchaseOrderController extends Controller
 
     public function saveDO($id, Request $request){
 
+        $purchaseId = $request->id;
         $notes = $request->poNotes;
         $deliveryOrderNo = $request->DeliveryOrderNo;
         $date = $request->date;
@@ -223,7 +226,6 @@ class PurchaseOrderController extends Controller
         purchaseOrder::where('id',$id)->update([
             'notes'=> $notes,
             'delivery_order' => $deliveryOrderNo,
-            'created_at' => $date
         ]);
 
         foreach($rquantity as $e=>$rqt) {
@@ -233,7 +235,7 @@ class PurchaseOrderController extends Controller
             $rqtl[$e] = $getQuantity['received_quantity'] + $rqt;
 
             if($rqtl[$e] > $rrqtl[$e]){
-                
+                Session::flash('failed',"Quantity inserted exceed your order quantity!");
                 break;
             } else {
                 purchaseOderR::where('purchase_order',$id)->where('productID',$proID[$e])->update([
@@ -242,6 +244,15 @@ class PurchaseOrderController extends Controller
                 $getQuantity = product::where(['productID'=>$proID[$e]])->first()->toArray();
                 $stock = $getQuantity['quantity'] + $rqt;
                 product::where(['productID'=>$proID[$e]])->update(['quantity'=>$stock]);
+
+                DeliveryOrder::insert([
+                    'purchase_order' => $purchaseId, 
+                    'delivery_order_no' => $deliveryOrderNo,
+                    'productID' => $proID[$e],
+                    'sent_quantity' => $rqt,
+                    'created_at' => $date 
+                ]);
+                Session::flash('sucess',"Delivery Order updated!");
             }
             
         }
@@ -306,6 +317,15 @@ class PurchaseOrderController extends Controller
             'notes'=> $notes,
             'invoice_no' => $InvoiceNo
         ]);
+
+        Invoice::insert([
+            'purchase_order' => $id, 
+            'invoice_no' => $InvoiceNo,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        Session::flash('sucess',"Invoice updated!");
 
         return redirect()->route('viewInvoice',$id);
     }
