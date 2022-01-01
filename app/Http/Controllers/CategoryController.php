@@ -30,7 +30,7 @@ class CategoryController extends Controller
     }
 
     public function view(){
-        $category=category::all();//apply SQL select * from categories
+        $category=DB::table('categories')->paginate(10);//apply SQL select * from categories
         Return view('admin.showCategory')->with('category',$category);
     }
 

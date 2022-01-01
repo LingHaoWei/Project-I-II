@@ -43,23 +43,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($supplier as $supplier)
+                @foreach($supplier as $suppliers)
                     <tr>
                     <td width="60"> 
                     </td>
-                    <td>{{$supplier->supplierID}}</td>
+                    <td>{{$suppliers->supplierID}}</td>
                     <td>
-                        <a href="{{ route('editSupplier',['id'=>$supplier->id]) }}" style="color:black; text-decoration:none;">{{$supplier->supplierName}}</a>
+                        <a href="{{ route('editSupplier',['id'=>$suppliers->id]) }}" style="color:black; text-decoration:none;">{{$suppliers->supplierName}}</a>
                     </td>
-                    <td>{{$supplier->contactPerson}}</td>
-                    <td>{{$supplier->status}}</td>
+                    <td>{{$suppliers->contactPerson}}</td>
+                    <td>{{$suppliers->status}}</td>
                     <td>
                         <Button type="button" class="addButton">
-                            <a href="{{ route('editSupplier',['id'=>$supplier->id]) }}" class="editCategory" title="Edit" data-toggle="tooltip">Edit</a>
+                            <a href="{{ route('editSupplier',['id'=>$suppliers->id]) }}" class="editCategory" title="Edit" data-toggle="tooltip">Edit</a>
                         </Button>
 
                         <button type="button" class="deleteBtn">
-                            <a href="{{ route('deleteSupplier',['id'=>$supplier->id]) }}" class="deleteSupplier" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
+                            <a href="{{ route('deleteSupplier',['id'=>$suppliers->id]) }}" class="deleteSupplier" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
                         </button>
                     </td>
                     </tr>
@@ -67,5 +67,6 @@
                 </tbody>
             </table>
     </div>
+    {{$supplier->links()}}
 
 @endsection

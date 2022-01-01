@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use DB;
 use App\Models\brand;
 use Session;
+use Illuminate\Support\Facades\DB as FacadesDB;
+use Illuminate\Contracts\Session\Session as SessionSession;
 
 class BrandController extends Controller
 {
@@ -29,7 +31,7 @@ class BrandController extends Controller
     }
 
     public function view(){
-        $brand=brand::all();//apply SQL select * from categories
+        $brand=DB::table('brands')->paginate(10);//apply SQL select * from categories
         Return view('admin.showBrand')->with('brand',$brand);
     }
 

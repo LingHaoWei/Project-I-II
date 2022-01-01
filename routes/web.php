@@ -105,19 +105,13 @@ Route::group(['prefix' => 'admin'], function() {
 
         //Purchase Order Route
         Route::get('/viewPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'view'])->name('viewPurchaseOrder');
-        Route::get('/chooseSupplier', [App\Http\Controllers\PurchaseOrderController::class, 'chooseSupplier'])->name('chooseSupplier');
-        Route::get('/insertPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'selectSupplier'])->name('selectSupplier');
-        Route::get('/insertPurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'getProduct'])->name('getProduct');
-
-
         Route::get('/insertPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'insertPO'])->name('insertPO');
         Route::get('/insertPurchaseOrder/{supplier}', [App\Http\Controllers\PurchaseOrderController::class, 'getProduct'])->name('getProduct');
-
         Route::post('/addPO', [App\Http\Controllers\PurchaseOrderController::class, 'store'])->name('addPO');
-        //PO
         Route::get('/viewPurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'previewPrint'])->name('viewPurchaseOrderDetail');
         Route::get('/updatePurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'updatePO'])->name('updatePurchaseOrder');
         Route::post('/savePO/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'savePO'])->name('savePO');
+        Route::post('/searchPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'searchPO'])->name('searchPurchaseOrder');
 
         //DO
         Route::get('/viewDeliveryOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'previewDO'])->name('viewDeliveryOrder');

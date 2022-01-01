@@ -57,6 +57,7 @@ class PurchaseOrderController extends Controller
         $product = product::where('supplierID',$id)->get();
 
         return view('admin.insertPO',compact('docno','supplier','product'));
+        
     }
 
     public function store(Request $request){
@@ -243,7 +244,10 @@ class PurchaseOrderController extends Controller
                 ]);
                 $getQuantity = product::where(['productID'=>$proID[$e]])->first()->toArray();
                 $stock = $getQuantity['quantity'] + $rqt;
-                product::where(['productID'=>$proID[$e]])->update(['quantity'=>$stock]);
+                product::where(['productID'=>$proID[$e]])->update([
+                'quantity'=>$stock,
+                'status'=>'Available'
+            ]);
 
                 DeliveryOrder::insert([
                     'purchase_order' => $purchaseId, 
@@ -328,6 +332,22 @@ class PurchaseOrderController extends Controller
         Session::flash('sucess',"Invoice updated!");
 
         return redirect()->route('viewInvoice',$id);
+    }
+
+    public function searchPO(){
+        $r=request();
+        $keyword=$r->keyword;
+        $purchaseOrder = DB::table('purchase_orders')
+
+        ->leftjoin('suppliers','suppliers.id','=','purchase_orders.supplierID')
+        ->select(
+            'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
+            )
+        ->where('purchase_orders.document_no','like','%'.$keyword.'%')
+        ->orWhere('suppliers.supplierName','like','%'.$keyword.'%')
+        ->paginate(10);
+
+        Return view('admin.adminPurchaseOrderPage',compact('purchaseOrder'));
     }
 
     public function deletePO($id){       

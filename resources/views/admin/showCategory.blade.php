@@ -42,20 +42,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($category as $category)
+                @foreach($category as $categories)
                     <tr>
                     <td width="60"> 
                     </td>
-                    <td>{{$category->categoryID}}</td>
-                    <td>{{$category->name}}</td>
-                    <td>{{$category->status}}</td>
+                    <td>{{$categories->categoryID}}</td>
+                    <td>{{$categories->name}}</td>
+                    <td>{{$categories->status}}</td>
                     <td>
                         <Button type="button" class="addButton">
-                            <a href="{{ route('editCategory',['id'=>$category->id]) }}" class="editCategory" title="Edit" data-toggle="tooltip">Edit</a>
+                            <a href="{{ route('editCategory',['id'=>$categories->id]) }}" class="editCategory" title="Edit" data-toggle="tooltip">Edit</a>
                         </Button>
 
                         <button type="button" class="deleteBtn">
-                            <a href="{{ route('deleteCategory',['id'=>$category->id]) }}" class="deleteCategory" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
+                            <a href="{{ route('deleteCategory',['id'=>$categories->id]) }}" class="deleteCategory" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
                         </button>
                     </td>
                     </tr>
@@ -63,5 +63,5 @@
                 </tbody>
             </table>
     </div>
-
+    {{$category->links()}}
 @endsection

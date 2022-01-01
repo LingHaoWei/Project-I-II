@@ -43,20 +43,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($brand as $brand)
+                @foreach($brand as $brands)
                 <tr>
                 <td width="60"> 
                 </td>
-                <td>{{$brand->brandID}}</td>
-                <td>{{$brand->name}}</td>
-                <td>{{$brand->status}}</td>
+                <td>{{$brands->brandID}}</td>
+                <td>{{$brands->name}}</td>
+                <td>{{$brands->status}}</td>
                 <td>
                     <Button type="button" class="addButton">
-                        <a href="{{ route('editBrand',['id'=>$brand->id]) }}" class="editBrand" title="Edit" data-toggle="tooltip">Edit</a>
+                        <a href="{{ route('editBrand',['id'=>$brands->id]) }}" class="editBrand" title="Edit" data-toggle="tooltip">Edit</a>
                     </Button>
 
                     <button type="button" class="deleteBtn">
-                        <a href="{{ route('deleteBrand',['id'=>$brand->id]) }}" class="deleteBrand" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
+                        <a href="{{ route('deleteBrand',['id'=>$brands->id]) }}" class="deleteBrand" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
                     </button>
                 </td>
                 </tr>
@@ -64,4 +64,5 @@
             </tbody>
         </table>
     </div>
+    {{$brand->links()}}
 @endsection

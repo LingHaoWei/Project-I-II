@@ -37,9 +37,9 @@ class SupplierController extends Controller
     }
 
     public function view(){
-        $supplier=Supplier::all();//apply SQL select * from categories
+        $supplier=DB::table('suppliers')->paginate(10);//apply SQL select * from categories
         Return view('admin.showSupplier')->with('supplier',$supplier);
-    }
+    }   
 
     public function edit($id){
         $supplier=Supplier::all()->where('id',$id);

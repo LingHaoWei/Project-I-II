@@ -124,7 +124,7 @@
        
         <div class="form-group addProRow3">
         <table class="table" id="myTable">
-        
+
             <thead>
                 <tr>
                 <th scope="col" width="3%"></th>
@@ -175,7 +175,7 @@
         </div>
         
         <div class="form-group printpoaddProRow5">
-            <label class="" for="Supplier status"><b>Status</b></label>
+            <label class="" for="PO status"><b>Status</b></label>
             <div class="poStatus notesandstatus" id="poStatus">
                 <input hidden value="{{$po->status}}" id="poVal"></input>
             </div>
