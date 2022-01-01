@@ -81,7 +81,24 @@ a{
                             <td>Total Amount</td>
                             <td>RM<input type="text" id="sub" name="sub" value="0" style="border:none; background:transparent"  readonly></td>
                             <td></td>
+                            <td></td>
                         </tr>
+                        <tr>
+                            <td colspan="5"></td>
+                            <td>
+                              <p><b>Shipping fee</b></p>
+                              <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" disabled>
+                              <label for="1">East Malaysia: RM5.00</label><br>
+                              <input type="radio" name="shipping" id="shipping" value="0" onclick="cal()" disabled >
+                              <label for="1">Free Shipping</label><br>
+                              <input type="radio" name="shipping" id="shipping" value="2" onclick="cal()" checked disabled>
+                              <label for="1">West Malaysia: RM2.00</label>
+                          </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"  style="border:0;"></td>
+                            <td  style="border:0;">Total Payment</td>
+                            <td  style="border:0;">RM<input type="text" id="sub1" name="sub1" value="0" style="border:none; background:transparent"  readonly></td>
                         <tr>
                             <td colspan="5">
                                 <div class="panel panel-default credit-card-box">
@@ -111,17 +128,9 @@ a{
                                 <input class='form-control' type="text" name="contact" id="contact" value="{{ $co->contact }}">
                                 @endforeach
                                 <br>
-                                <p>Total: <input type="text" id="sub1" name="sub1" value="0" style="border:none; background:transparent"  readonly></p>
                                 <button type="submit" class="button button--active button-review">Pay Now</button>
                             </div></td>
                             <td>
-                                <p><b>Shipping fee</b></p>
-                                <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" disabled>
-                                <label for="1">East Malaysia: RM5.00</label><br>
-                                <input type="radio" name="shipping" id="shipping" value="0" onclick="cal()" disabled >
-                                <label for="1">Free Shipping</label><br>
-                                <input type="radio" name="shipping" id="shipping" value="2" onclick="cal()" checked disabled>
-                                <label for="1">West Malaysia: RM2.00</label>
                             </td>
                             <td></td>
                         </tr>
