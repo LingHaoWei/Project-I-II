@@ -76,7 +76,7 @@
 
                             <div class="col-md-12 form-group">
                                 <select name="state" class="form-control selectAvai" required @error('state') is-invalid @enderror value="{{ old('state') }}" required autocomplete="state">
-                                    <option value="">---Select Status---</option>
+                                    <option value="">---Select State---</option>
                                     <option value="Kuala Lumpur">Kuala Lumpur</option>
                                     <option value="Johor">Johor</option>
                                     <option value="Kedah">Kedah</option>
@@ -100,8 +100,9 @@
                                     </span>
                                 @enderror
                             </div>
-
-                            <div class="col-md-12 form-group">
+                            <div class="row justify-content-md-left">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="col-md-5 form-group">
 								<input type="text" class="form-control  @error('zipcode') is-invalid @enderror" id="contact" name="zipcode" placeholder="Zipcode" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zipcode'" value="{{ old('zipcode') }}" required autocomplete="zipcode">
                                 @error('zipcode')
                                     <span class="invalid-feedback" role="alert">
@@ -110,13 +111,14 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-12 form-group">
+                            <div class="col-md-5 form-group">
 								<input type="text" class="form-control  @error('city') is-invalid @enderror" id="contact" name="city" placeholder="City" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'" value="{{ old('city') }}" required autocomplete="city">
                                 @error('city')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
                             </div>
 
                             <div class="col-md-12 form-group">
