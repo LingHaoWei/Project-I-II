@@ -244,7 +244,10 @@ class PurchaseOrderController extends Controller
                 ]);
                 $getQuantity = product::where(['productID'=>$proID[$e]])->first()->toArray();
                 $stock = $getQuantity['quantity'] + $rqt;
-                product::where(['productID'=>$proID[$e]])->update(['quantity'=>$stock]);
+                product::where(['productID'=>$proID[$e]])->update([
+                'quantity'=>$stock,
+                'status'=>'Available'
+            ]);
 
                 DeliveryOrder::insert([
                     'purchase_order' => $purchaseId, 

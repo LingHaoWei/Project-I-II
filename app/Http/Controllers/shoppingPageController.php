@@ -16,7 +16,7 @@ class shoppingPageController extends Controller
     public function view(){
 
         $product=DB::table('products')
-
+        
         ->leftjoin('suppliers','suppliers.supplierID','=','products.SupplierID')
         ->leftjoin('categories','categories.categoryID','=','products.categoryID')
         ->leftjoin('brands','brands.brandID','=','products.brandID')
@@ -25,8 +25,8 @@ class shoppingPageController extends Controller
             'products.*','categories.name as catname',
             'products.*','brands.id as brandid','brands.name as brandname'
             )
-
-        ->paginate(9);
+        ->where('products.status','=','Available')
+        ->paginate(9);  
 
         Return view('shoppingShowProductPage')->with('products',$product)
                                               ->with('categoryID',category::all())
