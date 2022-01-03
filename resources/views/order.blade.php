@@ -10,25 +10,19 @@
         <thead>
             <tr>
                 <th scope="col">Order ID</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Delivery Address</th>
-                <th scope="col">Contact</th>
-                <th scope="col">Price</th>
-                <th>status</th>
+                <th scope="col">Payment status</th>
+                <th scope="col">Total</th>
+                <th scope="col">Created at</th>
             </tr>
         </thead>
 
         <tbody>
           @foreach($order as $order)
             <tr>
-                  <td>{{ $order->orderID }}</td>
-                  <td>{{$order->orderName}}</td>
-                  <td>{{$order->quantity}}</td>
-                  <td>{{ $order->address }}</td>
-                  <td>{{ $order->contact }}</td>
-                  <td>RM{{ $order->price }}</td>
-                  <td>processing</td>
+                  <td><a href="{{ route('orderDetail',['orderID'=>$order->orderID]) }}">{{ $order->orderID }}</a></td>
+                  <td>{{$order->paymentStatus}}</td>
+                  <td>RM{{$order->amount}}</td>
+                  <td>{{ $order->created_at }}
             </tr>
             @endforeach
         </tbody>

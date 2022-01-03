@@ -136,7 +136,12 @@ class OrderController extends Controller
         return back();
     }
     public function showOrder(){
-        $order = DB::table('order_details')
+        $order= DB::table('orders')
+        ->leftjoin('users','users.id','=','orders.userID')
+        ->select('orders.orderID','orders.paymentStatus','orders.amount','orders.created_at')
+        ->where('orders.userID','=',Auth::id())
+        ->get();
+        /*$order = DB::table('order_details')
         ->leftjoin('users','users.id','=','order_details.userID')
         ->select('order_details.orderID','order_details.name as orderName','order_details.quantity','order_details.price','users.*','users.address as address','users.contact as contact')
         ->where('order_details.userID','=',Auth::id())
@@ -152,7 +157,31 @@ class OrderController extends Controller
         ->select('users.contact as contact')
         ->where('carts.userID','=',Auth::id())
         ->take(1)
+        ->get();*/
+        return view('order')->with('order',$order);
+    }
+    public function viewOrder($orderID){
+        $od=DB::table('order_details')
+        ->leftjoin('users','users.id','=','order_details.userID')
+        ->select('order_details.orderID','order_details.name as orderName','order_details.quantity','order_details.image','order_details.price','users.*','users.address as address','users.contact as contact')
+        ->where('order_details.userID','=',Auth::id())
+        ->where('orderID',$orderID)
         ->get();
-        return view('order',compact('address','contact'))->with('order',$order);
+
+        $contact=DB::table('users')
+        ->leftjoin('carts','carts.userID','=','users.id')
+        ->select('users.contact as contact','users.name as usName','users.zipcode as zipcode','users.city as city','users.state as state','users.address as address')
+        ->where('carts.userID','=',Auth::id())
+        ->take(1)
+        ->get();
+        //select * from where id='$id'
+
+        Return view('orderDetail',compact('contact'))->with('od',$od);
+
+    }
+
+    public function view(){
+        $or=DB::table('order_details')->paginate(10);//apply SQL select * from categories
+        Return view('admin.showOrder')->with('or',$or);
     }
 }

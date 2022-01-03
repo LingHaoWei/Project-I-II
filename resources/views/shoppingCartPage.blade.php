@@ -62,7 +62,7 @@ a{
                                 <input type="hidden" class="form-check-input" name="name[]" id="name[]" value="{{ $cart->name }}" onclick="cal()">
                                 <input type="hidden" name="price[]" id="price[]" value="{{ $cart->price }}">
                                 <input type="hidden" name="image[]" id="image[]" value="{{ $cart->image }}">
-                                <input type="hidden" name="status[]" id="status[]" value=0>
+                                <input type="hidden" name="status[]" id="status[]" value="Processing">
                                 <td>
                                     <input type="hidden" name="cid1" id="cid1" value="{{ $cart->cid }}">
                                     <input type="number" name="quantity[]" id="quantity[]" size="2" maxlength="12" value="{{ $cart->cartQty }}"  class="input-text qty" max="{{ $cart->quantity }}" min="1">
@@ -86,13 +86,33 @@ a{
                         <tr>
                             <td colspan="5"></td>
                             <td>
+                                @foreach($address as $ad)
+                            @if($ad->state == 'Sarawak' ||$ad->state == 'Sabah')
                               <p><b>Shipping fee</b></p>
-                              <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" disabled>
+                              <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" checked disabled>
                               <label for="1">East Malaysia: RM5.00</label><br>
                               <input type="radio" name="shipping" id="shipping" value="0" onclick="cal()" disabled >
                               <label for="1">Free Shipping</label><br>
-                              <input type="radio" name="shipping" id="shipping" value="2" onclick="cal()" checked disabled>
+                              <input type="radio" name="shipping" id="shipping" value="2" onclick="cal()" disabled>
                               <label for="1">West Malaysia: RM2.00</label>
+                            {{--@elseif (var subtotal > 100)
+                            <p><b>Shipping fee</b></p>
+                              <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" disabled>
+                              <label for="1">East Malaysia: RM5.00</label><br>
+                              <input type="radio" name="shipping" id="shipping" value="0" onclick="cal()" checked disabled >
+                              <label for="1">Free Shipping</label><br>
+                              <input type="radio" name="shipping" id="shipping" value="2" onclick="cal()" disabled>
+                              <label for="1">West Malaysia: RM2.00</label>--}}
+                            @else
+                            <p><b>Shipping fee</b></p>
+                            <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" disabled>
+                            <label for="1">East Malaysia: RM5.00</label><br>
+                            <input type="radio" name="shipping" id="shipping" value="0" onclick="cal()" disabled >
+                            <label for="1">Free Shipping</label><br>
+                            <input type="radio" name="shipping" id="shipping" value="2" onclick="cal()" checked disabled>
+                            <label for="1">West Malaysia: RM2.00</label>
+                            @endif
+                            @endforeach
                           </td>
                         </tr>
                         <tr>

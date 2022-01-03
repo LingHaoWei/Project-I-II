@@ -45,12 +45,12 @@
       </li>
 
       <li>
-        <a href="#">
+        <a href="{{ route('viewOrder') }}">
             <i class='bx bx-receipt'></i>
           <span class="link_name">Order</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Order</a></li>
+          <li><a class="link_name" href="{{ route('viewOrder') }}">Order</a></li>
         </ul>
       </li>
       <li>
