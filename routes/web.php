@@ -127,6 +127,7 @@ Route::group(['prefix' => 'admin'], function() {
         //Order
         Route::get('/viewOrder', [App\Http\Controllers\OrderController::class, 'view'])->name('viewOrder');
         Route::get('/editOrder/{id}', [App\Http\Controllers\OrderController::class, 'edit'])->name('editOrder');
+        Route::post('/updateOrder', [App\Http\Controllers\OrderController::class, 'update'])->name('updateOrder');
 
         Route::get('/deletePurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'deletePO'])->name('deletePurchaseOrder');
 

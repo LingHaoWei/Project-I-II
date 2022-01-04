@@ -21,6 +21,7 @@
                     <th scope="col"></th>
                     <th>OrderID</th>
                     <th>Product Name</th>
+                    <th>Product ID</th>
                     <th>Quantity</th>
                     <th>Status</th>
                     <th>Option</th>
@@ -33,11 +34,12 @@
                     </td>
                     <td>{{$ord->orderID}}</td>
                     <td>{{$ord->name}}</td>
+                    <td>{{ $ord->productID }}</td>
                     <td>{{ $ord->quantity }}</td>
                     <td>{{$ord->status}}</td>
                     <td>
                         <Button type="button" class="addButton">
-                        <a href="{{ route('editCategory',['id'=>$categories->id]) }}" class="editCategory" title="Edit" data-toggle="tooltip">Edit</a>
+                        <a href="{{ route('editOrder',['id'=>$ord->id]) }}" class="editOrder" title="Edit" data-toggle="tooltip">Edit</a>
                         </Button>
                     </td>
                     </tr>

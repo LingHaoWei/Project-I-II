@@ -13,6 +13,7 @@ use App\Models\product;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Notification;
+use Stripe\OrderItem;
 use Stripe\Product as StripeProduct;
 
 class OrderController extends Controller
@@ -163,7 +164,7 @@ class OrderController extends Controller
     public function viewOrder($orderID){
         $od=DB::table('order_details')
         ->leftjoin('users','users.id','=','order_details.userID')
-        ->select('order_details.orderID','order_details.name as orderName','order_details.quantity','order_details.image','order_details.price','users.*','users.address as address','users.contact as contact')
+        ->select('order_details.orderID','order_details.name as orderName','order_details.quantity','order_details.image','order_details.price','order_details.status','users.*','users.address as address','users.contact as contact')
         ->where('order_details.userID','=',Auth::id())
         ->where('orderID',$orderID)
         ->get();
@@ -183,5 +184,21 @@ class OrderController extends Controller
     public function view(){
         $or=DB::table('order_details')->paginate(10);//apply SQL select * from categories
         Return view('admin.showOrder')->with('or',$or);
+    }
+
+    public function edit($id){
+        $or=OrderDetail::all()->where('id',$id);
+
+        Return view('admin.editOrder')->with('or',$or);
+    }
+
+    public function update(){
+        $r=request();
+        $or=OrderDetail::find($r->id); //retrieve the record based on id
+
+        $or->status=$r->status;
+        $or->save();
+
+        Return redirect()->route('viewOrder');
     }
 }

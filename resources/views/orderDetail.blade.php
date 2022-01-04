@@ -24,7 +24,7 @@
                   <td><img src="{{ asset('images/') }}/{{$od->image}}" alt="" width="150" name="image" class="rounded float-left"></td>
                   <td>RM{{ $od->price }}</td>
                   <td>{{ $od->quantity }}</td>
-                  <td>processing</td>
+                  <td>{{ $od->status }}</td>
             </tr>
             @endforeach
 
