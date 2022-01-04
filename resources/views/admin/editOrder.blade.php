@@ -10,7 +10,7 @@
 <div class="" id="pwrapper1">
     @foreach($or as $or)
       <div class="">
-          <div class="pageTopic addPro"><h2>{{ $or->OrderID }}</h2></div>
+          <div class="pageTopic addPro"><h2>{{ $or->orderID }}</h2></div>
       </div>
 
     <div class="form editProForm">
