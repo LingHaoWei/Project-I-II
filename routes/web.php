@@ -86,6 +86,8 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('/updateProduct', [App\Http\Controllers\ProductController::class, 'update'])->name('updateProduct');
         Route::get('/deleteProduct/{id}', [App\Http\Controllers\ProductController::class, 'delete'])->name('deleteProduct');
         Route::post('/adminSearchProduct', [App\Http\Controllers\ProductController::class, 'adminSearchProduct'])->name('search.adminProduct');
+        Route::get('/uploadProduct', [App\Http\Controllers\ProductController::class, 'uplaod'])->name('uploadProduct');
+        Route::post('/storeUpProduct', [App\Http\Controllers\ProductController::class, 'storeUpload'])->name('storeUpProduct');
 
         //Supplier Route
         Route::get('/insertSupplier', [App\Http\Controllers\SupplierController::class, 'supplier'])->name('insertSupplier');

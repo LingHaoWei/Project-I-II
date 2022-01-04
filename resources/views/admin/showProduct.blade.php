@@ -93,7 +93,20 @@
         </tbody>
         
         </table>
+
+        <!--<form action="{{route('storeUpProduct')}}" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group">
+            <label for="upload-file">Bulk upload with csv: </label>
+            <input type="file" name="upload-file" class="form-control">  
+        </div>
+        <button type="submit" class="">UPLOAD</button>
+        </form>-->
+        
     </div>
+
+    
+
     {{$products->links()}}
 
 @endsection

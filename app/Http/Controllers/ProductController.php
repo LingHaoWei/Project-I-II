@@ -136,4 +136,67 @@ class ProductController extends Controller
                                               ->with('SupplierID',Supplier::all());
     }
 
+    public function storeUpload(Request $request){
+        //get file 
+        $upload=$request->file('upload-file');
+        $filePath=$upload->getRealPath();
+        //read
+        $file=fopen($filePath, 'r');
+
+        $header= fgetcsv($file);
+
+        //dd($header);
+        $escapedHeader=[];
+        //validate
+        foreach($header as $key => $value){
+            array_push($escapedHeader, $value);
+        }
+
+        //looping through other columns
+        while($columns=fgetcsv($file)){
+            if($columns[0]==""){
+                continue;
+            }
+            //trim data
+            foreach($columns as $key => &$value){
+                $value=preg_replace('/\D/','',$value);
+            }
+            
+            $data=array_combine($escapedHeader, $columns);
+
+            //Tabel update
+            $productID=$data['productID'];
+            $name=$data['name'];
+            $description=$data['description'];
+            $quantity=$data['quantity'];
+            $price=$data['price'];
+            $unitPrice=$data['unitPrice'];
+            $productVariety=$data['productVariety'];
+            $productSKU=$data['productSKU'];
+            $image=$data['image'];
+            $categoryID=$data['categoryID'];
+            $brandID=$data['brandID'];
+            $supplierID=$data['supplierID'];
+            $status=$data['status'];
+
+            $products=product::fisrtOrNew([
+                'productID'=>$productID,
+                'name'=>$name,
+                'description'=>$description,
+                'quantity'=>$quantity,
+                'price'=>$price,
+                'unitPrice'=>$unitPrice,
+                'productVariety'=>$productVariety,
+                'productSKU'=>$productSKU,
+                'image'=>$image,
+                'categoryID'=>$categoryID,
+                'brandID'=>$brandID,
+                'supplierID'=>$supplierID,
+                'status'=>$status,
+            ]);
+            $products->save();
+
+        }
+    }
+
 }
