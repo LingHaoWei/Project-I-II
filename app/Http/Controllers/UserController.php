@@ -18,6 +18,9 @@ class UserController extends Controller
             'email'=>$r->Email,
             'contact'=>$r->ContactNumber,
             'address'=>$r->Address,
+            'state'=>$r->State,
+            'zipcode'=>$r->Zipcode,
+            'city'=>$r->City,
         ]);
         Return redirect()->route('viewUser');
     }
@@ -38,7 +41,7 @@ class UserController extends Controller
         $r=request();
         $keyword=$r->keyword;
         $user=DB::table('users')
-        ->where('users.id','like','%'.$keyword.'%') 
+        ->where('users.id','like','%'.$keyword.'%')
         ->orWhere('users.name','like','%'.$keyword.'%')
         //select * from products where name like '%$keyword%'
         ->get();

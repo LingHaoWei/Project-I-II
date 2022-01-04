@@ -26,7 +26,7 @@
 
         .logout a:hover{
           color: #d1d1d1;
-          
+
         }
 
       </style>
@@ -44,7 +44,7 @@
               <a href="{{ url('adminHomePage') }}" class="nav-link">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">Order</a>
+              <a href="{{ route('viewOrder') }}" class="nav-link">Order</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -70,12 +70,12 @@
             </li>
             <li class="nav-item">
               <div class="nav nav-item logout">
-                  <a href="" class="nav-link" style="color:white;">Log out</a> 
+                  <a href="" class="nav-link" style="color:white;">Log out</a>
               </div>
             </li>
           </ul>
         </div>
-        
+
       </nav>
 
 <!--Nav bar-->

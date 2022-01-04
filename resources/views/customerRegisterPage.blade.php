@@ -75,6 +75,53 @@
                             </div>
 
                             <div class="col-md-12 form-group">
+                                <select name="state" class="form-control selectAvai" required @error('state') is-invalid @enderror value="{{ old('state') }}" required autocomplete="state">
+                                    <option value="">---Select State---</option>
+                                    <option value="Kuala Lumpur">Kuala Lumpur</option>
+                                    <option value="Johor">Johor</option>
+                                    <option value="Kedah">Kedah</option>
+                                    <option value="Kelatan">Kelatan</option>
+                                    <option value="Melaka">Melaka</option>
+                                    <option value="Negeri Sembilan">Negeri Sembilan</option>
+                                    <option value="Pahang">Pahang</option>
+                                    <option value="Penang">Penang</option>
+                                    <option value="Perak">Perak</option>
+                                    <option value="Perlis">Perlis</option>
+                                    <option value="Sabah">Sabah</option>
+                                    <option value="Sarawak">Sarawak</option>
+                                    <option value="Selangor">Selangor</option>
+                                    <option value="Terengganu">Terengganu</option>
+                                    <option value="Labuan">Labuan</option>
+                                    <option value="Putrajaya">Putrajaya</option>
+                                </select>
+                                @error('state')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="row justify-content-md-left">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="col-md-5 form-group">
+								<input type="text" class="form-control  @error('zipcode') is-invalid @enderror" id="contact" name="zipcode" placeholder="Zipcode" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zipcode'" value="{{ old('zipcode') }}" required autocomplete="zipcode">
+                                @error('zipcode')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-5 form-group">
+								<input type="text" class="form-control  @error('city') is-invalid @enderror" id="contact" name="city" placeholder="City" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'" value="{{ old('city') }}" required autocomplete="city">
+                                @error('city')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            </div>
+
+                            <div class="col-md-12 form-group">
 								<input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required autocomplete="new-password">
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
