@@ -31,6 +31,10 @@ Route::get('/customerRegisterPage', function () {
     return view('customerRegisterPage');
 });
 
+Route::get('/shoppingContactPage', function () {
+    return view('shoppingContactPage');
+});
+
 Route::post('/addCart', [App\Http\Controllers\CartController::class, 'add'])->name('addCart');
 Route::get('/shoppingCartPage', [App\Http\Controllers\CartController::class, 'showMyCart'])->name('myCart');
 Route::get('/deleteItem/{id}', [App\Http\Controllers\CartController::class, 'delete'])->name('deleteCart');

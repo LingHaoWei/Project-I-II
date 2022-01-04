@@ -35,23 +35,14 @@
                   aria-expanded="false">Shop</a>
                 <ul class="dropdown-menu">
                   <li class="nav-item"><a class="nav-link" href="{{ url('shoppingShowProductPage') }}">All Products</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Product Checkout</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Confirmation</a></li>
                   <li class="nav-item"><a class="nav-link" href="{{ url('shoppingCartPage') }}">Shopping Cart</a></li>
                 </ul>
 			  </li>
-			  <li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Pages</a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="#">Tracking</a></li>
-                </ul>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+			  
+              <li class="nav-item"><a class="nav-link" href="{{ url('shoppingContactPage') }}">Contact</a></li>
             </ul>
 
             <ul class="nav-shop">
-              <li class="nav-item"><button><i class="ti-search"></i></button></li>
               <li class="nav-item"><button><a href="{{ url('shoppingCartPage') }}"><i class="ti-shopping-cart"></i></a><span class="nav-shop__circle"></span></button> </li>
               @guest
                       @if (Route::has('login'))
@@ -108,11 +99,9 @@
 						<div class="single-footer-widget tp_widgets">
 							<h4 class="footer_title">Quick Links</h4>
 							<ul class="list">
-								<li><a href="#">Home</a></li>
-								<li><a href="#">Shop</a></li>
-								<li><a href="#">Product</a></li>
-								<li><a href="#">Brand</a></li>
-								<li><a href="#">Contact</a></li>
+								<li><a href="{{ url('') }}">Home</a></li>
+								<li><a href="{{ url('shoppingShowProductPage') }}">Product</a></li>
+								<li><a href="{{ url('shoppingContactPage') }}">Contact</a></li>
 							</ul>
 						</div>
 					</div>
