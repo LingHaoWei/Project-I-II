@@ -88,6 +88,8 @@
     {{$purchaseOrder->links()}}
     
 
+    
+
 @endsection
 
 <script>
