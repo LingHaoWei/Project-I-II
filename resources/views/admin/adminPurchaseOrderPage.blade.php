@@ -44,7 +44,7 @@
                 </tr>
             </thead>
         <tbody>
-        @forelse($purchaseOrder as $po)
+        @foreach($purchaseOrder as $po)
             <tr>
                 <td width="50"> 
                 </td>
@@ -67,17 +67,8 @@
                         <a href="{{ route('deletePurchaseOrder',['id'=>$po->id]) }}" class="deleteProduct" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a> 
                     </button>
                 </td>
-            </tr>
-            @empty
-            <tr>
-                <td width="50"> 
-                </td>
-                <td class="link">
-                    Do not have such purchase order
-                </td>
-            </tr>
-            
-        @endforelse
+            </tr>          
+        @endforeach
         
         </tbody>
         

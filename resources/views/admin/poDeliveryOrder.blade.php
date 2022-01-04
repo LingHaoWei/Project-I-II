@@ -85,8 +85,8 @@
         
         <div class="pageTopic addPo">
             <div><h2>Delivery Order</h2></div>
+            
         </div>
-
   </div>
   
   <div class="form addProForm row">
@@ -140,12 +140,12 @@
 
             <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                {{$po->delivery_order}}
+                {{$po->delivery_order}} (<a href="{{ route('viewDOHistory',['id'=>$po->id]) }}">history</a>)
                 <br></br>
                 <br>
             </div>
 
-            <label class="" for="Document No"><b>Date Created:</b></label>
+            <label class="" for="Document No"><b>Last Update:</b></label>
             <div class="">
                 {{$po->updated_at}}
                 <br></br>
@@ -200,10 +200,7 @@
         </div>
         
         <div class="form-group printpoaddProRow5">
-            <label class="" for="Supplier status"><b>Status</b></label>
-            <div class="poStatus notesandstatus" id="poStatus">
-                <input hidden value="{{$po->status}}" id="poVal"></input>
-            </div>
+
         </div>
         @endforeach
         </form>

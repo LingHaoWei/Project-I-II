@@ -185,10 +185,7 @@
         </div>
         
         <div class="form-group printpoaddProRow5">
-            <label class="" for="Supplier status"><b>Status</b></label>
-            <div class="poStatus notesandstatus" id="poStatus">
-                <input hidden value="{{$po->status}}" id="poVal"></input>
-            </div>
+
         </div>
         @endforeach
         </form>
@@ -202,15 +199,6 @@
 
 
 <script>
-
-
-if (document.getElementById('poVal').value == 0) {
-    document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="color:white;">'+"Pending"+'</Button>';
-} else if (document.getElementById('poVal').value == 1){
-    document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="background-color:green;color:white;">'+"Approved"+'</Button>';
-} else {
-    document.getElementById("poStatus").innerHTML = '<Button type="button" class="editBtn" style="background-color:red;color:white;">'+"Cancelled"+'</Button>';
-}
 
 var table = document.getElementById("myTable"), sumVal=0;
 
