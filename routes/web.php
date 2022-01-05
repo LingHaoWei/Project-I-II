@@ -91,7 +91,10 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/deleteProduct/{id}', [App\Http\Controllers\ProductController::class, 'delete'])->name('deleteProduct');
         Route::post('/adminSearchProduct', [App\Http\Controllers\ProductController::class, 'adminSearchProduct'])->name('search.adminProduct');
         Route::get('/uploadProduct', [App\Http\Controllers\ProductController::class, 'uplaod'])->name('uploadProduct');
-        Route::post('/storeUpProduct', [App\Http\Controllers\ProductController::class, 'storeUpload'])->name('storeUpProduct');
+        Route::post('/storeUpProduct', [App\Http\Controllers\ProductController::class, 'uploadContent'])->name('storeUpProduct');
+        Route::get('/bulkUploadInstruction', function () {
+            return view('admin.bulkUploadInstruction');
+        });
 
         //Supplier Route
         Route::get('/insertSupplier', [App\Http\Controllers\SupplierController::class, 'supplier'])->name('insertSupplier');

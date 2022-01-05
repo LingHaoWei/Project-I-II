@@ -1,0 +1,3 @@
+﻿productID,name,description,quantity,price,unitPrice,productVariety,productSKU,image,categoryID,brandID,supplierID,status
+PLTG7-001,G7,Nothing,100,3,2,Black,PLTG7-001,Pilot-G2-07.jpg,C001,B002,SP002,Available
+PLTG7-002,G7,Nothing,100,3,2,Blue,PLTG7-002,Pilot-G2-7-BB.jpg,C001,B002,SP002,Available

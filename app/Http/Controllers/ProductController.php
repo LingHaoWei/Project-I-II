@@ -136,66 +136,87 @@ class ProductController extends Controller
                                               ->with('SupplierID',Supplier::all());
     }
 
-    public function storeUpload(Request $request){
-        //get file 
-        $upload=$request->file('upload-file');
-        $filePath=$upload->getRealPath();
-        //read
-        $file=fopen($filePath, 'r');
-
-        $header= fgetcsv($file);
-
-        //dd($header);
-        $escapedHeader=[];
-        //validate
-        foreach($header as $key => $value){
-            array_push($escapedHeader, $value);
+    public function uploadContent(Request $request)
+    {
+        $file = $request->file('uploaded_file');
+        if ($file) {
+        $filename = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension(); //Get extension of uploaded file
+        $tempPath = $file->getRealPath();
+        $fileSize = $file->getSize(); //Get size of uploaded file in bytes
+        //Check for file extension and size
+        $this->checkUploadedFileProperties($extension, $fileSize);
+        //Where uploaded file will be stored on the server 
+        $location = 'uploads'; //Created an "uploads" folder for that
+        // Upload file
+        $file->move($location, $filename);
+        // In case the uploaded file path is to be stored in the database 
+        $filepath = public_path($location . "/" . $filename);
+        // Reading file
+        $file = fopen($filepath, "r");
+        $importData_arr = array(); // Read through the file and store the contents as an array
+        $i = 0;
+        //Read the contents of the uploaded file 
+        while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE) {
+        $num = count($filedata);
+        // Skip first row (Remove below comment if you want to skip the first row)
+        if ($i == 0) {
+        $i++;
+        continue;
         }
+        for ($c = 0; $c < $num; $c++) {
+        $importData_arr[$i][] = $filedata[$c];
+        }
+        $i++;
+        }
+        fclose($file); //Close after reading
+        $j = 0;
+        foreach ($importData_arr as $importData) {
+        
+        $j++;
+        try {
+        DB::beginTransaction();
+        product::create([
+        'productID' => $importData[0],
+        'name' => $importData[1],
+        'description' => $importData[2],
+        'quantity' => $importData[3],
+        'price' => $importData[4],
+        'unitPrice' => $importData[5],
+        'productVariety' => $importData[6],
+        'productSKU' => $importData[7],
+        'image' => $importData[8],
+        'categoryID' => $importData[9],
+        'brandID' => $importData[10],
+        'supplierID' => $importData[11],
+        'status' => $importData[12],
+        ]);
+        
+        DB::commit();
+        } catch (\Exception $e) {
+        //throw $th;
+        DB::rollBack();
+        }
+        }
+        Session::flash('sucess',"Products uploaded!");
+        return redirect()->route('viewProduct');
+        } else {
+        //no file was uploaded
+        throw new \Exception('No file was uploaded', Response::HTTP_BAD_REQUEST);
+        }
+    }
 
-        //looping through other columns
-        while($columns=fgetcsv($file)){
-            if($columns[0]==""){
-                continue;
-            }
-            //trim data
-            foreach($columns as $key => &$value){
-                $value=preg_replace('/\D/','',$value);
-            }
-            
-            $data=array_combine($escapedHeader, $columns);
-
-            //Tabel update
-            $productID=$data['productID'];
-            $name=$data['name'];
-            $description=$data['description'];
-            $quantity=$data['quantity'];
-            $price=$data['price'];
-            $unitPrice=$data['unitPrice'];
-            $productVariety=$data['productVariety'];
-            $productSKU=$data['productSKU'];
-            $image=$data['image'];
-            $categoryID=$data['categoryID'];
-            $brandID=$data['brandID'];
-            $supplierID=$data['supplierID'];
-            $status=$data['status'];
-
-            $products=product::fisrtOrNew([
-                'productID'=>$productID,
-                'name'=>$name,
-                'description'=>$description,
-                'quantity'=>$quantity,
-                'price'=>$price,
-                'unitPrice'=>$unitPrice,
-                'productVariety'=>$productVariety,
-                'productSKU'=>$productSKU,
-                'image'=>$image,
-                'categoryID'=>$categoryID,
-                'brandID'=>$brandID,
-                'supplierID'=>$supplierID,
-                'status'=>$status,
-            ]);
-            $products->save();
-
+    public function checkUploadedFileProperties($extension, $fileSize)
+    {
+        $valid_extension = array("csv", "xlsx"); //Only want csv and excel files
+        $maxFileSize = 2097152; // Uploaded file size limit is 2mb
+        if (in_array(strtolower($extension), $valid_extension)) {
+        if ($fileSize <= $maxFileSize) {
+        } else {
+        throw new \Exception('No file was uploaded', Response::HTTP_REQUEST_ENTITY_TOO_LARGE); //413 error
+        }
+        } else {
+        throw new \Exception('Invalid file extension', Response::HTTP_UNSUPPORTED_MEDIA_TYPE); //415 error
         }
     }
 
