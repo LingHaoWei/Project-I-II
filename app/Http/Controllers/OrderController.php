@@ -169,10 +169,10 @@ class OrderController extends Controller
         ->where('orderID',$orderID)
         ->get();
 
-        $contact=DB::table('users')
-        ->leftjoin('carts','carts.userID','=','users.id')
+        $contact=DB::table('order_details')
+        ->leftjoin('users','users.id','=','order_details.userID')
         ->select('users.contact as contact','users.name as usName','users.zipcode as zipcode','users.city as city','users.state as state','users.address as address')
-        ->where('carts.userID','=',Auth::id())
+        ->where('order_details.userID','=',Auth::id())
         ->take(1)
         ->get();
         //select * from where id='$id'

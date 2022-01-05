@@ -41,18 +41,19 @@
             </tr>
         </thead>
         <tbody>
+            @foreach($contact as $contact)
             <tr>
                 <td style="border:none;" width="700">
                     <p style="color:black;font-size:170%">  Delivery Address</p>
-                    @foreach($contact as $ct)
-                    <p style="font-size:120%">Receiver: {{ $ct->usName }}</p>
-                    <p style="font-size:120%">Address: {{ $ct->address }}, {{ $ct->zipcode }}, {{ $ct->city }}, {{ $ct->state }}</p>
-                    <p style="font-size:120%">Contact Number: {{ $ct->contact }}</p>
-                    @endforeach
+                    <p style="font-size:120%">Receiver: {{ $contact->usName }}</p>
+                    <p style="font-size:120%">Address: {{ $contact->address }}, {{ $contact->zipcode }}, {{ $contact->city }}, {{ $contact->state }}</p>
+                    <p style="font-size:120%">Contact Number: {{ $contact->contact }}</p>
+
                 </td>
                 <td colspan="4" style='border:none;'></td>
-            </tr>
+            </tr>@endforeach
         </tbody>
+
     </table>
     <br><br>
 </div>
