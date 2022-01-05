@@ -1,10 +1,23 @@
 @extends('layout')
 @section('content')
 <style>
-
+    .alert-success{
+        padding: 10px;
+        background-color: #2d8a39;
+        color: white;
+    }
 </style>
 
 <!--Page topic-->
+@if(Session::has('sucess'))
+
+    <div class="alert alert-success" role="alert">
+
+        {{Session::get('sucess')}}
+
+    </div>
+
+@endif
 <!--Page topic-->
 
     <div id="pwrapper1">
@@ -93,7 +106,20 @@
         </tbody>
         
         </table>
+
+        <form action="{{route('storeUpProduct')}}" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group">
+            <label for="uploaded_file">Bulk upload with csv: </label>
+            <input type="file" name="uploaded_file" class="form-control">  
+        </div>
+        <button type="submit" class="">UPLOAD</button> <div><a href="{{ url('admin/bulkUploadInstruction') }}">how to bulk updload?</a></div>
+        </form>
+        
     </div>
+
+    
+
     {{$products->links()}}
 
 @endsection

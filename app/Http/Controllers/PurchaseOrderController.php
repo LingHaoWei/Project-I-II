@@ -32,7 +32,7 @@ class PurchaseOrderController extends Controller
         ->select(
             'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
             )
-        ->paginate(10);
+        ->paginate(12);
 
         Return view('admin.adminPurchaseOrderPage',compact('purchaseOrder'));
 
@@ -155,18 +155,42 @@ class PurchaseOrderController extends Controller
 
         $notes = $request->poNotes;
         $status = $request->status;
-        $cdate = $request->date;
 
         purchaseOrder::where('id',$id)->update([
             'notes'=> $notes,
             'status' => $status,
-            'created_at' => $cdate
         ]);
 
         return redirect()->route('viewPurchaseOrderDetail',$id);
     }
 
     // *** Delivery Order Controller *** //
+
+    public function viewDOList($id){
+        $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
+        ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+        ->leftJoin('delivery_orders', 'delivery_orders.purchase_order', '=', 'purchase_orders.id')
+        ->select(
+        'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
+        'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
+        'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
+        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail',
+        'delivery_orders.delivery_order_no as dono', 'delivery_orders.sent_quantity as sentqt',
+        'delivery_orders.productID as proid','delivery_orders.created_at as dodate',
+        )
+        ->get();
+        
+        $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
+        ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
+        ->select(
+            'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
+            )
+        ->get();
+        
+        //select * from where id='$id'
+
+        return view('admin.showDeliveryOrder',compact('PurchaseOrder','PurchaseOrderR'));
+    }
 
     public function previewDO($id){
         $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
@@ -178,6 +202,8 @@ class PurchaseOrderController extends Controller
         'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail',
         )
         ->get();
+
+        $DeliveryOrder=DB::table('delivery_orders')->where('delivery_orders.delivery_order_no', $id);
         
         $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
         ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')

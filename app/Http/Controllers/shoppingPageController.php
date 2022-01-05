@@ -34,6 +34,12 @@ class shoppingPageController extends Controller
 
     }
 
+    public function viewContact(){
+
+        Return view('shoppingShowProductPage');
+
+    }
+
     public function viewDetails($id){
         $products=product::all()->where('id',$id);
         $uid=Auth::id();

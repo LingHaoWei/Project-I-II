@@ -35,11 +35,7 @@
               </select>
             </div>
             <div class="sorting mr-auto">
-              <select>
-                <option value="1">Show 10</option>
-                <option value="1">Show 20</option>
-                <option value="1">Show 30</option>
-              </select>
+
             </div>
             <div>
             </form>

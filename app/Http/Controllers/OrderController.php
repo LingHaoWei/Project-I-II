@@ -187,7 +187,7 @@ class OrderController extends Controller
     }
 
     public function edit($id){
-        $or=OrderDetail::all()->where('id',$id);
+        $or=OrderDetail::all()->where('orderID',$id);
 
         Return view('admin.editOrder')->with('or',$or);
     }

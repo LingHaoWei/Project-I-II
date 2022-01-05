@@ -108,14 +108,17 @@
 
             <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                {{$po->delivery_order}}
+                <input type="text" class="form-control" id="DeliveryOrderNo" name="DeliveryOrderNo" value="{{$po->delivery_order}}" style="width: 50%; ">
+            </div>
+            <div class="">
+                {{$po->delivery_order}} (<a href="{{ route('viewDOHistory',['id'=>$po->id]) }}">history</a>)
                 <br></br>
                 <br>
             </div>
 
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
-            <input type="date" name="date" id="date" class="form-control" style="width: 50%; display: inline;" required value="">
+            <input type="date" name="date" id="date" class="form-control" style="width: 50%; " required value="">
                 
                 <br>
                 
@@ -164,11 +167,6 @@
         </div>
 
         <div class="form-group printpoaddProRow4">
-            <label class="" for="Document No">Delivery Order No:</label>
-            <div class="">
-                <input type="text" class="form-control" id="DeliveryOrderNo" name="DeliveryOrderNo" value="{{$po->delivery_order}}">
-            </div>
-
             <label class="" for="PurchaseOrder Notes">Notes</label>
                     <div class="poNotesArea">
                         <textarea type="text" class="form-control" id="poNotes" name="poNotes" >{{$po->notes}}</textarea>
@@ -183,10 +181,7 @@
         </div>
         
         <div class="form-group printpoaddProRow5">
-        <label class="" for="Supplier status"><b>Status</b></label>
-            <div class="poStatus notesandstatus" id="poStatus">
-                <input hidden value="{{$po->status}}" id="poVal"></input>
-            </div>
+
         </div>
         @endforeach
         </form>
@@ -207,7 +202,7 @@ for(var i = 1; i < table.rows.length; i++){
     var oqt = table.rows[i].cells[3].children[0].value;
 
     if (oqt == rqt) {
-    table.rows[i].cells[3].innerHTML = '<input type="number" class="prc" readonly value="'+ rqt +'" />';
+    table.rows[i].cells[3].innerHTML = '0';
     } 
 }
 
