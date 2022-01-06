@@ -20,7 +20,7 @@
         <tbody>
           @foreach($order as $order)
             <tr>
-                  <td><a href="{{ route('orderDetail',['orderID'=>$order->orderID]) }}">{{ $order->orderID }}</a></td>
+                  <td><a href="{{ route('orderDetail',['orderID'=>$order->orderID]) }}">#{{ $order->orderID }}</a></td>
                   <td>{{$order->paymentStatus}}</td>
                   <td>{{$order->status}}</td>
                   <td>RM{{$order->amount}}</td>

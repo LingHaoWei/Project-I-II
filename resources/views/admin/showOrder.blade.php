@@ -33,7 +33,7 @@
                     <td width="60">
                     </td>
                     <td class="link">
-                        <a href="{{ route('editOrder',['id'=>$ord->orderID]) }}" class="editOrder" title="Edit" data-toggle="tooltip"><div class="p-2">{{$ord->orderID}}</div></a>
+                        <a href="{{ route('editOrder',['id'=>$ord->orderID]) }}" class="editOrder" title="Edit" data-toggle="tooltip"><div class="p-2">#{{$ord->orderID}}</div></a>
                     </td>
                     <td>{{$ord->paymentStatus}}</td>
                     <td>{{ $ord->username }}</td>
@@ -50,7 +50,7 @@
                     <td width="60">
                     </td>
                     <td class="link">
-                        <a href="{{ route('editOrder',['id'=>$ord->orderID]) }}" class="editOrder" title="Edit" data-toggle="tooltip"><div class="p-2">{{$ord->orderID}}</div></a>
+                        <a href="{{ route('editOrder',['id'=>$ord->orderID]) }}" class="editOrder" title="Edit" data-toggle="tooltip"><div class="p-2">#{{$ord->orderID}}</div></a>
                     </td>
                     <td>{{$ord->paymentStatus}}</td>
                     <td>{{ $ord->username }}</td>
