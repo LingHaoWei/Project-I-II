@@ -15,6 +15,8 @@ use App\Models\OrderDetail;
 use Notification;
 use Stripe\OrderItem;
 use Stripe\Product as StripeProduct;
+use App\Mail\FulfillMail;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -140,7 +142,7 @@ class OrderController extends Controller
     public function showOrder(){
         $order= DB::table('orders')
         ->leftjoin('users','users.id','=','orders.userID')
-        ->select('orders.orderID','orders.paymentStatus','orders.amount','orders.created_at')
+        ->select('orders.*',)
         ->where('orders.userID','=',Auth::id())
         ->get();
         /*$order = DB::table('order_details')
@@ -165,23 +167,29 @@ class OrderController extends Controller
     public function viewOrder($orderID){
         $od=DB::table('order_details')
         ->leftjoin('users','users.id','=','order_details.userID')
-        ->select('order_details.orderID','order_details.name as orderName',
-        'order_details.quantity','order_details.image',
-        'order_details.price','order_details.status',
-        'users.*','users.address as address','users.contact as contact')
+        ->leftjoin('products','products.productID','=','order_details.productID')
+        ->select(
+            'order_details.*','users.*','users.address as address',
+            'users.contact as contact','products.name as proname',
+            'products.productVariety as provariety',
+        )
         ->where('order_details.userID','=',Auth::id())
         ->where('orderID',$orderID)
         ->get();
 
-        $contact=DB::table('order_details')
-        ->leftjoin('users','users.id','=','order_details.userID')
-        ->select('users.contact as contact','users.name as usName','users.zipcode as zipcode','users.city as city','users.state as state','users.address as address')
-        ->where('order_details.userID','=',Auth::id())
-        ->take(1)
+        $contacts=DB::table('orders',)
+        ->leftjoin('users','users.id','=','orders.userID')
+        ->select('orders.*','users.contact as contact','users.name as usName',
+        'users.zipcode as zipcode','users.city as city',
+        'users.state as state','users.address as address',
+        'users.email as useremail',
+        )
+        ->where('orders.userID','=',Auth::id())
+        ->where('orders.orderID', '=', $orderID)
         ->get();
         //select * from where id='$id'
 
-        Return view('orderDetail',compact('contact','od'));
+        Return view('orderDetail',compact('contacts','od'));
 
     }
 
@@ -218,9 +226,10 @@ class OrderController extends Controller
 
         $shippingAddress = $request->ShippingAddress;
         $contactNumber = $request->ContactNumber;
-
+        $email = $request->EmailAddress;
         $status = $request->status;
         $trackingNumber = $request->TrackingNo;
+        $orderNumber = $request->orderID;
 
         Order::where('orderID',$id)->update([
             'status'=> $status,
@@ -229,6 +238,10 @@ class OrderController extends Controller
             'tracking_no' =>  $trackingNumber,
         ]);
 
-        return redirect()->route('editOrder',$id);
+        if($status == 'Fulfilled'){
+            Mail::to($email)->send(new FulfillMail());
+        }
+
+        return redirect()->route('viewOrder');
     }
 }

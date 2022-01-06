@@ -59,11 +59,11 @@
   
   <div class="form addProForm row">
   @foreach($order as $or)
-        <form method="POST" , action="{{ route('updateOrder',['id'=>$or->orderID]) }}" enctype="multipart/form-data" id="dynamic_form">
+        <form method="POST" , action="{{ route('updateOrder',['id'=>$or->orderID]) }}" action="emaito:{{$or->useremail}}" enctype="multipart/form-data" id="dynamic_form">
         @csrf
         
         <div class="addRow">
-        <input hidden id="id" name="id" value="{{$or->orderID}}" />
+        <input hidden id="id" name="orderID" value="{{$or->orderID}}" />
             
 
         </div>

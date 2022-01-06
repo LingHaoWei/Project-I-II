@@ -10,9 +10,10 @@
         <thead>
             <tr>
                 <th scope="col">Order ID</th>
-                <th scope="col">Payment status</th>
+                <th scope="col">Payment</th>
+                <th scope="col">Order status</th>
                 <th scope="col">Total</th>
-                <th scope="col">Created at</th>
+                <th scope="col">Tracking Number</th>
             </tr>
         </thead>
 
@@ -21,8 +22,9 @@
             <tr>
                   <td><a href="{{ route('orderDetail',['orderID'=>$order->orderID]) }}">{{ $order->orderID }}</a></td>
                   <td>{{$order->paymentStatus}}</td>
+                  <td>{{$order->status}}</td>
                   <td>RM{{$order->amount}}</td>
-                  <td>{{ $order->created_at }}
+                  <td><a href="https://www.tracking.my/" target="_blank" rel="noopener noreferrer">{{$order->tracking_no}}</a></td>
             </tr>
             @endforeach
         </tbody>

@@ -1,30 +1,41 @@
 @extends('shoppingPageLayout')
 @section('content')
+
+<style>
+    .tableii td {
+        padding:10px;
+    }
+
+    .tableii {
+        border-top: double;
+        width: 100%;
+    }
+    
+</style>
+
 <br>
 
 <div class="container">
     {{--<img src="{{ $ }}" class="rounded float-left" alt="...">--}}
-    <table class="table ">
+    <table class="table " id="myTable">
         <h4>Order detail</h4>
         <br>
         <thead>
             <tr>
-                <th scope="col">Order ID</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Price</th>
+                <th scope="col" width="20%">Product</th>
+                <th width="20%"></th>
+                <th scope="col">Price (RM)</th>
                 <th scope="col">Quantity</th>
-                <th>status</th>
             </tr>
         </thead>
 
         <tbody>
           @foreach($od as $ods)
             <tr>
-                  <td width="200">{{ $ods->orderID }}</td>
-                  <td><img src="{{ asset('images/') }}/{{$ods->image}}" alt="" width="150" name="image" class="rounded float-left"></td>
-                  <td>RM{{ $ods->price }}</td>
+                  <td><img src="{{ asset('images/') }}/{{$ods->image}}" alt="" width="150" name="image" class="rounded float-left"> </td>
+                  <td>{{$ods->proname}} (SKU: {{$ods->productID}})</td>
+                  <td>{{ $ods->price }}</td>
                   <td>{{ $ods->quantity }}</td>
-                  <td>{{ $ods->status }}</td>
             </tr>
             @endforeach
 
@@ -33,24 +44,36 @@
 
 
     </table>
-    <table>
+
+    <table class="tableii">
          <thead>
             <tr>
-                <th scope="col"style="border:none;"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach($contact as $contact)
+            @foreach($contacts as $contact)
             <tr>
-                <td style="border:none;" width="700">
-                    <p style="color:black;font-size:170%">  Delivery Address</p>
-                    <p style="font-size:120%">Receiver: {{ $contact->usName }}</p>
-                    <p style="font-size:120%">Address: {{ $contact->address }}, {{ $contact->zipcode }}, {{ $contact->city }}, {{ $contact->state }}</p>
-                    <p style="font-size:120%">Contact Number: {{ $contact->contact }}</p>
-
+                <td valign="top">Email: </td>
+                <td >
+                    <b>{{ $contact->useremail }}</b>
                 </td>
-                <td colspan="4" style='border:none;'></td>
-            </tr>@endforeach
+            </tr>
+            <tr>
+                <td valign="top" >Shipping Address: </td>
+                <td >
+                    <div><b>{{ $contact->usName }}</b></div>
+                    <div><b>{{ $contact->address }},</b></div>
+                    <div><b>{{ $contact->city }}, {{ $contact->state }}</b></div>
+                    <div><b>{{ $contact->zipcode }}</b></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Tracking Number: </td>
+                <td >
+                    <b><a href="https://www.tracking.my/" target="_blank" rel="noopener noreferrer">{{ $contact->tracking_no }}</a></b>
+                </td>
+            </tr>
+            @endforeach
         </tbody>
 
     </table>

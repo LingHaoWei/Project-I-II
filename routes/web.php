@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\HelperController;
+use App\Mail\FulfillMail;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,7 +139,6 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/viewOrder', [App\Http\Controllers\OrderController::class, 'view'])->name('viewOrder');
         Route::get('/editOrder/{id}', [App\Http\Controllers\OrderController::class, 'edit'])->name('editOrder');
         Route::post('/updateOrder/{id}', [App\Http\Controllers\OrderController::class, 'update'])->name('updateOrder');
-
         Route::get('/deletePurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'deletePO'])->name('deletePurchaseOrder');
 
         //admin logout
@@ -146,6 +146,11 @@ Route::group(['prefix' => 'admin'], function() {
 	});
 });
 
+//Route for mailing
+Route::get('/email', function(){
+    //Mail::to('linghw0928@gmail.com')->send(new FulfillMail());
+    return new FulfillMail();
+});
 
 Auth::routes();
 
