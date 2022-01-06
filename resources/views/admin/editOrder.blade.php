@@ -72,7 +72,7 @@
         <div class="form-group addProRow1">
 
             <div class="supAddress">
-            <label class="" for="Document No"><b>Order Number: {{$or->orderID}}</b></label>
+            <label class="" for="Document No"><b>Order Number: #{{$or->orderID}}</b></label>
             <div class="">
             <br>
             </div>

@@ -17,10 +17,12 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('orderID');
             $table->string('paymentStatus');
+            $table->string('status');
             $table->string('userID');
             $table->double('amount',8,2);
             $table->string('address');
             $table->string('contact');
+            $table->string('tracking_no');
             $table->timestamps();
         });
     }
