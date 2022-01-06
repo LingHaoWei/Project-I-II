@@ -124,28 +124,83 @@ a{
                                 <div class="panel panel-default credit-card-box">
                                 <p><b>Billing Details</b></p><br>
 
+                                <div class='form-row '>
+                                <div class="col-md-6 form-group">
                                 <label class='control-label'>Name on Card</label>
                                 <input class='form-control' size='4' type='text'>
+                                </div>
 
+                                <div class="col-md-6 form-group">
                                 <label class='control-label'>Card Number</label>
                                 <input autocomplete='off' class='form-control card-number' size='20' type='text'>
+                                </div>
+                                </div>
 
+                                <div class='form-row '>
+                                <div class="col-md-4 form-group">
                                 <label class='control-label'>CVC</label>
                                 <input autocomplete='off' class='form-control card-cvc' placeholder='ex. 311' size='4' type='text'>
+                                </div>
 
+                                <div class="col-md-4 form-group">
                                 <label class='control-label'>Expiration Month</label>
                                 <input class='form-control card-expiry-month' placeholder='MM' size='2' type='text'>
+                                </div>
 
+                                <div class="col-md-4 form-group">
                                 <label class='control-label'>Expiration Year</label>
                                 <input class='form-control card-expiry-year' placeholder='YYYY' size='4' type='text'>
+                                </div>
+                                </div>
 
-                                <p>Delivery Address</p>
                                 @foreach($address as $ad)
+                                <div class='form-row '>
+                                <div class="col-md-12 form-group">
+                                <p>Delivery Address</p>
+
                                 <textarea class="form-control" name="address" id="address" rows="5" value="{{$ad->address }}">{{ $ad->address }}</textarea>
-                                @endforeach
+                                </div>
+                                </div>
+
+                                <div class='form-row '>
+                                    <div class="col-md-4 form-group">
+                                        <p>State</p>
+                                        <select name="state" class="form-control">
+                                            <option value="">{{ $ad->state }}</option>
+                                            <option value="Kuala Lumpur">Kuala Lumpur</option>
+                                            <option value="Johor">Johor</option>
+                                            <option value="Kedah">Kedah</option>
+                                            <option value="Kelatan">Kelatan</option>
+                                            <option value="Melaka">Melaka</option>
+                                            <option value="Negeri Sembilan">Negeri Sembilan</option>
+                                            <option value="Pahang">Pahang</option>
+                                            <option value="Penang">Penang</option>
+                                            <option value="Perak">Perak</option>
+                                            <option value="Perlis">Perlis</option>
+                                            <option value="Sabah">Sabah</option>
+                                            <option value="Sarawak">Sarawak</option>
+                                            <option value="Selangor">Selangor</option>
+                                            <option value="Terengganu">Terengganu</option>
+                                            <option value="Labuan">Labuan</option>
+                                            <option value="Putrajaya">Putrajaya</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <p>Zipcode</p>
+                                        <input class='form-control' type="text" name="zipcode" id="zipcode" value="{{ $ad->zipcode }}">
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <p>City</p>
+                                        <input class='form-control' type="text" name="city" id="city" value="{{ $ad->city }}">
+                                    </div>
+                                </div>
+                                <div class='form-row '>
+                                <div class="col-md-12 form-group">
                                 <p>Contact Number</p>
-                                @foreach($contact as $co)
-                                <input class='form-control' type="text" name="contact" id="contact" value="{{ $co->contact }}">
+                                <input class='form-control' type="text" name="contact" id="contact" value="{{ $ad->contact }}">
+
+                                </div>
+                            </div>
                                 @endforeach
                                 <br>
                                 <button type="submit" class="button button--active button-review">Pay Now</button>
