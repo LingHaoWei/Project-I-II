@@ -44,6 +44,7 @@ Route::post('/updateCart', [App\Http\Controllers\CartController::class, 'update'
 Route::get('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageController::class, 'view'])->name('shoppingShowProductPage');
 Route::get('/shoppingShowProductDetails/{id}', [App\Http\Controllers\shoppingPageController::class, 'viewDetails'])->name('shoppingShowProductDetails');
 Route::post('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageController::class, 'searchProduct'])->name('search.product');
+Route::get('/getCatProduct/{catid}', [App\Http\Controllers\shoppingPageController::class, 'getProduct'])->name('getCatProduct');
 
 Route::post('\checkout', [App\Http\Controllers\OrderController::class, 'paymentPost'])->name('payment.post');
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'showOrder'])->name('myOrder');

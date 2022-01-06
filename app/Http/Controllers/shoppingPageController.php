@@ -77,4 +77,24 @@ class shoppingPageController extends Controller
                                               ->with('SupplierID',Supplier::all());
     }
 
+    public function getProduct($cid){
+        $product=DB::table('products')
+        ->leftjoin('suppliers','suppliers.supplierID','=','products.SupplierID')
+        ->leftjoin('categories','categories.categoryID','=','products.categoryID')
+        ->leftjoin('brands','brands.brandID','=','products.brandID')
+        ->select(
+            'products.*','suppliers.id as supid','suppliers.supplierName as supname',
+            'products.*','categories.id as catid','categories.name as catname',
+            'products.*','brands.id as brandid','brands.name as brandname'
+            )
+        ->where('products.categoryID','=', $cid)
+        //select * from products where name like '%$keyword%'
+        ->paginate(9);
+
+        Return view('shoppingShowProductPage')->with('products',$product)
+                                              ->with('categoryID',category::all())
+                                              ->with('brandID',brand::all())
+                                              ->with('SupplierID',Supplier::all());
+    }
+
 }

@@ -15,8 +15,8 @@
                 @csrf
                   <ul>
                     <li class="filter-list">
-                      <input class="pixel-radio" type="radio" id="catogoryFilter" name="categoryFilter" value="{{$category->name}}">
-                      <label for="catname">{{$category->name}}<span></span></label></li>
+                      <a href="{{ route('getCatProduct',['catid'=>$category->categoryID]) }}">{{$category->name}}</a>
+                    </li>
                   </ul>
                 </form>
                 @endforeach
