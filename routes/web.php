@@ -42,8 +42,11 @@ Route::get('/deleteItem/{id}', [App\Http\Controllers\CartController::class, 'del
 Route::post('/updateCart', [App\Http\Controllers\CartController::class, 'update'])->name('updateCart');
 
 Route::get('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageController::class, 'view'])->name('shoppingShowProductPage');
+Route::get('/priceLowToHigh', [App\Http\Controllers\shoppingPageController::class, 'priceLTH'])->name('priceLowToHigh');
+Route::get('/priceHighToLow', [App\Http\Controllers\shoppingPageController::class, 'priceHTL'])->name('priceHighToLow');
 Route::get('/shoppingShowProductDetails/{id}', [App\Http\Controllers\shoppingPageController::class, 'viewDetails'])->name('shoppingShowProductDetails');
 Route::post('/shoppingShowProductPage', [App\Http\Controllers\shoppingPageController::class, 'searchProduct'])->name('search.product');
+Route::get('/getCatProduct/{catid}', [App\Http\Controllers\shoppingPageController::class, 'getProduct'])->name('getCatProduct');
 
 Route::post('\checkout', [App\Http\Controllers\OrderController::class, 'paymentPost'])->name('payment.post');
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'showOrder'])->name('myOrder');

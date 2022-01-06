@@ -15,8 +15,8 @@
                 @csrf
                   <ul>
                     <li class="filter-list">
-                      <input class="pixel-radio" type="radio" id="catogoryFilter" name="categoryFilter" value="{{$category->name}}">
-                      <label for="catname">{{$category->name}}<span></span></label></li>
+                      <a href="{{ route('getCatProduct',['catid'=>$category->categoryID]) }}">{{$category->name}}</a>
+                    </li>
                   </ul>
                 </form>
                 @endforeach
@@ -28,10 +28,11 @@
           <!-- Start Filter Bar -->
           <div class="filter-bar d-flex flex-wrap align-items-center">
             <div class="sorting">
-              <select>
-                <option value="1">Default sorting</option>
-                <option value="1">Price low to high</option>
-                <option value="1">Price high to low</option>
+              <select onchange="window.location.href=this.options[this.selectedIndex].value;">
+                <option value="1">--- Select Filter ---</option>
+                <option value="{{ url('shoppingShowProductPage') }}">Default sorting</option>
+                <option value="{{ url('priceLowToHigh') }}">Price low to high</option>
+                <option value="{{ url('priceHighToLow') }}">Price high to low</option>
               </select>
             </div>
             <div class="sorting mr-auto">
