@@ -124,7 +124,11 @@
                     <tr>
                     <td></td>
                     <td>{{$ord->name}} ({{$ord->productID}})</td>
-                    <td>{{$ord->quantity}}</td>
+                    <input type="text" id="odproid" name="odproid[]" value="{{$ord->productID}}" hidden />
+                    <td>
+                        {{$ord->quantity}}
+                        <input type="number" id="orderqt" name="orderqt[]" value="{{$ord->quantity}}" hidden />
+                    </td>
                     <td>{{$ord->price}}</td>
                     <td id="subtotal"></td>
                     </tr>
@@ -152,11 +156,19 @@
         </div>
 
         <div class="form-group printpoaddProRow4">
-            <label class="" for="Order status">Status</label>
+        @if($or->status == 'Cancelled')
+        <label class="" for="Order status"> <b>Status</b> </label>
+                    <div class="">
+                        <button class="deleteBtn" style="color:white;">
+                            <a href="#">{{$or->status}}</a> 
+                        </button>
+                    </div>
+        @elseif($or->status == 'Fulfilled')
+        <label class="" for="Order status">Status</label>
                     <div class="">
                     <select name="status" class="form-control" required style="width: 50%;">
                         <option value="">---Select Status---</option>
-                        <option value="Fulfilled">Fulfill Order</option>
+                        <option value="Fulfilled" selected>Fulfill Order</option>
                         <option value="Cancelled">Cancell Order</option>
                     </select>
                     </div>
@@ -170,8 +182,29 @@
             </Button>
             <button type="submit" class="subBtn" title="Submit">Submit</button>
             </div>
+        @else
+            <label class="" for="Order status">Status</label>
+                    <div class="">
+                    <select name="status" class="form-control" required style="width: 50%;">
+                        <option value="">---Select Status---</option>
+                        <option value="Fulfilled">Fulfill Order</option>
+                        <option value="Cancelled">Cancell Order</option>
+                    </select>
+                    </div>
+
+            <label class="" for="Tracking No"><b>Tracking Number:</b></label>
+            <div class="">
+                <input type="text" class="form-control" id="TrackingNo" name="TrackingNo" value="{{$or->tracking_no}}" style="width: 50%; ">
+            </div>
+            <div class="">
+            <Button type="button" class="backBtn">
+                <a href="{{ route('viewOrder') }}" class="" title="Back" data-toggle="tooltip">Back</a>
+            </Button>
+            <button type="submit" class="subBtn" title="Submit">Submit</button>
+            </div>
+            @endif
         </div>
-        
+      
         <div class="form-group printpoaddProRow5">
 
         </div>

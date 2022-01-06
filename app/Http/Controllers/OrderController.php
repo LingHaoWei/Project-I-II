@@ -238,8 +238,20 @@ class OrderController extends Controller
             'tracking_no' =>  $trackingNumber,
         ]);
 
+        $ordProID = $request->odproid;
+        $ordQuantity = $request->orderqt;
+
         if($status == 'Fulfilled'){
             Mail::to($email)->send(new FulfillMail());
+        }else{
+            foreach($ordQuantity as $e=>$orqt){
+                $getQuantity = product::where(['productID'=>$ordProID[$e]])->first()->toArray();
+                $stock = $getQuantity['quantity'] + $orqt;
+                product::where(['productID'=>$ordProID[$e]])->update([
+                    'quantity'=>$stock,
+                ]);
+            }
+            product::all();
         }
 
         return redirect()->route('viewOrder');

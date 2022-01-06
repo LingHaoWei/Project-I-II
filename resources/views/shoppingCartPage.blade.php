@@ -53,7 +53,7 @@ a{
                       <tbody>
                         @foreach($carts as $cart)
                           <tr>
-                            <td><input type="checkbox" class="form-check-input" name="cid[]" id="cid[]" value="{{$cart->cid}}" onclick="cal()" >
+                            <td><input type="checkbox" class="form-check-input" name="cid[]" id="cid[]" value="{{$cart->cid}}" onclick="cal()" required>
                                 <input type="hidden" name="subtotal[]" id="subtotal[]" value="{{ $cart->price*$cart->cartQty }}"> </td>
                                 <td><img src="{{ asset('images/') }}/{{$cart->image}}" alt="" width="100" name="image"></td>
                                 <td><h5>{{$cart->name}}</h5></td>
