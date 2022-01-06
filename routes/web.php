@@ -146,12 +146,6 @@ Route::group(['prefix' => 'admin'], function() {
 	});
 });
 
-//Route for mailing
-Route::get('/email', function(){
-    //Mail::to('linghw0928@gmail.com')->send(new FulfillMail());
-    return new FulfillMail();
-});
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
