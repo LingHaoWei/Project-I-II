@@ -63,6 +63,7 @@ class OrderController extends Controller
         $newOrder=Order::Create([
             'orderID'=>$ra,
             'paymentStatus'=>'Done',
+            'status'=>'Processing',
             'userID'=>Auth::id(),
             'amount'=>$request->sub1,
             'address'=>$request->address,
@@ -164,7 +165,10 @@ class OrderController extends Controller
     public function viewOrder($orderID){
         $od=DB::table('order_details')
         ->leftjoin('users','users.id','=','order_details.userID')
-        ->select('order_details.orderID','order_details.name as orderName','order_details.quantity','order_details.image','order_details.price','order_details.status','users.*','users.address as address','users.contact as contact')
+        ->select('order_details.orderID','order_details.name as orderName',
+        'order_details.quantity','order_details.image',
+        'order_details.price','order_details.status',
+        'users.*','users.address as address','users.contact as contact')
         ->where('order_details.userID','=',Auth::id())
         ->where('orderID',$orderID)
         ->get();
@@ -177,28 +181,54 @@ class OrderController extends Controller
         ->get();
         //select * from where id='$id'
 
-        Return view('orderDetail',compact('contact'))->with('od',$od);
+        Return view('orderDetail',compact('contact','od'));
 
     }
 
     public function view(){
-        $or=DB::table('order_details')->paginate(10);//apply SQL select * from categories
+        $or=DB::table('orders')
+        ->leftjoin('users','users.id','=','orders.userID')
+        ->select('orders.*','users.name as username')
+        ->paginate(10);
         Return view('admin.showOrder')->with('or',$or);
     }
 
     public function edit($id){
-        $or=OrderDetail::all()->where('orderID',$id);
+        $order=DB::table('orders')->where('orders.orderID', $id)
+        ->leftjoin('users','users.id','=','orders.userID')
+        ->select(
+        'orders.*','orders.*','users.name as username',
+        'users.email as useremail',
+        )
+        ->get();
+        
+        $orderDetail=DB::table('order_details')->where('order_details.orderID', $id)
+        ->leftJoin('products', 'products.productID', '=', 'order_details.productID')
+        ->select(
+            'order_details.*','products.productID as proid','products.name as proname',
+            )
+        ->get();
+        
+        //select * from where id='$id'
 
-        Return view('admin.editOrder')->with('or',$or);
+        return view('admin.editOrder',compact('order','orderDetail'));
     }
 
-    public function update(){
-        $r=request();
-        $or=OrderDetail::find($r->id); //retrieve the record based on id
+    public function update($id, Request $request){
 
-        $or->status=$r->status;
-        $or->save();
+        $shippingAddress = $request->ShippingAddress;
+        $contactNumber = $request->ContactNumber;
 
-        Return redirect()->route('viewOrder');
+        $status = $request->status;
+        $trackingNumber = $request->TrackingNo;
+
+        Order::where('orderID',$id)->update([
+            'status'=> $status,
+            'address'=> $shippingAddress,
+            'contact'=> $contactNumber,
+            'tracking_no' =>  $trackingNumber,
+        ]);
+
+        return redirect()->route('editOrder',$id);
     }
 }

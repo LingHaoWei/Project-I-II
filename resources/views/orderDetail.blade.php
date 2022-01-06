@@ -18,16 +18,15 @@
         </thead>
 
         <tbody>
-          @foreach($od as $od)
+          @foreach($od as $ods)
             <tr>
-                  <td width="200">{{ $od->orderID }}</td>
-                  <td><img src="{{ asset('images/') }}/{{$od->image}}" alt="" width="150" name="image" class="rounded float-left"></td>
-                  <td>RM{{ $od->price }}</td>
-                  <td>{{ $od->quantity }}</td>
-                  <td>{{ $od->status }}</td>
+                  <td width="200">{{ $ods->orderID }}</td>
+                  <td><img src="{{ asset('images/') }}/{{$ods->image}}" alt="" width="150" name="image" class="rounded float-left"></td>
+                  <td>RM{{ $ods->price }}</td>
+                  <td>{{ $ods->quantity }}</td>
+                  <td>{{ $ods->status }}</td>
             </tr>
             @endforeach
-
 
         </tbody>
 

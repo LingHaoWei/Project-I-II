@@ -19,10 +19,9 @@
                 <thead>
                     <tr>
                     <th scope="col"></th>
-                    <th>OrderID</th>
-                    <th>Product Name</th>
-                    <th>Product ID</th>
-                    <th>Quantity</th>
+                    <th width="12%">Order ID</th>
+                    <th width="12%">Payment Status</th>
+                    <th>Customer</th>
                     <th>Status</th>
                     <th>Option</th>
                     </tr>
@@ -32,10 +31,11 @@
                     <tr>
                     <td width="60">
                     </td>
-                    <td>{{$ord->orderID}}</td>
-                    <td>{{$ord->name}}</td>
-                    <td>{{ $ord->productID }}</td>
-                    <td>{{ $ord->quantity }}</td>
+                    <td class="link">
+                        <a href="{{ route('editOrder',['id'=>$ord->orderID]) }}" class="editOrder" title="Edit" data-toggle="tooltip"><div class="p-2">{{$ord->orderID}}</div></a>
+                    </td>
+                    <td>{{$ord->paymentStatus}}</td>
+                    <td>{{ $ord->username }}</td>
                     <td>{{$ord->status}}</td>
                     <td>
                         <Button type="button" class="addButton">
