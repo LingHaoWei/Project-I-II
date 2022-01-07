@@ -155,7 +155,6 @@ class PurchaseOrderController extends Controller
 
         $notes = $request->poNotes;
         $status = $request->status;
-        $totalAmount = $request->total;
 
         purchaseOrder::where('id',$id)->update([
             'notes'=> $notes,
@@ -164,6 +163,7 @@ class PurchaseOrderController extends Controller
 
         Invoice::where('id',$id)->update([
             'notes'=> $notes,
+
         ]);
 
         return redirect()->route('viewPurchaseOrderDetail',$id);

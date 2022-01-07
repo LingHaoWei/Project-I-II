@@ -75,7 +75,7 @@
                 <td width="50"> 
                 </td>
                 <td class="link" width="20%">
-                    Do not have any invoice order for this purchase order
+                    Do not have any invoice for this purchase order
                 </td>
                 <td></td>
                 <td></td>
@@ -93,7 +93,7 @@
             </button>
 
         <button type="button" class="editBtn">
-                <a href="{{ route('updateInvoice',['id'=>$invoice->purchase_order]) }}" class="printPO" title="Approve" data-toggle="tooltip">Add Invoice</a> 
+                <a href="{{ route('updateInvoice',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Add Invoice</a> 
         </button>
         </div>
     </div>

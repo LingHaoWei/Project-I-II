@@ -71,7 +71,7 @@
             
         <div class="form-group addProRow1">
             <label class="" for="Document No"><b>Invoice No: </b></label>
-            <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="{{$po->invoice_no}}" width="25">
+            <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="{{$po->invoice_no}}" width="25%">
             <div class="myAddress">
             
             My Sample Company Co.
@@ -99,22 +99,6 @@
         
         
         <div class="form-group addProRow2">
-
-            <label class="" for="Document No"><b>Delivery Order No:</b></label>
-            <div class="">
-                <select name="" id="">
-                    <option value=""></option>
-                </select>
-                <br>
-            </div>
-            
-            <label class="" for="Document No"><b>Date Created:</b></label>
-            <div class="">
-                {{$po->created_at}}
-                <br></br>
-                <br>
-            </div>
-
             <label class="" for="Document No"><b>P.O. #:</b></label>
             <div class="">
                 {{$po->document_no}}
@@ -122,7 +106,19 @@
                 <br>
                 
             </div>
-            
+            <label class="" for="Document No"><b>Date Created:</b></label>
+            <div class="">
+                {{$po->created_at}}
+                <br></br>
+                <br>
+            </div>
+
+            <label class="" for="Document No"><b>Delivery Order No:</b></label>
+            <div class="">
+                {{$po->delivery_order}}
+                <br></br>
+                <br>
+            </div>
         </div>
         
 
@@ -179,7 +175,7 @@
                     </div>
             <div class="">
             <Button type="button" class="backBtn">
-                <a href="{{ route('viewInvoice',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
+                <a href="{{ route('viewINHistory',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
             </Button>
             <button type="submit" class="subBtn" title="Submit">Submit</button>
             </div>
