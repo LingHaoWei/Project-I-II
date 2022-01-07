@@ -41,7 +41,7 @@
                   <li class="nav-item"><a class="nav-link" href="{{ url('shoppingCartPage') }}">Shopping Cart</a></li>
                 </ul>
 			  </li>
-			  
+
               <li class="nav-item"><a class="nav-link" href="{{ url('shoppingContactPage') }}">Contact</a></li>
             </ul>
 
@@ -67,6 +67,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    <a class="dropdown-item" href="{{ route('myOrder') }}">Account Setting</a>
                                     <a class="dropdown-item" href="{{ route('myOrder') }}">Order Detail</a>
                                 </div>
                             </li>

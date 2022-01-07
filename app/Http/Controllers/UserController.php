@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use DB;
 use App\Models\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -13,16 +14,22 @@ class UserController extends Controller
 
         $r=request();  //request  means  received  the form data  by method get or post
         $addUser=User::create([
-            'id'=>$r->ID,  //'id' is database field name, categoryID is HTML input
-            'name'=>$r->Name,
-            'email'=>$r->Email,
-            'contact'=>$r->ContactNumber,
-            'address'=>$r->Address,
-            'state'=>$r->State,
-            'zipcode'=>$r->Zipcode,
-            'city'=>$r->City,
+            'name'=>$r->name,
+            'email'=>$r->email,
+            'contact'=>$r->contact,
+            'address'=>$r->address,
+            'state'=>$r->state,
+            'zipcode'=>$r->zipcode,
+            'city'=>$r->city,
+            'password'=>$r->password,
         ]);
+
         Return redirect()->route('viewUser');
+    }
+
+    public function user(){
+        $users=User::all();//apply SQL select * from categories
+        Return view('admin.insertUser')->with('users',$users);
     }
 
     public function viewUser(){
@@ -37,7 +44,7 @@ class UserController extends Controller
         Return redirect()->route('viewUser');
     }
 
-    public function searchSupplier(){
+    public function searchUser(){
         $r=request();
         $keyword=$r->keyword;
         $user=DB::table('users')
@@ -47,5 +54,28 @@ class UserController extends Controller
         ->get();
 
         Return view('admin.showUser')->with('user',$user);
+    }
+
+    public function edit($id){
+        $users=DB::table('users')->where('id',$id)->get();
+        //select * from where id='$id'
+
+        Return view('admin.editUser')->with('users',$users);
+    }
+
+    public function update(){
+        $r=request();
+        $users=User::find($r->id);
+
+        $users->name=$r->name;
+        $users->email=$r->email;
+        $users->contact=$r->contact;
+        $users->address=$r->address;
+        $users->state=$r->state;
+        $users->zipcode=$r->zipcode;
+        $users->city=$r->city;
+        $users->save();
+
+        Return redirect()->route('viewUser');
     }
 }

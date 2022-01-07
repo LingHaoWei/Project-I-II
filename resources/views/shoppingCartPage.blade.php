@@ -54,7 +54,7 @@ a{
                         @foreach($carts as $cart)
                           <tr>
                             <td><input type="checkbox" class="form-check-input" name="cid[]" id="cid[]" value="{{$cart->cid}}" onclick="cal()" required>
-                                <input type="hidden" name="subtotal[]" id="subtotal[]" value="{{ $cart->price*$cart->cartQty }}"> </td>
+                                <input type="hidden" class="total" name="subtotal[]" id="subtotal[]" value="{{ $cart->price*$cart->cartQty }}"> </td>
                                 <td><img src="{{ asset('images/') }}/{{$cart->image}}" alt="" width="100" name="image"></td>
                                 <td><h5>{{$cart->name}}</h5></td>
                                 <td>{{$cart->price}}</td>
@@ -66,7 +66,7 @@ a{
                                 <td>
                                     <input type="hidden" name="cid1" id="cid1" value="{{ $cart->cid }}">
                                     <input type="number" name="quantity[]" id="quantity[]" size="2" maxlength="12" value="{{ $cart->cartQty }}"  class="input-text qty" max="{{ $cart->quantity }}" min="1">
-                                    </td>
+                                </td>
 
                                 <td>RM{{$cart->price*$cart->cartQty}}</td>
                                 <td>
@@ -91,11 +91,9 @@ a{
                               <p><b>Shipping fee</b></p>
                               <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" checked disabled>
                               <label for="1">East Malaysia: RM5.00</label><br>
-                              <input type="radio" name="shipping" id="shipping" value="0" onclick="cal()" disabled >
-                              <label for="1">Free Shipping</label><br>
                               <input type="radio" name="shipping" id="shipping" value="2" onclick="cal()" disabled>
                               <label for="1">West Malaysia: RM2.00</label>
-                            {{--@elseif (var subtotal > 100)
+                            {{--@elseif (  > 100)
                             <p><b>Shipping fee</b></p>
                               <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" disabled>
                               <label for="1">East Malaysia: RM5.00</label><br>
@@ -107,8 +105,6 @@ a{
                             <p><b>Shipping fee</b></p>
                             <input type="radio" name="shipping" id="shipping" value="5" onclick="cal()" disabled>
                             <label for="1">East Malaysia: RM5.00</label><br>
-                            <input type="radio" name="shipping" id="shipping" value="0" onclick="cal()" disabled >
-                            <label for="1">Free Shipping</label><br>
                             <input type="radio" name="shipping" id="shipping" value="2" onclick="cal()" checked disabled>
                             <label for="1">West Malaysia: RM2.00</label>
                             @endif
@@ -195,7 +191,7 @@ a{
                                     </div>
                                 </div>
                                 <div class='form-row '>
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-6 form-group">
                                 <p>Contact Number</p>
                                 <input class='form-control' type="text" name="contact" id="contact" value="{{ $ad->contact }}">
 

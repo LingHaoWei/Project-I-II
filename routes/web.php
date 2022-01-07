@@ -111,7 +111,8 @@ Route::group(['prefix' => 'admin'], function() {
 
         //User Route
         Route::get('/viewUser', [App\Http\Controllers\UserController::class, 'viewUser'])->name('viewUser');
-        Route::post('/insertUser/store', [App\Http\Controllers\UserController::class, 'insert'])->name('insertUser');
+        Route::get('/insertUser', [App\Http\Controllers\UserController::class, 'user'])->name('insertUser');
+        Route::post('/insertUser/store', [App\Http\Controllers\UserController::class, 'insert'])->name('addUser');
         Route::get('/editUser/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('editUser');
         Route::post('/updateUser', [App\Http\Controllers\UserController::class, 'update'])->name('updateUser');
         Route::get('/deleteUser/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('deleteUser');
