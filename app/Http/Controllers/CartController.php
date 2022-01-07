@@ -41,13 +41,13 @@ class CartController extends Controller
         ->get();
         $address=DB::table('users')
         ->leftjoin('carts','carts.userID','=','users.id')
-        ->select('users.address as address','users.state as state')
+        ->select('users.*')
         ->where('carts.userID','=',Auth::id())
         ->take(1)
         ->get();
         $contact=DB::table('users')
         ->leftjoin('carts','carts.userID','=','users.id')
-        ->select('users.contact as contact')
+        ->select('users.*')
         ->where('carts.userID','=',Auth::id())
         ->take(1)
         ->get();

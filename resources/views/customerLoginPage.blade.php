@@ -36,6 +36,7 @@
                     <form class="" method="POST" action="{{ route('login') }}">
                         @csrf
 					<div class="login_form_inner">
+                        <br><br><br>
 						<h3>Log in to enter</h3>
 						<form class="row login_form" action="#/" id="contactForm" >
 							<div class="col-md-12 form-group">
@@ -59,6 +60,7 @@
 								<button type="submit" value="submit" class="button button-login w-100">{{ __('Login') }}</button>
 								<a href="#">Forgot Password?</a>
 							</div>
+                            <br><br><br><br><br><br><br>
 						</form>
 					</div>
                 </form>
