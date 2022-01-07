@@ -32,7 +32,7 @@ class PurchaseOrderController extends Controller
         ->select(
             'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
             )
-        ->paginate(12);
+        ->paginate(10);
 
         Return view('admin.adminPurchaseOrderPage',compact('purchaseOrder'));
 

@@ -77,7 +77,7 @@
                 <tbody>
                     @foreach($contacts as $contact)
                     <tr>
-                        <td valign="top">Email: </td>
+                        <td valign="top" >Email: </td>
                         <td >
                             <b>{{ $contact->useremail }}</b>
                         </td>
