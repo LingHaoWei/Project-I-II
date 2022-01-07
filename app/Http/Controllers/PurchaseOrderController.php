@@ -155,10 +155,15 @@ class PurchaseOrderController extends Controller
 
         $notes = $request->poNotes;
         $status = $request->status;
+        $totalAmount = $request->total;
 
         purchaseOrder::where('id',$id)->update([
             'notes'=> $notes,
             'status' => $status,
+        ]);
+
+        Invoice::where('id',$id)->update([
+            'notes'=> $notes,
         ]);
 
         return redirect()->route('viewPurchaseOrderDetail',$id);
@@ -200,13 +205,14 @@ class PurchaseOrderController extends Controller
         $DeliveryOrderID = DB::table('delivery_orders')->where('delivery_order_no',$id)
         ->leftjoin('purchase_orders', 'purchase_orders.id', '=', 'delivery_orders.purchase_order')
         ->leftjoin('suppliers','suppliers.id', '=', 'purchase_orders.supplierID')
+        ->leftjoin('purchase_oder_r_s','purchase_oder_r_s.purchase_order', '=', 'purchase_orders.id')
         ->select(
             'delivery_orders.*','purchase_orders.document_no as podocno','purchase_orders.notes as note',
             'suppliers.supplierName as supname','suppliers.address as supadd',
             'suppliers.state as supstate','suppliers.city as supcity',
             'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
             'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail',
-            'suppliers.supplierID as supiid',
+            'suppliers.supplierID as supiid', 'purchase_oder_r_s.quantity as orqt'
         )
         ->take(1)
         ->get();
@@ -304,6 +310,42 @@ class PurchaseOrderController extends Controller
     }
 
     // *** Invoice Controller *** //
+
+    public function viewInvoiceList($id){
+        $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
+        ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+        ->select(
+        'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
+        'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
+        'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
+        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail',
+        'suppliers.supplierID as supiid',
+        )
+        ->get();
+
+        $DeliveryOrder=DB::table('delivery_orders')->where('delivery_orders.purchase_order', $id)
+        ->select(
+            'delivery_orders.*',
+        )
+        ->get();
+
+        $Invoice=DB::table('invoices')->where('invoices.purchase_order', $id)
+        ->select(
+            'invoices.*',
+        )
+        ->get();
+        
+        $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
+        ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
+        ->select(
+            'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
+            )
+        ->get();
+        
+        //select * from where id='$id'
+
+        return view('admin.showInvoice',compact('PurchaseOrder','PurchaseOrderR','DeliveryOrder','Invoice'));
+    }
 
     public function previewInvoice($id){
         $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)

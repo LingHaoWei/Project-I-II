@@ -60,7 +60,7 @@
                     </Button>
 
                     <Button type="button" class="printPOBtn">
-                        <a href="{{ route('viewInvoice',['id'=>$po->id]) }}" class="" title="Edit" data-toggle="tooltip">Invoice</a>
+                        <a href="{{ route('viewINHistory',['id'=>$po->id]) }}" class="" title="Edit" data-toggle="tooltip">Invoice</a>
                     </Button>
                     @if($po->status == 1)
                             

@@ -115,13 +115,14 @@
         
         
         <div class="form-group addProRow2">
-            <label class="" for="Document No"><b>P.O. #:</b></label>
+            
+            <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                {{$po->document_no}}
+                {{$po->delivery_order}}
                 <br></br>
                 <br>
-                
             </div>
+
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
                 {{$po->created_at}}
@@ -129,11 +130,14 @@
                 <br>
             </div>
 
-            <label class="" for="Document No"><b>Delivery Order No:</b></label>
+            
+
+            <label class="" for="Document No"><b>P.O. #:</b></label>
             <div class="">
-                {{$po->delivery_order}}
+                {{$po->document_no}}
                 <br></br>
                 <br>
+                
             </div>
 
         </div>
@@ -206,7 +210,7 @@
     <div id="printBtnWrapper">
         <div class="optionButton">
             <button type="button" class="deleteBtn">
-                <a href="{{ route('viewPurchaseOrder') }}" class="backBtn" title="Back" data-toggle="tooltip">Back</a> 
+                <a href="{{ route('viewINHistory',['id'=>$po->id]) }}" class="backBtn" title="Back" data-toggle="tooltip">Back</a> 
             </button>
 
             <Button type="button" class="editBtn">

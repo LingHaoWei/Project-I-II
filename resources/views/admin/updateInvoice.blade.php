@@ -70,7 +70,8 @@
             
             
         <div class="form-group addProRow1">
-            <label class="" for="Document No"><b>Invoice No: {{$po->invoice_no}}</b></label>
+            <label class="" for="Document No"><b>Invoice No: </b></label>
+            <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="{{$po->invoice_no}}" width="25">
             <div class="myAddress">
             
             My Sample Company Co.
@@ -98,13 +99,15 @@
         
         
         <div class="form-group addProRow2">
-            <label class="" for="Document No"><b>P.O. #:</b></label>
+
+            <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                {{$po->document_no}}
-                <br></br>
+                <select name="" id="">
+                    <option value=""></option>
+                </select>
                 <br>
-                
             </div>
+            
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
                 {{$po->created_at}}
@@ -112,12 +115,14 @@
                 <br>
             </div>
 
-            <label class="" for="Document No"><b>Delivery Order No:</b></label>
+            <label class="" for="Document No"><b>P.O. #:</b></label>
             <div class="">
-                {{$po->delivery_order}}
+                {{$po->document_no}}
                 <br></br>
                 <br>
+                
             </div>
+            
         </div>
         
 
@@ -167,10 +172,6 @@
         </div>
 
         <div class="form-group printpoaddProRow4">
-            <label class="" for="Document No">Invoice No:</label>
-            <div class="">
-                <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="{{$po->invoice_no}}">
-            </div>
 
             <label class="" for="PurchaseOrder Notes">Notes</label>
                     <div class="poNotesArea">

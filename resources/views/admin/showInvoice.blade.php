@@ -41,31 +41,32 @@
     <table class="table" id="myTable">
             <thead>
                 <tr>
-                <th scope="col"></th>
-                <th scope="col" width="12%">Delivery Order No</th> 
+                <th scope="col" width="50"></th>
+                <th scope="col" width="15%">Invoice No</th> 
+                <th scope="col"  width="25%">Delivery Order</th>
+                <th scope="col">Total</th>
                 <th scope="col">Date</th>
-                <th scope="col">Product</th>
-                <th scope="col">Received Quantity</th>
                 
                 </tr>
             </thead>
         <tbody>
-        
+        @forelse($Invoice as $invoice)
             <tr>
-            @forelse($DeliveryOrder as $do)
-                <td width="50"> 
+                <td > 
                 </td>
                 <td class="link">
-                    <a href="{{ route('viewDeliveryOrder',['id'=>$do->delivery_order_no]) }}" style="color:blue;"><div class="p-2">{{$do->delivery_order_no}}</div></a>
+                    <a href="{{ route('viewInvoice',['id'=>$invoice->purchase_order]) }}" style="color:blue;"><div class="p-2">{{$invoice->invoice_no}}</div></a>
                 </td>
                 <td class="link">
-                    <a href="#"><div class="p-2">{{$do->created_at}}</div></a>
+                    <div class="link">
+                    <a href="{{ route('viewDeliveryOrder',['id'=>$invoice->delivery_order]) }}" style="color:blue;" target="_blank"><div class="p-2">#{{$invoice->delivery_order}}</div></a>
+                    </div>
                 </td>
                 <td>
-                    <div class="p-2">{{$do->productID}}</div>
+                    RM {{$invoice->total_amount}}
                 </td>
                 <td>
-                    <div class="p-2">{{$do->sent_quantity}}</div>
+                    {{$invoice->created_at}}
                 </td>
                 
             </tr>
@@ -74,7 +75,7 @@
                 <td width="50"> 
                 </td>
                 <td class="link" width="20%">
-                    Do not have any delivery order for this purchase order
+                    Do not have any invoice order for this purchase order
                 </td>
                 <td></td>
                 <td></td>
@@ -92,7 +93,7 @@
             </button>
 
         <button type="button" class="editBtn">
-                <a href="{{ route('updateDeliveryOrder',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Add DO</a> 
+                <a href="{{ route('updateInvoice',['id'=>$invoice->purchase_order]) }}" class="printPO" title="Approve" data-toggle="tooltip">Add Invoice</a> 
         </button>
         </div>
     </div>
