@@ -59,32 +59,15 @@
 </style>
 
 <!--Page topic-->
-@if(Session::has('failed'))
 
-    <div class="alert alert-failed" role="alert">
-
-        {{Session::get('failed')}}
-
-    </div>
-
-@endif
-
-@if(Session::has('sucess'))
-
-    <div class="alert alert-success" role="alert">
-
-        {{Session::get('sucess')}}
-
-    </div>
-
-@endif
 <!--Page topic-->
 
 <div class="content" id="pwrapper1">
   <div class="">
         
         <div class="pageTopic addPo">
-            <div><h2>Delivery Order</h2></div>
+            @foreach($DeliveryOrderID as $doid)
+            <div><h2>Delivery Order </h2></div>
             
         </div>
   </div>
@@ -93,9 +76,8 @@
       
         <form method="POST" , action="#" enctype="multipart/form-data" id="dynamic_form">
         @csrf
-        @foreach($PurchaseOrder as $po)
+
         <div class="addRow">
-            <input hidden value="{{$po->id}}" />
             
 
         </div>
@@ -116,12 +98,12 @@
 
             <div class="supAddress">
             <br>
-            <b>Vendor: {{$po->supname}}</b><br>
-            {{$po->supadd}}, <br> 
-            {{$po->supcity}}, {{$po->supzipcode}}, {{$po->supstate}}.<br>
-            {{$po->supcp}} <br>
-            {{$po->supcn}} <br>
-            {{$po->supemail}} <br></br>
+            <b>Vendor: {{$doid->supname}}</b><br>
+            {{$doid->supadd}}, <br> 
+            {{$doid->supcity}}, {{$doid->supzipcode}}, {{$doid->supstate}}.<br>
+            {{$doid->supcp}} <br>
+            {{$doid->supcn}} <br>
+            {{$doid->supemail}} <br></br>
             
 
             </div>
@@ -132,7 +114,7 @@
         <div class="form-group addProRow2">
             <label class="" for="Document No"><b>P.O. #:</b></label>
             <div class="">
-                {{$po->document_no}}
+                {{$doid->podocno}}
                 <br></br>
                 <br>
                 
@@ -140,19 +122,19 @@
 
             <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                {{$po->delivery_order}} (<a href="{{ route('viewDOHistory',['id'=>$po->id]) }}">history</a>)
+            #{{$doid->delivery_order_no}}
                 <br></br>
                 <br>
             </div>
 
-            <label class="" for="Document No"><b>Last Update:</b></label>
+            <label class="" for="Document No"><b>Created at:</b></label>
             <div class="">
-                {{$po->updated_at}}
+                {{$doid->created_at}}
                 <br></br>
                 <br>
             </div>
         </div>
-        
+        @endforeach
 
        
         <div class="form-group addProRow3">
@@ -162,20 +144,19 @@
                 <tr>
                 <th scope="col" width="3%"></th>
                 <th scope="col" width="25%">Product</th>
-                <th scope="col" width="15%">Order Quantity</th>
-                <th scope="col" width="15%">Received Quantity</th>
+                <th scope="col" width="15%">Sent Quantity</th>
 
 
                 </tr>
             </thead>
             
             <tbody>
-            @foreach($PurchaseOrderR as $por)
+            @foreach($DeliveryOrder as $do)
                     <tr>
                     <td></td>
-                    <td>{{$por->proname}} ({{$por->productID}})</td>
-                    <td>{{$por->quantity}}</td>
-                    <td>{{$por->received_quantity}}</td>
+                    <td>{{$do->proname}} ({{$do->productID}})</td>
+                    <td>{{$do->sent_quantity}}</td>
+                    
 
                     </tr>
             @endforeach
@@ -194,7 +175,7 @@
         <div class="form-group printpoaddProRow4">
             <label class="" for="PurchaseOrder Notes"><b>Notes</b></label>
             <div class="poNotesArea notesandstatus">
-                {{$po->notes}}
+                {{$doid->note}}
             </div>
 
         </div>
@@ -202,7 +183,7 @@
         <div class="form-group printpoaddProRow5">
 
         </div>
-        @endforeach
+
         </form>
 
   </div>
@@ -211,16 +192,12 @@
     <div id="printBtnWrapper">
         <div class="optionButton">
             <button type="button" class="deleteBtn">
-                <a href="{{ route('viewPurchaseOrder') }}" class="backBtn" title="Back" data-toggle="tooltip">Back</a> 
+                <a href="{{ route('viewDOHistory',['id'=>$do->purchase_order]) }}" class="backBtn" title="Back" data-toggle="tooltip">Back</a> 
             </button>
 
             <Button type="button" class="editBtn">
                 <a href="javascript:generatePDF()" id="downloadBtn" class="printPDF" title="print" data-toggle="tooltip">Print PDF</a>
             </Button>
-
-            <button type="button" class="printPOBtn">
-                <a href="{{ route('updateDeliveryOrder',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Update DO</a> 
-            </button>
         </div>
     </div>
 

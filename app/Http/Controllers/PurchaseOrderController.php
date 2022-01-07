@@ -169,14 +169,18 @@ class PurchaseOrderController extends Controller
     public function viewDOList($id){
         $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
         ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
-        ->leftJoin('delivery_orders', 'delivery_orders.purchase_order', '=', 'purchase_orders.id')
         ->select(
         'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
         'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
         'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
         'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail',
-        'delivery_orders.delivery_order_no as dono', 'delivery_orders.sent_quantity as sentqt',
-        'delivery_orders.productID as proid','delivery_orders.created_at as dodate',
+        'suppliers.supplierID as supiid',
+        )
+        ->get();
+
+        $DeliveryOrder=DB::table('delivery_orders')->where('delivery_orders.purchase_order', $id)
+        ->select(
+            'delivery_orders.*',
         )
         ->get();
         
@@ -189,21 +193,30 @@ class PurchaseOrderController extends Controller
         
         //select * from where id='$id'
 
-        return view('admin.showDeliveryOrder',compact('PurchaseOrder','PurchaseOrderR'));
+        return view('admin.showDeliveryOrder',compact('PurchaseOrder','PurchaseOrderR','DeliveryOrder'));
     }
 
     public function previewDO($id){
-        $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
-        ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+        $DeliveryOrderID = DB::table('delivery_orders')->where('delivery_order_no',$id)
+        ->leftjoin('purchase_orders', 'purchase_orders.id', '=', 'delivery_orders.purchase_order')
+        ->leftjoin('suppliers','suppliers.id', '=', 'purchase_orders.supplierID')
         ->select(
-        'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
-        'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
-        'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
-        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail',
+            'delivery_orders.*','purchase_orders.document_no as podocno','purchase_orders.notes as note',
+            'suppliers.supplierName as supname','suppliers.address as supadd',
+            'suppliers.state as supstate','suppliers.city as supcity',
+            'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
+            'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail',
+            'suppliers.supplierID as supiid',
         )
+        ->take(1)
         ->get();
 
-        $DeliveryOrder=DB::table('delivery_orders')->where('delivery_orders.delivery_order_no', $id);
+        $DeliveryOrder=DB::table('delivery_orders')->where('delivery_orders.delivery_order_no', $id)
+        ->leftJoin('products', 'products.productID', '=', 'delivery_orders.productID')
+        ->select(
+            'delivery_orders.*','products.name as proname',
+        )
+        ->get();
         
         $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
         ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
@@ -214,7 +227,7 @@ class PurchaseOrderController extends Controller
         
         //select * from where id='$id'
 
-        return view('admin.poDeliveryOrder',compact('PurchaseOrder','PurchaseOrderR'));
+        return view('admin.poDeliveryOrder',compact('PurchaseOrderR','DeliveryOrder','DeliveryOrderID'));
     }
 
     public function updateDO($id){
@@ -282,12 +295,12 @@ class PurchaseOrderController extends Controller
                     'sent_quantity' => $rqt,
                     'created_at' => $date 
                 ]);
-                Session::flash('sucess',"Delivery Order updated!");
+                Session::flash('sucess',"Delivery Order added!");
             }
             
         }
 
-        return redirect()->route('viewDeliveryOrder',$id);
+        return redirect()->route('viewDOHistory',$id);
     }
 
     // *** Invoice Controller *** //

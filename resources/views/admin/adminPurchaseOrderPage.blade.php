@@ -56,7 +56,7 @@
                 </td>
                 <td>
                     <Button type="button" class="editBtn">
-                        <a href="{{ route('viewDeliveryOrder',['id'=>$po->id]) }}" class="" title="Edit" data-toggle="tooltip">Delivery Order</a>
+                        <a href="{{ route('viewDOHistory',['id'=>$po->id]) }}" class="" title="Edit" data-toggle="tooltip">Delivery Order</a>
                     </Button>
 
                     <Button type="button" class="printPOBtn">

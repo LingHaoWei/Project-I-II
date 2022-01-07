@@ -2,17 +2,33 @@
 @section('content')
 <style>
 
+    .alert-failed{
+        padding: 10px;
+        background-color: #cf4242;
+        color: white;
+    }
 
+    .alert-success{
+        padding: 10px;
+        background-color: #2d8a39;
+        color: white;
+    }
     
 </style>
 
 <!--Page topic-->
+
 <!--Page topic-->
 
     <div id="pwrapper1">
         <div class="productRow1"> 
             <div class="col-sm-10">
+                @foreach($PurchaseOrder as $po)
                 <div class="pageTopic"><h2>Delivery Order History</h2></div>
+                <br>
+                <div>Purchas Order: <b>{{$po->document_no}}</b></div>
+                <div>From Supplier: <b>{{$po->supname}}({{$po->supiid}})</b></div>
+                @endforeach
             </div>
         </div>
         
@@ -26,37 +42,29 @@
             <thead>
                 <tr>
                 <th scope="col"></th>
-                <th scope="col">Purchase Order No</th>
+                <th scope="col" width="12%">Delivery Order No</th> 
                 <th scope="col">Date</th>
-                <th scope="col">Delivery Order No</th> 
-                <th scope="col">Vendor</th> 
                 <th scope="col">Product</th>
                 <th scope="col">Received Quantity</th>
                 
                 </tr>
             </thead>
         <tbody>
-        @forelse($PurchaseOrder as $po)
+        @forelse($DeliveryOrder as $do)
             <tr>
                 <td width="50"> 
                 </td>
                 <td class="link">
-                    <a href="#"><div class="p-2">{{$po->document_no}}</div></a>
-                </td>
-                <td>
-                    <div class="p-2">{{$po->dodate}}</div>
+                    <a href="{{ route('viewDeliveryOrder',['id'=>$do->delivery_order_no]) }}" style="color:blue;"><div class="p-2">{{$do->delivery_order_no}}</div></a>
                 </td>
                 <td class="link">
-                    <a href="#"><div class="p-2">{{$po->dono}}</div></a>
-                </td>
-                <td class="link">
-                    <div class="p-2">{{$po->supname}}</div>
+                    <a href="#"><div class="p-2">{{$do->created_at}}</div></a>
                 </td>
                 <td>
-                    <div class="p-2">{{$po->proid}}</div>
+                    <div class="p-2">{{$do->productID}}</div>
                 </td>
                 <td>
-                    <div class="p-2">{{$po->sentqt}}</div>
+                    <div class="p-2">{{$do->sent_quantity}}</div>
                 </td>
                 
             </tr>
@@ -64,9 +72,12 @@
             <tr>
                 <td width="50"> 
                 </td>
-                <td class="link">
-                    Do not have such purchase order
+                <td class="link" width="20%">
+                    Do not have any delivery order yet
                 </td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             
         @endforelse
@@ -74,9 +85,15 @@
         </tbody>
         
         </table>
-        <Button type="button" class="backBtn" style="margin:10px;">
-            <a href="{{ route('viewDeliveryOrder',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
-        </Button>
+        <div class="" style="margin:10px;">
+        <button type="button" class="deleteBtn" >
+                <a href="{{ route('viewPurchaseOrder') }}" class="backBtn" title="Back" data-toggle="tooltip">Back</a> 
+            </button>
+
+        <button type="button" class="editBtn">
+                <a href="{{ route('updateDeliveryOrder',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Add DO</a> 
+        </button>
+        </div>
     </div>
 
     
