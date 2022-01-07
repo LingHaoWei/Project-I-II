@@ -67,7 +67,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                    <a class="dropdown-item" href="{{ route('myOrder') }}">Account Setting</a>
+                                    <a class="dropdown-item" href="{{ route('myAccount') }}">Account Setting</a>
                                     <a class="dropdown-item" href="{{ route('myOrder') }}">Order Detail</a>
                                 </div>
                             </li>

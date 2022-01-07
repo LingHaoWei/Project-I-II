@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\User;
 use Auth;
+use Session;
+
 
 class UserController extends Controller
 {
@@ -40,7 +42,7 @@ class UserController extends Controller
     public function delete($id){
         $data=User::find($id);
         $data->delete();
-        Session::flash('success',"Supplier deleted successfully!");
+        Session::flash('success',"User deleted successfully!");
         Return redirect()->route('viewUser');
     }
 
@@ -77,5 +79,31 @@ class UserController extends Controller
         $users->save();
 
         Return redirect()->route('viewUser');
+    }
+
+    public function acc(){
+        $users= DB::table('users')
+        ->select('users.*')
+        ->where('users.id','=',Auth::id())
+        ->get();
+
+        return view('account')->with('users',$users);
+    }
+
+    public function updateUser(){
+        $r=request();
+        $users=User::find($r->id);
+
+        $users->name=$r->name;
+        $users->email=$r->email;
+        $users->contact=$r->contact;
+        $users->address=$r->address;
+        $users->state=$r->state;
+        $users->zipcode=$r->zipcode;
+        $users->city=$r->city;
+        $users->save();
+
+        session()->flash('success', 'Settings Updated Successfully !');
+        return redirect()->route('myAccount');
     }
 }

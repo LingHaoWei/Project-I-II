@@ -52,6 +52,9 @@ Route::post('\checkout', [App\Http\Controllers\OrderController::class, 'paymentP
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'showOrder'])->name('myOrder');
 Route::get('/order/{orderID}',[App\Http\Controllers\OrderController::class, 'viewOrder'])->name('orderDetail');
 
+Route::get('/account', [App\Http\Controllers\UserController::class, 'acc'])->name('myAccount');
+Route::post('/account/updateUser', [App\Http\Controllers\UserController::class, 'updateUser'])->name('update.User');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
