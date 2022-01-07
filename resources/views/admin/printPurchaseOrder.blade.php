@@ -224,7 +224,7 @@ for(var i = 1; i < table.rows.length; i++){
     sumVal = sumVal + parseInt(table.rows[i].cells[4].innerHTML);
 }
 
-document.getElementById("totalVal").innerHTML = "RM " + sumVal;
+document.getElementById("totalVal").innerHTML = '<input value="RM '+sumVal+'" readonly name="total" style="border:none; outline: none;">';
 console.log(sumVal);
 
 

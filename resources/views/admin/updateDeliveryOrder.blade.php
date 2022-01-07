@@ -108,10 +108,10 @@
 
             <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                <input type="text" class="form-control" id="DeliveryOrderNo" name="DeliveryOrderNo" value="{{$po->delivery_order}}" style="width: 50%; ">
+                <input type="text" class="form-control" id="DeliveryOrderNo" name="DeliveryOrderNo" value="" style="width: 50%; ">
             </div>
             <div class="">
-                {{$po->delivery_order}} (<a href="{{ route('viewDOHistory',['id'=>$po->id]) }}">history</a>)
+                (<a href="{{ route('viewDOHistory',['id'=>$po->id]) }}">history</a>)
                 <br></br>
                 <br>
             </div>
@@ -174,7 +174,7 @@
 
             <div class="">
             <Button type="button" class="backBtn">
-                <a href="{{ route('viewDeliveryOrder',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
+                <a href="{{ route('viewDOHistory',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
             </Button>
             <button type="submit" class="subBtn" title="Submit">Submit</button>
             </div>
