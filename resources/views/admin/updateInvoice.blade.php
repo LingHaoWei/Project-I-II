@@ -182,7 +182,7 @@
 
             <div class="">
             <Button type="button" class="backBtn">
-                <a href="" class="" title="Back" data-toggle="tooltip">Back</a>
+                <a href="{{ route('insertInvoice',['id'=>$do->purchase_order]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
             </Button>
             <button type="submit" class="subBtn" title="Submit">Submit</button>
             </div>
