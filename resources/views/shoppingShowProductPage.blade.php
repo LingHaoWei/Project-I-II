@@ -1,7 +1,7 @@
 @extends('shoppingPageLayout')
 @section('content')
 
-<!-- ================ category section start ================= -->		  
+<!-- ================ category section start ================= -->
 <section class="section-margin--small mb-5">
     <div class="container">
       <div class="row">
@@ -54,6 +54,9 @@
           <section class="lattest-product-area pb-40 category-list">
             <div class="row">
             @foreach($products as $product)
+            @if($product->quantity == 0)
+            <div></div>
+            @else
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
                   <div class="card-product__img">
@@ -68,23 +71,24 @@
                     <p>{{$product->catname}}</p>
                     <h4 class="card-product__title"><a href="{{ route('shoppingShowProductDetails',['id'=>$product->id]) }}">{{$product->name}}</a></h4>
                     <p class="card-product__price">RM {{$product->price}}</p>
-                    
+
                   </div>
                 </div>
               </div>
+              @endif
               @endforeach
             </div>
             <div class="paging">
             <span>{{$products->links()}}</span>
             </div>
           </section>
-          
+
 
           <!-- Products -->
         </div>
       </div>
     </div>
   </section>
-	<!-- ================ category section end ================= -->		  
+	<!-- ================ category section end ================= -->
 
 @endsection
