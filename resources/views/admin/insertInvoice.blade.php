@@ -41,7 +41,7 @@
 
                 <div class="form-group addProRow4">
                     <Button type="button" class="backBtn">
-                        <a href="{{ route('viewPurchaseOrder') }}" class="" title="Back" data-toggle="tooltip">Back</a>
+                        <a href="{{ route('viewINHistory',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
                     </Button>
                     <button type="submit" class="subBtn" title="Submit">Submit</button>
                     
