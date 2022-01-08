@@ -90,12 +90,12 @@ h3{
 
             <div class="col-md-9">
                 <div class="inputs"> <label>Email</label>
-                <input class="form-control" type="text" id="email" name="email" value="{{ $users->email }}"> </div>
+                <input class="form-control" type="text" id="email" name="email" value="{{ $users->email }}" readonly> </div>
             </div>
 
             <div class="col-md-9">
                 <div class="inputs"> <label>Contact Number</label>
-                <input type="text" class="form-control" id="contact" name="contact" value="{{$users->contact}}"> </div>
+                <input type="text" class="form-control" id="contact" name="contact" value="{{$users->contact}}" readonly> </div>
             </div>
         </div>
         <div class="row">
