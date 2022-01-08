@@ -13,7 +13,7 @@
   </div>
 
   <div class="form addProForm row">
-        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('addUser') }}" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group addProRow1">
