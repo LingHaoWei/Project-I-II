@@ -42,10 +42,8 @@
             <thead>
                 <tr>
                 <th scope="col"></th>
-                <th scope="col" width="12%">Delivery Order No</th> 
+                <th scope="col" width="">Delivery Order No</th> 
                 <th scope="col">Date</th>
-                <th scope="col">Product</th>
-                <th scope="col">Received Quantity</th>
                 
                 </tr>
             </thead>
@@ -60,12 +58,6 @@
                 </td>
                 <td class="link">
                     <a href="#"><div class="p-2">{{$do->created_at}}</div></a>
-                </td>
-                <td>
-                    <div class="p-2">{{$do->productID}}</div>
-                </td>
-                <td>
-                    <div class="p-2">{{$do->sent_quantity}}</div>
                 </td>
                 
             </tr>

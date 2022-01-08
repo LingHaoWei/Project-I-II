@@ -58,12 +58,12 @@
   </div>
   
   <div class="form addProForm row">
-  @foreach($PurchaseOrder as $po)
-        <form method="POST" , action="{{ route('saveInvoice',['id'=>$po->id]) }}" enctype="multipart/form-data" id="dynamic_form">
+        @foreach($SupplierInfo as $supinfo)
+        <form method="POST" , action="{{ route('saveInvoice',['id'=>$supinfo->purchase_order]) }}" enctype="multipart/form-data" id="dynamic_form">
         @csrf
         
         <div class="addRow">
-        <input hidden id="id" name="id" value="{{$po->id}}" />
+        <input hidden id="id" name="id" value="{{$supinfo->purchase_order}}" />
             
 
         </div>
@@ -71,7 +71,10 @@
             
         <div class="form-group addProRow1">
             <label class="" for="Document No"><b>Invoice No: </b></label>
-            <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="{{$po->invoice_no}}" width="25%">
+            <div>
+                <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="" style="width: 50%;" />
+            </div>
+            
             <div class="myAddress">
             
             My Sample Company Co.
@@ -82,43 +85,48 @@
             <br></br>
 
             </div>
-
+            
             <div class="supAddress">
             <br>
-            <b>Vendor: {{$po->supname}}</b><br>
-            {{$po->supadd}}, <br> 
-            {{$po->supcity}}, {{$po->supzipcode}}, {{$po->supstate}}.<br>
-            {{$po->supcp}} <br>
-            {{$po->supcn}} <br>
-            {{$po->supemail}} <br></br>
+            <b>Vendor: {{$supinfo->supname}}</b><br>
+            Jalan mewar, Taman dato onn <br> 
+            Jb, 80200, Johor.<br>
+            Lucas <br>
+            0119987265 <br>
+            example@gmail.com<br></br>
             
-
+            
             </div>
 
         </div>
         
         
         <div class="form-group addProRow2">
-            <label class="" for="Document No"><b>P.O. #:</b></label>
+
+            <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                {{$po->document_no}}
-                <br></br>
-                <br>
-                
-            </div>
-            <label class="" for="Document No"><b>Date Created:</b></label>
-            <div class="">
-                {{$po->created_at}}
+                <input type="text" name="DeliveryOrderNo" id="DeliveryOrderNo" value="{{$supinfo->delivery_order_no}}" style="width: 50%;" readonly />
                 <br></br>
                 <br>
             </div>
 
-            <label class="" for="Document No"><b>Delivery Order No:</b></label>
+            <label class="" for="Document No"><b>P.O. #:</b></label>
             <div class="">
-                {{$po->delivery_order}}
+                <input type="text" class="form-control" id="PurchaseOrderNo" name="PurchaseOrderNo" value="{{$supinfo->docno}}" style="width: 50%;" readonly />
+                <br></br>
+                <br>
+
+                
+                
+            </div>
+            <label class="" for="Document No"><b>Date Created:</b></label>
+            <div class="">
+                <input type="date" name="invoiceDate" id="invoiceDate" style="width: 50%;" required />
                 <br></br>
                 <br>
             </div>
+
+            
         </div>
         
 
@@ -138,22 +146,25 @@
             </thead>
             
             <tbody>
-            @foreach($PurchaseOrderR as $por)
+            @foreach($DeliveryOrder as $do)
                     <tr>
                     <td></td>
-                    <td>{{$por->proname}} ({{$por->productID}})</td>
-                    <td>{{$por->unitPrice}}</td>
-                    <td>{{$por->quantity}}</td>
-                    <td>{{$por->grand_total}}</td>
+                    <td>{{$do->proname}} ({{$do->productID}})</td>
+                    <td>{{$do->proup}}</td>
+                    <td>{{$do->sent_quantity}}</td>
+                    <td></td>
                     </tr>
             @endforeach
                     <tr>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td><b> Total <b></td>
                     <td hidden>0</td>
+                    <td hidden>0</td>
+                    <td hidden></td>
+                    <td></td>
+                    <td><b>Total </b></td>
                     <td><span id="totalVal" style=""></span></td>
+                    
                     </tr>
             </tbody>
             
@@ -169,13 +180,9 @@
 
         <div class="form-group printpoaddProRow4">
 
-            <label class="" for="PurchaseOrder Notes">Notes</label>
-                    <div class="poNotesArea">
-                        <textarea type="text" class="form-control" id="poNotes" name="poNotes" >{{$po->notes}}</textarea>
-                    </div>
             <div class="">
             <Button type="button" class="backBtn">
-                <a href="{{ route('viewINHistory',['id'=>$po->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
+                <a href="" class="" title="Back" data-toggle="tooltip">Back</a>
             </Button>
             <button type="submit" class="subBtn" title="Submit">Submit</button>
             </div>
@@ -184,9 +191,9 @@
         <div class="form-group printpoaddProRow5">
 
         </div>
-        @endforeach
-        </form>
 
+        </form>
+        @endforeach
   </div>
 </div>
 
@@ -197,36 +204,17 @@
 
 <script>
 
-var table = document.getElementById("myTable"), sumVal=0;
+var table = document.getElementById("myTable"), sumVal=0, subtotal=0;
 
 for(var i = 1; i < table.rows.length; i++){
-    sumVal = sumVal + parseInt(table.rows[i].cells[4].innerHTML);
+    subtotal = parseFloat(table.rows[i].cells[2].innerHTML) * parseFloat(table.rows[i].cells[3].innerHTML);
+    table.rows[i].cells[4].innerHTML = subtotal;
+    sumVal = subtotal + sumVal;
 }
 
-document.getElementById("totalVal").innerHTML = "RM " + sumVal;
-console.log(sumVal);
+document.getElementById("totalVal").innerHTML = '<input value="'+sumVal+'" readonly name="total" style="border:none; outline: none;">';
+console.log(subtotal);
 
-
-async function generatePDF(){
-
-    document.getElementById("downloadBtn").innerHTML = "Print PDF";
-
-    var downloading = document.getElementById("pwrapper1");
-    var doc = new jsPDF('l', 'pt');
-
-    await html2canvas(downloading, {
-                //allowTaint: true,
-                //useCORS: true,
-            }).then((canvas) => {
-                //Canvas (convert to PNG)
-                doc.addImage(canvas.toDataURL("image/png"), 'PNG', 5, 5, 833, 400);
-            })
-
-            doc.save("Document.pdf");
-
-    document.getElementById("downloadBtn").innerHTML = "Print PDF";
-
-}
 
 
 </script>

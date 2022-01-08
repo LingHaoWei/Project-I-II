@@ -17,7 +17,15 @@
 </style>
 
 <!--Page topic-->
+@if(Session::has('sucess'))
 
+    <div class="alert alert-success" role="alert">
+
+        {{Session::get('sucess')}}
+
+    </div>
+
+@endif
 <!--Page topic-->
 
     <div id="pwrapper1">
@@ -55,7 +63,7 @@
                 <td > 
                 </td>
                 <td class="link">
-                    <a href="{{ route('viewInvoice',['id'=>$invoice->purchase_order]) }}" style="color:blue;"><div class="p-2">{{$invoice->invoice_no}}</div></a>
+                    <a href="{{ route('viewInvoice',['id'=>$invoice->delivery_order]) }}" style="color:blue;"><div class="p-2">{{$invoice->invoice_no}}</div></a>
                 </td>
                 <td class="link">
                     <div class="link">
@@ -93,7 +101,7 @@
             </button>
 
         <button type="button" class="editBtn">
-                <a href="{{ route('updateInvoice',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Add Invoice</a> 
+                <a href="{{ route('insertInvoice',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Add Invoice</a> 
         </button>
         </div>
     </div>

@@ -181,24 +181,19 @@ class PurchaseOrderController extends Controller
         'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail',
         'suppliers.supplierID as supiid',
         )
+        
         ->get();
 
         $DeliveryOrder=DB::table('delivery_orders')->where('delivery_orders.purchase_order', $id)
         ->select(
-            'delivery_orders.*',
+            'delivery_order_no','created_at'
         )
-        ->get();
-        
-        $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
-        ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
-        ->select(
-            'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
-            )
+        ->distinct()
         ->get();
         
         //select * from where id='$id'
 
-        return view('admin.showDeliveryOrder',compact('PurchaseOrder','PurchaseOrderR','DeliveryOrder'));
+        return view('admin.showDeliveryOrder',compact('PurchaseOrder','DeliveryOrder'));
     }
 
     public function previewDO($id){
@@ -348,71 +343,105 @@ class PurchaseOrderController extends Controller
     }
 
     public function previewInvoice($id){
-        $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
-        ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+        $SupplierInfo=DB::table('delivery_orders')->where('delivery_orders.delivery_order_no', $id)
+        ->leftJoin('products', 'products.productID', '=', 'delivery_orders.productID')
+        ->leftJoin('purchase_orders', 'purchase_orders.id', '=', 'delivery_orders.purchase_order')
+        ->leftJoin('invoices', 'invoices.delivery_order', '=', 'delivery_orders.delivery_order_no')
+        ->leftJoin('suppliers', 'purchase_orders.supplierID', '=', 'suppliers.id')
         ->select(
-        'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
-        'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
-        'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
-        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail'
+            'delivery_orders.*','products.name as proname','products.unitPrice as proup',
+            'suppliers.supplierName as supname','purchase_orders.document_no as docno',
+            'purchase_orders.notes as ponotes','invoices.invoice_no as invoiceno',
+            'invoices.created_at as invoicedate',
+        )
+        ->take(1)
+        ->get();
+
+        $Invoice=DB::table('invoices')->where('invoices.purchase_order', $id)
+        ->select(
+            'invoices.*',
         )
         ->get();
-        
-        $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
-        ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
+
+        $DeliveryOrder=DB::table('delivery_orders')->where('delivery_orders.delivery_order_no', $id)
+        ->leftJoin('products', 'products.productID', '=', 'delivery_orders.productID')
+        ->leftJoin('purchase_orders', 'purchase_orders.id', '=', 'delivery_orders.purchase_order')
+        ->leftJoin('suppliers', 'purchase_orders.supplierID', '=', 'suppliers.id')
         ->select(
-            'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
-            )
+            'delivery_orders.*','products.name as proname','products.unitPrice as proup',
+            'suppliers.supplierName as supname',
+        )
         ->get();
         
         //select * from where id='$id'
 
-        return view('admin.poInvoice',compact('PurchaseOrder','PurchaseOrderR'));
+        return view('admin.poInvoice',compact('DeliveryOrder','SupplierInfo','Invoice'));
+    }
+
+    public function insertInvoice($id){
+
+        $DeliveryOrder = DeliveryOrder::where('purchase_order',$id)
+        ->select('delivery_order_no')
+        ->distinct()
+        ->get();
+
+        return view('admin.insertInvoice',compact('DeliveryOrder'));
     }
 
     public function updateINV($id){
-        $PurchaseOrder=DB::table('purchase_orders')->where('purchase_orders.id', $id)
-        ->leftJoin('suppliers', 'suppliers.id', '=', 'purchase_orders.supplierID')
+
+        $SupplierInfo=DB::table('delivery_orders')->where('delivery_orders.delivery_order_no', $id)
+        ->leftJoin('products', 'products.productID', '=', 'delivery_orders.productID')
+        ->leftJoin('purchase_orders', 'purchase_orders.id', '=', 'delivery_orders.purchase_order')
+        ->leftJoin('suppliers', 'purchase_orders.supplierID', '=', 'suppliers.id')
         ->select(
-        'purchase_orders.*','suppliers.id as supid','suppliers.supplierName as supname',
-        'suppliers.address as supadd','suppliers.state as supstate','suppliers.city as supcity',
-        'suppliers.zipcode as supzipcode','suppliers.contactPerson as supcp',
-        'suppliers.contactNumber as supcn', 'suppliers.emailAddress as supemail'
+            'delivery_orders.*','products.name as proname','products.unitPrice as proup',
+            'suppliers.supplierName as supname','purchase_orders.document_no as docno',
+            'purchase_orders.notes as ponotes',
         )
+        ->take(1)
         ->get();
         
-        $PurchaseOrderR=DB::table('purchase_oder_r_s')->where('purchase_oder_r_s.purchase_order', $id)
-        ->leftJoin('products', 'products.productID', '=', 'purchase_oder_r_s.productID')
+
+        $DeliveryOrder=DB::table('delivery_orders')->where('delivery_orders.delivery_order_no', $id)
+        ->leftJoin('products', 'products.productID', '=', 'delivery_orders.productID')
+        ->leftJoin('purchase_orders', 'purchase_orders.id', '=', 'delivery_orders.purchase_order')
+        ->leftJoin('suppliers', 'purchase_orders.supplierID', '=', 'suppliers.id')
         ->select(
-            'purchase_oder_r_s.*','products.productID as proid','products.name as proname',
-            )
+            'delivery_orders.*','products.name as proname','products.unitPrice as proup',
+            'suppliers.supplierName as supname',
+        )
         ->get();
         
         //select * from where id='$id'
 
-        return view('admin.updateInvoice',compact('PurchaseOrder','PurchaseOrderR'));
+        return view('admin.updateInvoice',compact('DeliveryOrder','SupplierInfo'));
     }
 
     public function saveINV($id, Request $request){
 
-        $notes = $request->poNotes;
+        $PurchaseOrder = $request->id;
+        $TotalAmount = $request->total;
+        $DeliveryOrder = $request->DeliveryOrderNo;
         $InvoiceNo = $request->InvoiceNo;
+        $date = $request->invoiceDate;
 
         purchaseOrder::where('id',$id)->update([
-            'notes'=> $notes,
             'invoice_no' => $InvoiceNo
         ]);
 
         Invoice::insert([
-            'purchase_order' => $id, 
+            'purchase_order' => $PurchaseOrder, 
+            'total_amount' => $TotalAmount, 
+            'delivery_order' => $DeliveryOrder,
             'invoice_no' => $InvoiceNo,
-            'created_at' => date('Y-m-d H:i:s'),
+            'created_at' => $date,
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
         Session::flash('sucess',"Invoice updated!");
 
-        return redirect()->route('viewInvoice',$id);
+        return redirect()->route('viewINHistory',$id);
     }
 
     public function searchPO(){

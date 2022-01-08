@@ -42,24 +42,10 @@
         justify-content: space-between;
     }
 
-    .alert-success{
-        padding: 10px;
-        background-color: #2d8a39;
-        color: white;
-    }
 
 </style>
 
 <!--Page topic-->
-@if(Session::has('sucess'))
-
-    <div class="alert alert-success" role="alert">
-
-        {{Session::get('sucess')}}
-
-    </div>
-
-@endif
 <!--Page topic-->
 
 <div class="content" id="pwrapper1">
@@ -72,22 +58,20 @@
   </div>
   
   <div class="form addProForm row">
-      
-        <form method="POST" , action="#" enctype="multipart/form-data" id="dynamic_form">
+        @foreach($SupplierInfo as $supinfo)
+        <form method="POST" , action="{{ route('saveInvoice',['id'=>$supinfo->purchase_order]) }}" enctype="multipart/form-data" id="dynamic_form">
         @csrf
-        @foreach($PurchaseOrder as $po)
+        
         <div class="addRow">
-            <input hidden value="{{$po->id}}" />
+        <input hidden id="id" name="id" value="{{$supinfo->purchase_order}}" />
             
 
         </div>
             
             
         <div class="form-group addProRow1">
-            <label class="" for="Document No"><b>Invoice No: {{$po->invoice_no}}</b></label>
-            <div class="">
-
-            </div>
+            <label class="" for="Document No"><b>Invoice No: {{$supinfo->invoiceno}}</b></label>
+            
             <div class="myAddress">
             
             My Sample Company Co.
@@ -95,51 +79,51 @@
             info@sampleco.com
             <br>
             Sample Address, 23rd St., Sample City, ####
-            <br>
+            <br></br>
 
             </div>
-
+            
             <div class="supAddress">
             <br>
-            <b>Vendor: {{$po->supname}}</b><br>
-            {{$po->supadd}}, <br> 
-            {{$po->supcity}}, {{$po->supzipcode}}, {{$po->supstate}}.<br>
-            {{$po->supcp}} <br>
-            {{$po->supcn}} <br>
-            {{$po->supemail}} <br></br>
+            <b>Vendor: {{$supinfo->supname}}</b><br>
+            Jalan mewar, Taman dato onn <br> 
+            Jb, 80200, Johor.<br>
+            Lucas <br>
+            0119987265 <br>
+            example@gmail.com<br></br>
             
-
+            
             </div>
 
         </div>
         
         
         <div class="form-group addProRow2">
-            
+
             <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                {{$po->delivery_order}}
+                #{{$supinfo->delivery_order_no}}
                 <br></br>
                 <br>
             </div>
-
-            <label class="" for="Document No"><b>Date Created:</b></label>
-            <div class="">
-                {{$po->created_at}}
-                <br></br>
-                <br>
-            </div>
-
-            
 
             <label class="" for="Document No"><b>P.O. #:</b></label>
             <div class="">
-                {{$po->document_no}}
+                {{$supinfo->docno}}
                 <br></br>
                 <br>
+
+                
                 
             </div>
+            <label class="" for="Document No"><b>Date Created:</b></label>
+            <div class="">
+                {{$supinfo->invoicedate}}
+                <br></br>
+                <br>
+            </div>
 
+            
         </div>
         
 
@@ -152,32 +136,32 @@
                 <th scope="col" width="3%"></th>
                 <th scope="col" width="25%">Product</th>
                 <th scope="col" width="25%">Unit Price (RM)</th>
-                <th scope="col" width="15%">Order Quantity</th>
-                <th scope="col" width="15%">Received Quantity</th>
+                <th scope="col" width="15%">Quantity</th>
                 <th scope="col" width="15%">Total (RM)</th>
 
                 </tr>
             </thead>
             
             <tbody>
-            @foreach($PurchaseOrderR as $por)
+            @foreach($DeliveryOrder as $do)
                     <tr>
                     <td></td>
-                    <td>{{$por->proname}} ({{$por->productID}})</td>
-                    <td>{{$por->unitPrice}}</td>
-                    <td>{{$por->quantity}}</td>
-                    <td>{{$por->received_quantity}}</td>
-                    <td>{{$por->grand_total}}</td>
+                    <td>{{$do->proname}} ({{$do->productID}})</td>
+                    <td>{{$do->proup}}</td>
+                    <td>{{$do->sent_quantity}}</td>
+                    <td></td>
                     </tr>
             @endforeach
                     <tr>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><b> Total <b></td>
                     <td hidden>0</td>
+                    <td hidden>0</td>
+                    <td hidden></td>
+                    <td></td>
+                    <td><b>Total </b></td>
                     <td><span id="totalVal" style=""></span></td>
+                    
                     </tr>
             </tbody>
             
@@ -192,36 +176,23 @@
         </div>
 
         <div class="form-group printpoaddProRow4">
-            <label class="" for="PurchaseOrder Notes"><b>Notes</b></label>
-            <div class="poNotesArea notesandstatus">
-                {{$po->notes}}
-            </div>
 
+            <div class="">
+            <Button type="button" class="backBtn">
+                <a href="{{ route('viewINHistory',['id'=>$supinfo->purchase_order]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
+            </Button>
+            <button type="submit" class="subBtn" title="Submit">Submit</button>
+            </div>
         </div>
         
         <div class="form-group printpoaddProRow5">
-        </div>
-        @endforeach
-        </form>
 
+        </div>
+
+        </form>
+        @endforeach
   </div>
 </div>
-
-    <div id="printBtnWrapper">
-        <div class="optionButton">
-            <button type="button" class="deleteBtn">
-                <a href="{{ route('viewINHistory',['id'=>$po->id]) }}" class="backBtn" title="Back" data-toggle="tooltip">Back</a> 
-            </button>
-
-            <Button type="button" class="editBtn">
-                <a href="javascript:generatePDF()" id="downloadBtn" class="printPDF" title="print" data-toggle="tooltip">Print PDF</a>
-            </Button>
-
-            <button type="button" class="printPOBtn">
-                <a href="{{ route('updateInvoice',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Update Invoice</a> 
-            </button>
-        </div>
-    </div>
 
 
 <div id="elementH"></div>
@@ -230,36 +201,17 @@
 
 <script>
 
-var table = document.getElementById("myTable"), sumVal=0;
+var table = document.getElementById("myTable"), sumVal=0, subtotal=0;
 
 for(var i = 1; i < table.rows.length; i++){
-    sumVal = sumVal + parseInt(table.rows[i].cells[5].innerHTML);
+    subtotal = parseFloat(table.rows[i].cells[2].innerHTML) * parseFloat(table.rows[i].cells[3].innerHTML);
+    table.rows[i].cells[4].innerHTML = subtotal;
+    sumVal = subtotal + sumVal;
 }
 
-document.getElementById("totalVal").innerHTML = "RM " + sumVal;
-console.log(sumVal);
+document.getElementById("totalVal").innerHTML = sumVal;
+console.log(subtotal);
 
-
-async function generatePDF(){
-
-    document.getElementById("downloadBtn").innerHTML = "Print PDF";
-
-    var downloading = document.getElementById("pwrapper1");
-    var doc = new jsPDF('l', 'pt');
-
-    await html2canvas(downloading, {
-                //allowTaint: true,
-                //useCORS: true,
-            }).then((canvas) => {
-                //Canvas (convert to PNG)
-                doc.addImage(canvas.toDataURL("image/png"), 'PNG', 5, 5, 833, 400);
-            })
-
-            doc.save("Document.pdf");
-
-    document.getElementById("downloadBtn").innerHTML = "Print PDF";
-
-}
 
 
 </script>
