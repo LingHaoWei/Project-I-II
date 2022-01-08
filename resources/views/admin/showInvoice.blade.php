@@ -32,7 +32,7 @@
         <div class="productRow1"> 
             <div class="col-sm-10">
                 @foreach($PurchaseOrder as $po)
-                <div class="pageTopic"><h2>Delivery Order History</h2></div>
+                <div class="pageTopic"><h2>Invoice History</h2></div>
                 <br>
                 <div>Purchas Order: <b>{{$po->document_no}}</b></div>
                 <div>From Supplier: <b>{{$po->supname}}({{$po->supiid}})</b></div>

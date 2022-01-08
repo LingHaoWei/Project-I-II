@@ -161,11 +161,6 @@ class PurchaseOrderController extends Controller
             'status' => $status,
         ]);
 
-        Invoice::where('id',$id)->update([
-            'notes'=> $notes,
-
-        ]);
-
         return redirect()->route('viewPurchaseOrderDetail',$id);
     }
 
@@ -381,7 +376,7 @@ class PurchaseOrderController extends Controller
     public function insertInvoice($id){
 
         $DeliveryOrder = DeliveryOrder::where('purchase_order',$id)
-        ->select('delivery_order_no')
+        ->select('delivery_order_no','purchase_order')
         ->distinct()
         ->get();
 
