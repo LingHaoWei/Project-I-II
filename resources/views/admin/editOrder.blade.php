@@ -141,8 +141,19 @@
                     <td hidden></td>
                     <td></td>
                     <td hidden>0</td>
+                    <td><b> Shipping <b></td>
+                    <td><span id="shippnigVal" style="">{{$or->amount}}</span></td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                    <td></td>
+                    <td hidden> 0 </td>
+                    <td hidden>0</td>
+                    <td hidden></td>
+                    <td></td>
+                    <td hidden>0</td>
                     <td><b> Total <b></td>
-                    <td><span id="totalVal" style=""></span></td>
+                    <td><span id="totalVal" style="">{{$or->amount}}</span></td>
                     </tr>
             </tbody>
         <tfoot>
@@ -222,15 +233,16 @@
 <script>
 
 var table = document.getElementById("myTable"), sumVal=0, subtotal=0;
+var total = parseFloat(document.getElementById("totalVal").innerHTML);
 
 for(var i = 1; i < table.rows.length; i++){
-    subtotal = parseInt(table.rows[i].cells[2].innerHTML) * parseInt(table.rows[i].cells[3].innerHTML);
+    subtotal = parseFloat(table.rows[i].cells[2].innerHTML) * parseFloat(table.rows[i].cells[3].innerHTML);
     table.rows[i].cells[4].innerHTML = "RM " + subtotal;
     sumVal += subtotal;
 }
 
-document.getElementById("totalVal").innerHTML = "RM " + sumVal;
-console.log(subtotal);
+document.getElementById("shippnigVal").innerHTML = "RM " + (total - sumVal);
+console.log(total);
 
 </script>
 
