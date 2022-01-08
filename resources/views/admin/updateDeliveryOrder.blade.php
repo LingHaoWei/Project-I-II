@@ -147,7 +147,7 @@
                     <td>{{$por->proname}} ({{$por->productID}})</td>
                     <td>{{$por->quantity}}</td>
                     <td id="receivedQt">
-                        <input type="number" value="{{$por->quantity}}" id="receivedQuantity" name="receivedQuantity[]" class="prc" max="{{ $por->quantity }}" min="{{ $por->received_quantity }}" />
+                        <input type="number" value="{{$por->quantity}}" id="receivedQuantity" name="receivedQuantity[]" class="prc" max="{{ $por->quantity }}" />
                         <input type="text" value="{{$por->productID}}" id="ProductID" name="productID[]" hidden readonly>
                     </td>
                     <td>

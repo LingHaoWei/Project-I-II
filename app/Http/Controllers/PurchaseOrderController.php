@@ -296,6 +296,8 @@ class PurchaseOrderController extends Controller
             
         }
 
+        Session::flash('sucess',"Delivery Order added!");
+
         return redirect()->route('viewDOHistory',$id);
     }
 
