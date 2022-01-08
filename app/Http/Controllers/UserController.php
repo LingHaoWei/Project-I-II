@@ -15,6 +15,10 @@ class UserController extends Controller
     public function insert(){
 
         $r=request();  //request  means  received  the form data  by method get or post
+        $r->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
         $addUser=User::create([
             'name'=>$r->name,
             'email'=>$r->email,
@@ -25,6 +29,7 @@ class UserController extends Controller
             'city'=>$r->city,
             'password'=>$r->password,
         ]);
+
 
         Return redirect()->route('viewUser');
     }
