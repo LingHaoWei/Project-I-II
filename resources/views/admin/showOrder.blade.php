@@ -12,6 +12,15 @@
                 <div class="pageTopic"><h2>Order Detail</h2></div>
             </div>
         </div>
+
+        <div class="iq-search-bar device-search">
+            <form method="POST" action="{{route('searchAdminOrder')}}" class="searchbox">
+            @csrf
+                Search:<a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                <input type="text" name="keyword" type="search" placeholder="Search" aria-label="Search">
+                <button type="submit"></button>
+            </form>
+        </div>
     </div>
 
     <div class="row" id="pwrapper2">

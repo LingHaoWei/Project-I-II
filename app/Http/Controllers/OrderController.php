@@ -256,4 +256,17 @@ class OrderController extends Controller
 
         return redirect()->route('viewOrder');
     }
+
+    public function adminSearchOrder(){
+        $r=request();
+        $keyword=$r->keyword;
+        $or = DB::table('orders')
+        ->leftjoin('users','users.id','=','orders.userID')
+        ->select('orders.*','users.name as username')
+        ->where('orders.orderID','like','%'.$keyword.'%')
+        ->orWhere('orders.status','like','%'.$keyword.'%')
+        ->paginate(10);
+
+        Return view('admin.showOrder',compact('or'));
+    }
 }

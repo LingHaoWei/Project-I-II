@@ -130,6 +130,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/updatePurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'updatePO'])->name('updatePurchaseOrder');
         Route::post('/savePO/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'savePO'])->name('savePO');
         Route::post('/searchPurchaseOrder', [App\Http\Controllers\PurchaseOrderController::class, 'searchPO'])->name('searchPurchaseOrder');
+        Route::get('/deletePurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'deletePO'])->name('deletePurchaseOrder');
 
         //DO
         Route::get('/viewDOHistory/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'viewDOList'])->name('viewDOHistory');
@@ -148,8 +149,8 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/viewOrder', [App\Http\Controllers\OrderController::class, 'view'])->name('viewOrder');
         Route::get('/editOrder/{id}', [App\Http\Controllers\OrderController::class, 'edit'])->name('editOrder');
         Route::post('/updateOrder/{id}', [App\Http\Controllers\OrderController::class, 'update'])->name('updateOrder');
-        Route::get('/deletePurchaseOrder/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'deletePO'])->name('deletePurchaseOrder');
-
+        Route::post('/adminSearchOrder', [App\Http\Controllers\OrderController::class, 'adminSearchOrder'])->name('searchAdminOrder');
+        
         //admin logout
         Route::get('/logout', [App\Http\Controllers\AdminController::class, 'logout'])->name('admin.logout');
 	});

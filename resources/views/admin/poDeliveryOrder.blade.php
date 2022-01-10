@@ -122,7 +122,7 @@
 
             <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-            #{{$doid->delivery_order_no}}
+            {{$doid->delivery_order_no}}
                 <br></br>
                 <br>
             </div>
