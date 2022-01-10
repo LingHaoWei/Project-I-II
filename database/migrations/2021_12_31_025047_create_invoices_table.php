@@ -16,6 +16,8 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->integer(column: 'purchase_order')->unsigned();
+            $table->double(column: 'total_amount', total: 8, places: 2);
+            $table->String(column: 'delivery_order');
             $table->String(column: 'invoice_no');
             $table->timestamps();
         });
