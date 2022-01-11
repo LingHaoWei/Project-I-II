@@ -67,7 +67,7 @@ class CategoryController extends Controller
         ->where('categories.categoryID','like','%'.$keyword.'%') 
         ->orWhere('categories.name','like','%'.$keyword.'%')
         //select * from products where name like '%$keyword%'
-        ->get();
+        ->paginate(10);
 
         Return view('admin.showCategory')->with('category',$category);
     }

@@ -69,7 +69,7 @@ class BrandController extends Controller
         ->where('brands.brandID','like','%'.$keyword.'%') 
         ->orWhere('brands.name','like','%'.$keyword.'%')
         //select * from products where name like '%$keyword%'
-        ->get();
+        ->paginate(10);
 
         Return view('admin.showBrand')->with('brand',$brand);
     }

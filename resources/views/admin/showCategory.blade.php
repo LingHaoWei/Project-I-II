@@ -63,5 +63,5 @@
                 </tbody>
             </table>
     </div>
-    
+    {{$category->links()}}
 @endsection

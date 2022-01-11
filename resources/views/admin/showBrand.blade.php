@@ -64,4 +64,5 @@
             </tbody>
         </table>
     </div>
+    {{$brand->links()}}
 @endsection

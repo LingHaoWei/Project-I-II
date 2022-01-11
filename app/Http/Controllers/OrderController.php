@@ -265,6 +265,7 @@ class OrderController extends Controller
         ->select('orders.*','users.name as username')
         ->where('orders.orderID','like','%'.$keyword.'%')
         ->orWhere('orders.status','like','%'.$keyword.'%')
+        ->orWhere('users.name','like','%'.$keyword.'%')
         ->paginate(10);
 
         Return view('admin.showOrder',compact('or'));

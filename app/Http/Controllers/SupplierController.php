@@ -83,7 +83,7 @@ class SupplierController extends Controller
         ->where('suppliers.supplierID','like','%'.$keyword.'%') 
         ->orWhere('suppliers.supplierName','like','%'.$keyword.'%')
         //select * from products where name like '%$keyword%'
-        ->get();
+        ->paginate(10);
 
         Return view('admin.showSupplier')->with('supplier',$supplier);
     }
