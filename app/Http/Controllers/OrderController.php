@@ -304,6 +304,7 @@ class OrderController extends Controller
             $OrderNo = $request->OrderNo;
             $InvoiceNo = $request->InvoiceNo;
             $status = $request->status;
+            $payment = $request->payment;
             $notes = $request->orderNotes;
 
             $id_order = OfflineOrder::insertGetId([
@@ -311,6 +312,7 @@ class OrderController extends Controller
                 'status' =>  $status,
                 'notes' => $notes,
                 'invoice_no' => $InvoiceNo,
+                'Payment' => $payment,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
@@ -346,7 +348,7 @@ class OrderController extends Controller
             \Session::flash('failed',$e->getMessage());
         }
 
-        Return view('admin.showOfflineOrder');
+        return redirect()->route('viewOfflineOrder');
     }
 
     public function viewOfflineOrderDetail($id){
@@ -367,8 +369,39 @@ class OrderController extends Controller
         
     }
 
-    public function deleteOfflineOrder($id){
+    public function searchOfflineOrder(){
+        $r=request();
+        $keyword=$r->keyword;
+        $OfflineOrder=DB::table('offline_orders')
+        ->select(
+            'offline_orders.*'
+        )
+        ->where('offline_orders.order_no','like','%'.$keyword.'%') 
+        ->orWhere('offline_orders.invoice_no','like','%'.$keyword.'%') 
+        ->paginate(10);
+
+        Return view('admin.showOfflineOrder', compact('OfflineOrder'));
+    }
+
+    public function deleteOfflineOrder($id, Request $request){       
         
+        $qt=$request->quantity;
+        $proID=$request->product;
+
+            foreach($qt as $e=>$orqt){
+                $getQuantity = product::where(['productID'=>$proID[$e]])->first()->toArray();
+                $stock = $getQuantity['quantity'] + $orqt;
+                product::where(['productID'=>$proID[$e]])->update([
+                    'quantity'=>$stock,
+                ]);
+            }
+
+        $data = DB::table('offline_orders')
+                    ->leftJoin('offline_order__details','offline_orders.id', '=','offline_order__details.orderID')
+                    ->where('offline_orders.id', $id); 
+        DB::table('offline_order__details')->where('offline_order__details.orderID', $id)->delete();  
+        $data->delete();
+        return redirect()->route('viewOfflineOrder');
     }
 
 }

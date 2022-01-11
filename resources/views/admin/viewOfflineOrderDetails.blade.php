@@ -52,16 +52,16 @@
   <div class="">
         
         <div class="pageTopic addPo">
-            <div><h2>Purchase Order</h2></div>
+            <div><h2>Offline Order</h2></div>
         </div>
 
   </div>
   
   <div class="form addProForm row">
-      
-        <form method="POST" , action="#" enctype="multipart/form-data" id="dynamic_form">
+  @foreach($OfflineOrder as $offorder)
+        <form method="GET" action="{{ route('deleteOfflineOrder',['id'=>$offorder->id]) }}" class="searchbox">
         @csrf
-        @foreach($OfflineOrder as $offorder)
+        
         <div class="addRow">
             <input hidden value="{{$offorder->id}}" />
             
@@ -106,9 +106,13 @@
             @foreach($OfflineOrderDetails as $offorderd)
                     <tr>
                     <td></td>
-                    <td>{{$offorderd->proname}} ({{$offorderd->productID}})</td>
+                    <td>{{$offorderd->proname}} ({{$offorderd->productID}})
+                    <input type="text" name="product[]" id="product" value="{{$offorderd->productID}}" hidden />
+                    </td>
                     <td>{{$offorderd->Price}}</td>
-                    <td>{{$offorderd->quantity}}</td>
+                    <td>{{$offorderd->quantity}}
+                    <input type="text" name="quantity[]" id="quantity" value="{{$offorderd->quantity}}" hidden />
+                    </td>
                     <td>{{$offorderd->grand_total}}</td>
                     </tr>
             @endforeach
@@ -133,6 +137,10 @@
         </div>
 
         <div class="form-group printpoaddProRow4">
+            <label class="" for="PO status"><b>Payment</b></label>
+            <div class="poStatus notesandstatus" id="">
+                {{$offorder->Payment}}
+            </div>
             <label class="" for="PurchaseOrder Notes"><b>Notes</b></label>
             <div class="poNotesArea notesandstatus">
                 {{$offorder->notes}}
@@ -146,10 +154,10 @@
                 <input hidden value="{{$offorder->status}}" id="poVal"></input>
             </div>
         </div>
-        @endforeach
-        </form>
+        
 
   </div>
+  @endforeach
 </div>
 
     <div id="printBtnWrapper">
@@ -161,13 +169,16 @@
             <Button type="button" class="editBtn">
                 <a href="javascript:generatePDF()" id="downloadBtn" class="printPDF" title="print" data-toggle="tooltip">Print PDF</a>
             </Button>
+
+                <button type="submit" class="deleteBtn" onclick="return confirm('Are you sure?')" style="color:white;">
+                    Delete Order
+                </button>
+            </form>
         </div>
     </div>
 
 
 <div id="elementH"></div>
-
-
 
 <script>
 

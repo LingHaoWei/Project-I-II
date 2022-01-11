@@ -159,7 +159,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/insertOfflineOrder', [App\Http\Controllers\OrderController::class, 'insertOfflineOrder'])->name('insertOfflineOrder');
         Route::post('/addOfflineOrder', [App\Http\Controllers\OrderController::class, 'storeOfflineOrder'])->name('addOfflineOrder');
         Route::get('/viewOfflineOrderDetail/{id}', [App\Http\Controllers\OrderController::class, 'viewOfflineOrderDetail'])->name('viewOfflineOrderDetail');
-        Route::post('/deleteOfflineOrder/{id}', [App\Http\Controllers\OrderController::class, 'deleteOfflineOrder'])->name('deleteOfflineOrder');
+        Route::get('/deleteOfflineOrder/{id}', [App\Http\Controllers\OrderController::class, 'deleteOfflineOrder'])->name('deleteOfflineOrder');
         Route::post('/searchOfflineOrder', [App\Http\Controllers\OrderController::class, 'searchOfflineOrder'])->name('searchOfflineOrder');
         
         //admin logout

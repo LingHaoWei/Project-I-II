@@ -90,7 +90,16 @@
             <div class="">
                 <select name="status" class="form-control" required value="#">
                     <option value="">---Select Status---</option>
-                    <option value="1">Paid</option>
+                    <option value="1" selected>Paid</option>
+                </select>
+            </div>
+            <label class="" for="Supplier status">Payment</label>
+            <div class="">
+                <select name="payment" class="form-control" required value="#">
+                    <option value="">---Select Payment---</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Card">Card</option>
+                    <option value="E-Wallet">E-Wallet</option>
                 </select>
             </div>
             <div class="">

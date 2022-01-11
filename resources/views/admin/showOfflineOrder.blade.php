@@ -21,7 +21,7 @@
         </div>
 
         <div class="iq-search-bar device-search">
-            <form method="POST" action="" class="searchbox">
+            <form method="POST" action="{{route('searchOfflineOrder')}}" class="searchbox">
             @csrf
                 Search:<a class="search-link" href="#"><i class="ri-search-line"></i></a>
                 <input type="text" name="keyword" type="search" placeholder="Search" aria-label="Search">
@@ -38,7 +38,6 @@
                     <th width="12%">Order ID</th>
                     <th>Status</th>
                     <th>Date</th>
-                    <th>Option</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,16 +52,13 @@
                     <td>Paid</td>
                     @endif
                     <td>{{$offorder->created_at}}</td>
-                    <td>
-                        <button type="button" class="deleteBtn">
-                            <a href="{{ route('deleteOfflineOrder',['id'=>$offorder->id]) }}" class="deleteProduct" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')">Delete</a>
-                        </button>
-                    </td>
                     
                     </tr>  
                 @endforeach
                 </tbody>
             </table>
     </div>
+
+    {{$OfflineOrder->links()}}
 
 @endsection

@@ -19,6 +19,7 @@ class CreateOfflineOrdersTable extends Migration
             $table->string(column: 'notes');
             $table->integer(column: 'status');
             $table->string(column: 'invoice_no');
+            $table->string(column: 'payment');
             $table->timestamps();
         });
     }
