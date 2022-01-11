@@ -54,6 +54,15 @@
         </ul>
       </li>
       <li>
+        <a href="{{ route('viewOfflineOrder') }}">
+            <i class='bx bx-receipt'></i>
+          <span class="link_name">Offline Order</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="{{ route('viewOfflineOrder') }}">Offline Order</a></li>
+        </ul>
+      </li>
+      <li>
         <div class="iocn-link">
           <a href="#">
             <i class='bx bx-list-plus'></i>

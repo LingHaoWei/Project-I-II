@@ -12,6 +12,8 @@ use App\Models\Cart;
 use App\Models\product;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\OfflineOrder;
+use App\Models\OfflineOrder_Details;
 use Notification;
 use Stripe\OrderItem;
 use Stripe\Product as StripeProduct;
@@ -270,4 +272,103 @@ class OrderController extends Controller
 
         Return view('admin.showOrder',compact('or'));
     }
+
+    public function viewOfflineOrder(){
+        
+        $OfflineOrder=DB::table('offline_orders')
+        ->select(
+        'offline_orders.*'
+        )
+        ->paginate(10);
+
+        Return view('admin.showOfflineOrder', compact('OfflineOrder'));
+    }
+
+    public function insertOfflineOrder(){
+
+        $orVal = rand() % (1000 + 1 - 0) + 0;
+        $invVal = rand() % (1000 + 1 - 0) + 0;
+        $docno = 'OR-'.date('Y').$orVal;
+        $invno = 'IN-'.date('Y').$invVal;
+        $product = product::all();
+
+        return view('admin.getOfflineOrderProduct',compact('docno','invno','product'));
+
+    }
+
+    public function storeOfflineOrder(Request $request){
+        try{
+            $productID = $request->product;
+            $quantity = $request->poQty;
+
+            $OrderNo = $request->OrderNo;
+            $InvoiceNo = $request->InvoiceNo;
+            $status = $request->status;
+            $notes = $request->orderNotes;
+
+            $id_order = OfflineOrder::insertGetId([
+                'order_no' => $OrderNo,
+                'status' =>  $status,
+                'notes' => $notes,
+                'invoice_no' => $InvoiceNo,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+
+            foreach($quantity as $e=>$qt) {
+                if($qt == 0){
+                    continue;
+                }
+
+                $getQuantity = product::where(['productID'=>$productID[$e]])->first()->toArray();
+                $stock = $getQuantity['quantity'] - $qt;
+                product::where(['productID'=>$productID[$e]])->update([
+                'quantity'=>$stock,
+                ]);
+
+                $dt_product = product::where('productID',$productID[$e])->first();
+                $price = $dt_product->price;
+                $grand_total = $qt * $price;
+
+                OfflineOrder_Details::insert([
+                    'orderID' => $id_order, 
+                    'productID' => $productID[$e],
+                    'quantity' => $qt,
+                    'Price' => $price,
+                    'grand_total' => $grand_total,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]);
+            }
+            
+            \Session::flash('Sucess','Offline Order added');
+        } catch (\Exeption $e) {
+            \Session::flash('failed',$e->getMessage());
+        }
+
+        Return view('admin.showOfflineOrder');
+    }
+
+    public function viewOfflineOrderDetail($id){
+        $OfflineOrder=DB::table('offline_orders')->where('offline_orders.id',$id)
+        ->select(
+        'offline_orders.*'
+        )
+        ->get();
+
+        $OfflineOrderDetails=DB::table('offline_order__details')->where('offline_order__details.orderID',$id)
+        ->leftJoin('products', 'products.productID', '=', 'offline_order__details.productID')
+        ->select(
+            'offline_order__details.*','products.productID as proid','products.name as proname',
+            )
+        ->get();
+
+        Return view('admin.viewOfflineOrderDetails', compact('OfflineOrder','OfflineOrderDetails'));
+        
+    }
+
+    public function deleteOfflineOrder($id){
+        
+    }
+
 }

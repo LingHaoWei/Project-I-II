@@ -153,6 +153,14 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/editOrder/{id}', [App\Http\Controllers\OrderController::class, 'edit'])->name('editOrder');
         Route::post('/updateOrder/{id}', [App\Http\Controllers\OrderController::class, 'update'])->name('updateOrder');
         Route::post('/adminSearchOrder', [App\Http\Controllers\OrderController::class, 'adminSearchOrder'])->name('searchAdminOrder');
+
+        //Offline Order
+        Route::get('/viewOfflineOrder', [App\Http\Controllers\OrderController::class, 'viewOfflineOrder'])->name('viewOfflineOrder');
+        Route::get('/insertOfflineOrder', [App\Http\Controllers\OrderController::class, 'insertOfflineOrder'])->name('insertOfflineOrder');
+        Route::post('/addOfflineOrder', [App\Http\Controllers\OrderController::class, 'storeOfflineOrder'])->name('addOfflineOrder');
+        Route::get('/viewOfflineOrderDetail/{id}', [App\Http\Controllers\OrderController::class, 'viewOfflineOrderDetail'])->name('viewOfflineOrderDetail');
+        Route::post('/deleteOfflineOrder/{id}', [App\Http\Controllers\OrderController::class, 'deleteOfflineOrder'])->name('deleteOfflineOrder');
+        Route::post('/searchOfflineOrder', [App\Http\Controllers\OrderController::class, 'searchOfflineOrder'])->name('searchOfflineOrder');
         
         //admin logout
         Route::get('/logout', [App\Http\Controllers\AdminController::class, 'logout'])->name('admin.logout');
