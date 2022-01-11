@@ -9,7 +9,7 @@
     <div id="pwrapper1">
         <div class="productRow1">
             <div class="col-sm-10">
-                <div class="pageTopic"><h2>Order Detail</h2></div>
+                <div class="pageTopic"><h2>Offline Order Detail</h2></div>
             </div>
             <div class="addProBtn">
                 <div class="p-3">
