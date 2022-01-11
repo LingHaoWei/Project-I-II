@@ -1,3 +1,7 @@
 ﻿productID,name,description,quantity,price,unitPrice,productVariety,productSKU,image,categoryID,brandID,supplierID,status
 PLTG7-001,G7,Nothing,100,3,2,Black,PLTG7-001,Pilot-G2-07.jpg,C001,B002,SP002,Available
 PLTG7-002,G7,Nothing,100,3,2,Blue,PLTG7-002,Pilot-G2-7-BB.jpg,C001,B002,SP002,Available
+FCCGP-24,Color Grip Pencils,Sample,100,7,3,1pack,FCCGP-24,FA16116253_faber_castell_colour_grip_pencils_24_pack.jpg,C003,B001,SP001,Available
+FCWCP-24,Water Color Pencils and Brush,Sample,100,9,5,1pack,FCWCP-24,Faber-Castell 24 Watercolour Pencils and Brush 2B Pencil with Sharpener.jpg,C003,B001,SP001,Available
+FCCP-24LSF,24 Classic Color Pencils,Example,100,8,4,1pack,FCCP-24LSF,FBCP24LSF-C.jpg,C003,B001,SP001,Available
+FCCP-48SF,48 Classic Color Pencils,Example,100,12,8,1pack,FCCP-48SF,FBCP48SF-C.jpg,C003,B001,SP001,Available
