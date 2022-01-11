@@ -59,11 +59,11 @@
   
   <div class="form addProForm row">
         @foreach($SupplierInfo as $supinfo)
-        <form method="POST" , action="{{ route('saveInvoice',['id'=>$supinfo->purchase_order]) }}" enctype="multipart/form-data" id="dynamic_form">
+        <form method="POST" , action="{{ route('saveInvoice',['id'=>$supinfo->id]) }}" enctype="multipart/form-data" id="dynamic_form">
         @csrf
         
         <div class="addRow">
-        <input hidden id="id" name="id" value="{{$supinfo->purchase_order}}" />
+        <input hidden id="id" name="id" value="{{$supinfo->id}}" />
             
 
         </div>
@@ -102,14 +102,14 @@
 
             <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                #{{$supinfo->delivery_order_no}}
+                #No do
                 <br></br>
                 <br>
             </div>
 
             <label class="" for="Document No"><b>P.O. #:</b></label>
             <div class="">
-                {{$supinfo->docno}}
+                {{$supinfo->document_no}}
                 <br></br>
                 <br>
 
@@ -148,7 +148,7 @@
                     <td></td>
                     <td>{{$do->proname}} ({{$do->productID}})</td>
                     <td>{{$do->proup}}</td>
-                    <td>{{$do->sent_quantity}}</td>
+                    <td>{{$do->quantity}}</td>
                     <td></td>
                     </tr>
             @endforeach
@@ -179,12 +179,13 @@
 
             <div class="">
             <Button type="button" class="backBtn">
-                <a href="{{ route('viewINHistory',['id'=>$supinfo->purchase_order]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
+                <a href="{{ route('viewINHistory',['id'=>$supinfo->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
             </Button>
             <Button type="button" class="editBtn">
                 <a href="javascript:generatePDF()" id="downloadBtn" class="printPDF" title="print" data-toggle="tooltip">Print PDF</a>
             </Button>
             </div>
+
         </div>
         
         <div class="form-group printpoaddProRow5">
@@ -213,7 +214,6 @@ for(var i = 1; i < table.rows.length; i++){
 
 document.getElementById("totalVal").innerHTML = sumVal;
 console.log(subtotal);
-
 
 async function generatePDF(){
 

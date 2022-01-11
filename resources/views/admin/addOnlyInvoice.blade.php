@@ -59,18 +59,21 @@
   
   <div class="form addProForm row">
         @foreach($SupplierInfo as $supinfo)
-        <form method="POST" , action="{{ route('saveInvoice',['id'=>$supinfo->purchase_order]) }}" enctype="multipart/form-data" id="dynamic_form">
+        <form method="POST" , action="{{ route('saveOnlyInvoice',['id'=>$supinfo->id]) }}" enctype="multipart/form-data" id="dynamic_form">
         @csrf
         
         <div class="addRow">
-        <input hidden id="id" name="id" value="{{$supinfo->purchase_order}}" />
+        <input hidden id="id" name="id" value="{{$supinfo->id}}" />
             
 
         </div>
             
             
         <div class="form-group addProRow1">
-            <label class="" for="Document No"><b>Invoice No: {{$supinfo->invoiceno}}</b></label>
+            <label class="" for="Document No"><b>Invoice No: </b></label>
+            <div>
+                <input type="text" class="form-control" id="InvoiceNo" name="InvoiceNo" value="" style="width: 50%;" />
+            </div>
             
             <div class="myAddress">
             
@@ -102,14 +105,14 @@
 
             <label class="" for="Document No"><b>Delivery Order No:</b></label>
             <div class="">
-                #{{$supinfo->delivery_order_no}}
+                <input type="text" name="DeliveryOrderNo" id="DeliveryOrderNo" value="" style="width: 50%;" readonly />
                 <br></br>
                 <br>
             </div>
 
             <label class="" for="Document No"><b>P.O. #:</b></label>
             <div class="">
-                {{$supinfo->docno}}
+                <input type="text" class="form-control" id="PurchaseOrderNo" name="PurchaseOrderNo" value="{{$supinfo->document_no}}" style="width: 50%;" readonly />
                 <br></br>
                 <br>
 
@@ -118,7 +121,7 @@
             </div>
             <label class="" for="Document No"><b>Date Created:</b></label>
             <div class="">
-                {{$supinfo->invoicedate}}
+                <input type="date" name="invoiceDate" id="invoiceDate" style="width: 50%;" required />
                 <br></br>
                 <br>
             </div>
@@ -148,7 +151,7 @@
                     <td></td>
                     <td>{{$do->proname}} ({{$do->productID}})</td>
                     <td>{{$do->proup}}</td>
-                    <td>{{$do->sent_quantity}}</td>
+                    <td>{{$do->quantity}}</td>
                     <td></td>
                     </tr>
             @endforeach
@@ -179,11 +182,9 @@
 
             <div class="">
             <Button type="button" class="backBtn">
-                <a href="{{ route('viewINHistory',['id'=>$supinfo->purchase_order]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
+                <a href="{{ route('insertInvoice',['id'=>$supinfo->id]) }}" class="" title="Back" data-toggle="tooltip">Back</a>
             </Button>
-            <Button type="button" class="editBtn">
-                <a href="javascript:generatePDF()" id="downloadBtn" class="printPDF" title="print" data-toggle="tooltip">Print PDF</a>
-            </Button>
+            <button type="submit" class="subBtn" title="Submit">Submit</button>
             </div>
         </div>
         
@@ -211,30 +212,10 @@ for(var i = 1; i < table.rows.length; i++){
     sumVal = subtotal + sumVal;
 }
 
-document.getElementById("totalVal").innerHTML = sumVal;
+document.getElementById("totalVal").innerHTML = '<input value="'+sumVal+'" readonly name="total" style="border:none; outline: none;">';
 console.log(subtotal);
 
 
-async function generatePDF(){
-
-document.getElementById("downloadBtn").innerHTML = "Print PDF";
-
-var downloading = document.getElementById("pwrapper1");
-var doc = new jsPDF('l', 'pt');
-
-await html2canvas(downloading, {
-            //allowTaint: true,
-            //useCORS: true,
-        }).then((canvas) => {
-            //Canvas (convert to PNG)
-            doc.addImage(canvas.toDataURL("image/png"), 'PNG', 5, 5, 833, 400);
-        })
-
-        doc.save("Document.pdf");
-
-document.getElementById("downloadBtn").innerHTML = "Print PDF";
-
-}
 
 </script>
 

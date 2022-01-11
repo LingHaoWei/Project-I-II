@@ -144,9 +144,12 @@ Route::group(['prefix' => 'admin'], function() {
         //Invoice
         Route::get('/viewINHistory/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'viewInvoiceList'])->name('viewINHistory');
         Route::get('/viewInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'previewInvoice'])->name('viewInvoice');
-        Route::get('/insertInvoice{id}', [App\Http\Controllers\PurchaseOrderController::class, 'insertInvoice'])->name('insertInvoice');
+        Route::get('/viewOnlyInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'previewOnlyInvoice'])->name('viewOnlyInvoice');
+        Route::get('/insertInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'insertInvoice'])->name('insertInvoice');
+        Route::get('/updateOnlyInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'updateOnlyInvoice'])->name('updateOnlyInvoice');
         Route::get('/updateInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'updateINV'])->name('updateInvoice');
         Route::post('/saveInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'saveINV'])->name('saveInvoice');
+        Route::post('/saveOnlyInvoice/{id}', [App\Http\Controllers\PurchaseOrderController::class, 'saveOnlyINV'])->name('saveOnlyInvoice');
 
         //Order
         Route::get('/viewOrder', [App\Http\Controllers\OrderController::class, 'view'])->name('viewOrder');

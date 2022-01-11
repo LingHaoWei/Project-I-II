@@ -62,9 +62,15 @@
             <tr>
                 <td > 
                 </td>
+                @if($invoice->delivery_order == 'No do')
+                <td class="link">
+                    <a href="{{ route('viewOnlyInvoice',['id'=>$invoice->purchase_order]) }}" style="color:blue;"><div class="p-2">{{$invoice->invoice_no}}</div></a>
+                </td>
+                @else
                 <td class="link">
                     <a href="{{ route('viewInvoice',['id'=>$invoice->delivery_order]) }}" style="color:blue;"><div class="p-2">{{$invoice->invoice_no}}</div></a>
                 </td>
+                @endif
                 <td class="link">
                     <div class="link">
                     <a href="{{ route('viewDeliveryOrder',['id'=>$invoice->delivery_order]) }}" style="color:blue;" target="_blank"><div class="p-2">#{{$invoice->delivery_order}}</div></a>
@@ -102,6 +108,10 @@
 
         <button type="button" class="editBtn">
                 <a href="{{ route('insertInvoice',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Add Invoice</a> 
+        </button>
+
+        <button type="button" class="editBtn">
+                <a href="{{ route('updateOnlyInvoice',['id'=>$po->id]) }}" class="printPO" title="Approve" data-toggle="tooltip">Add Only Invoice (no DO)</a> 
         </button>
         </div>
     </div>
