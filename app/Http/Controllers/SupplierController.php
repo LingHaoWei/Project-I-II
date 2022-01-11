@@ -66,7 +66,7 @@ class SupplierController extends Controller
         $supplier->save();
         Session::flash('success',"Supplier updated successfully!");
 
-        Return redirect()->route('admin.viewSupplier');
+        Return redirect()->route('viewSupplier');
     }
 
     public function delete($id){
