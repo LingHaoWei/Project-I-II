@@ -506,6 +506,28 @@ class PurchaseOrderController extends Controller
             'invoice_no' => $InvoiceNo
         ]);
 
+        $proID = $request->product;
+        $quantity = $request->quantity;
+
+        foreach($quantity as $e=>$rqt) {
+            
+            $getQuantity = purchaseOderR::where('purchase_order',$id)->where(['productID'=>$proID[$e]])->first()->toArray();
+            $rrqtl[$e] = $getQuantity['quantity'];
+            $rqtl[$e] = $getQuantity['received_quantity'] + $rqt;
+
+                purchaseOderR::where('purchase_order',$id)->where('productID',$proID[$e])->update([
+                    'received_quantity' => $rqtl[$e],
+                ]);
+                $getQuantity = product::where(['productID'=>$proID[$e]])->first()->toArray();
+                $stock = $getQuantity['quantity'] + $rqt;
+                product::where(['productID'=>$proID[$e]])->update([
+                'quantity'=>$stock,
+                'status'=>'Available'
+            ]);
+            
+            
+        }
+
         Invoice::insert([
             'purchase_order' => $PurchaseOrder, 
             'total_amount' => $TotalAmount, 

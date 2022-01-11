@@ -149,9 +149,13 @@
             @foreach($DeliveryOrder as $do)
                     <tr>
                     <td></td>
-                    <td>{{$do->proname}} ({{$do->productID}})</td>
+                    <td>{{$do->proname}} ({{$do->productID}})
+                        <input type="text" hidden id="product" name="product[]" value="{{$do->productID}}" />
+                    </td>
                     <td>{{$do->proup}}</td>
-                    <td>{{$do->quantity}}</td>
+                    <td>{{$do->quantity}}
+                        <input type="text" hidden id="quantity" name="quantity[]" value="{{$do->quantity}}" />
+                    </td>
                     <td></td>
                     </tr>
             @endforeach
