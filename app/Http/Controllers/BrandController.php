@@ -52,19 +52,20 @@ class BrandController extends Controller
         $brand->save();
         Session::flash('success',"Brand updated successfully!");
 
-        Return redirect()->route('admin.viewBrand');
+        Return redirect()->route('viewBrand');
     }
 
     public function delete($id){
         $data=brand::find($id);
         $data->delete();
-        Return redirect()->route('admin.viewBrand');
+        Return redirect()->route('viewBrand');
     }
 
     public function searchBrand(){
         $r=request();
         $keyword=$r->keyword;
         $brand=DB::table('brands')
+        ->select('brands.*')
         ->where('brands.brandID','like','%'.$keyword.'%') 
         ->orWhere('brands.name','like','%'.$keyword.'%')
         //select * from products where name like '%$keyword%'

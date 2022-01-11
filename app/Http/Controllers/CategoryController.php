@@ -50,14 +50,14 @@ class CategoryController extends Controller
         $category->status=$r->status;
         $category->save();
 
-        Return redirect()->route('admin.viewCategory');
+        Return redirect()->route('viewCategory');
     }
 
     public function delete($id){
         $data=category::find($id);
 
         $data->delete();
-        Return redirect()->route('admin.viewCategory');
+        Return redirect()->route('viewCategory');
     }
 
     public function searchCategory(){

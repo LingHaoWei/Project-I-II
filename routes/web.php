@@ -89,8 +89,11 @@ Route::group(['prefix' => 'admin'], function() {
 
         //Product Route
         Route::get('/insertProduct', function () {
-        return view('admin.insertProduct',['categoryID'=>App\Models\category::all(),'brandID'=>App\Models\brand::all(),'SupplierID'=>App\Models\Supplier::all()]);
+        return view('admin.insertProduct',['categoryID'=>App\Models\category::where('status','=','Available')->get(),
+                                            'brandID'=>App\Models\brand::where('status','=','Available')->get(),
+                                            'SupplierID'=>App\Models\Supplier::where('status','=','Available')->get()]);
         })->name('insertProduct');
+        
         Route::post('/insertProduct/store', [App\Http\Controllers\ProductController::class, 'store'])->name('addProduct');
         Route::get('/viewProduct', [App\Http\Controllers\ProductController::class, 'view'])->name('viewProduct');
         Route::get('/editProduct/{id}', [App\Http\Controllers\ProductController::class, 'edit'])->name('editProduct');
